@@ -22,8 +22,6 @@ zplug "dracula/zsh", from:oh-my-zsh,  use:dracula.zsh-theme
 
 # prompt
 zplug "sindresorhus/pure", use:pure.zsh, nice:9
-autoload -U promptinit; promptinit
-prompt pure
 
 ### zplug plugins
 zplug "zsh-users/zsh-completions", as:plugin, use:"src"
