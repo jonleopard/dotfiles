@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/Jonbo/dotfiles/zsh/.zsh'
-let g:netrw_dirhist_2='/Users/Jonbo/dotfiles/kwm/.kwm'
-let g:netrw_dirhist_3='/Users/Jonbo/dotfiles/git/.git'
