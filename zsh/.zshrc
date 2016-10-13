@@ -1,3 +1,6 @@
+# For Homebrew
+export PATH="/usr/local/sbin:$PATH"
+
 # Load ZSH Config Files
 for config (~/.zsh/*.zsh) source $config
 
