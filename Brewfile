@@ -209,4 +209,3 @@ mas 'Microsoft Remote Desktop (8.0.27221)', id: 715768417
 mas 'Slack (2.3.1)', id: 803453959
 mas 'iA Writer (3.2.6)', id: 775737590
 mas 'Dash (3.3.1)', id: 449589707
-mas 'Sip (4.4.1)', id: 507257563
