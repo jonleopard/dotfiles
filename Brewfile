@@ -1,5 +1,6 @@
 tap 'bramstein/webfonttools'
 tap 'caskroom/cask'
+tap 'caskroom/fonts'
 tap 'homebrew/bundle'
 tap 'homebrew/core'
 tap 'homebrew/dupes'
@@ -17,6 +18,10 @@ brew 'icu4c'
 brew 'readline'
 brew 'sqlite'
 brew 'aircrack-ng'
+brew 'libyaml'
+brew 'gdbm'
+brew 'python'
+brew 'ansible'
 brew 'gettext'
 brew 'libffi'
 brew 'pcre'
@@ -37,6 +42,7 @@ brew 'cifer'
 brew 'cmake'
 brew 'gmp'
 brew 'coreutils'
+brew 'cowsay'
 brew 'cscope'
 brew 'ctags'
 brew 'libidn'
@@ -69,7 +75,6 @@ brew 'isl'
 brew 'mpfr'
 brew 'libmpc'
 brew 'gcc'
-brew 'gdbm'
 brew 'shared-mime-info'
 brew 'gdk-pixbuf'
 brew 'git-flow'
@@ -94,13 +99,12 @@ brew 'hub'
 brew 'mysql', restart_service: true
 brew 'hydra'
 brew 'libtool'
-brew 'imagemagick', args: ['with-webp']
+brew 'imagemagick'
 brew 'john'
 brew 'knock'
 brew 'libdnet'
 brew 'libevent'
 brew 'libotr'
-brew 'python'
 brew 'libxml2'
 brew 'lua'
 brew 'luajit'
@@ -171,6 +175,7 @@ cask 'clamxav'
 cask 'discord'
 cask 'dropbox'
 cask 'firefox'
+cask 'font-hack'
 cask 'gemini'
 cask 'gitter'
 cask 'google-chrome'
@@ -190,22 +195,22 @@ cask 'steam'
 cask 'transmission'
 cask 'vlc'
 cask 'wireshark'
-mas 'Evernote (6.10)', id: 406056744
-mas 'CloudApp (4.1.1)', id: 417602904
-mas 'iCleanMemory (1.6)', id: 439277582
-mas 'Monosnap (3.3.0)', id: 540348655
-mas 'Twitter (4.2.4)', id: 409789998
-mas 'The Unarchiver (3.11.1)', id: 425424353
-mas 'ClamXav (2.6.4)', id: 430207028
-mas 'Caffeine (1.1.1)', id: 411246225
-mas 'Skitch (2.7.8)', id: 425955336
-mas '1Password (6.3.5)', id: 443987910
-mas 'Rocket.Chat+ (1.3.1)', id: 1086818840
-mas 'DaisyDisk (4.3)', id: 411643860
-mas 'Transmit (4.4.11)', id: 403388562
-mas 'Xcode (8.1)', id: 497799835
-mas 'xScope (4.2)', id: 889428659
-mas 'Microsoft Remote Desktop (8.0.27221)', id: 715768417
-mas 'Slack (2.3.1)', id: 803453959
-mas 'iA Writer (3.2.6)', id: 775737590
-mas 'Dash (3.3.1)', id: 449589707
+mas 'iCleanMemory', id: 439277582
+mas 'Xcode', id: 497799835
+mas 'The Unarchiver', id: 425424353
+mas 'Twitter', id: 409789998
+mas 'Monosnap', id: 540348655
+mas 'Microsoft Remote Desktop', id: 715768417
+mas 'Evernote', id: 406056744
+mas 'CloudApp', id: 417602904
+mas 'ClamXav', id: 430207028
+mas 'Caffeine', id: 411246225
+mas 'Skitch', id: 425955336
+mas '1Password', id: 443987910
+mas 'Slack', id: 803453959
+mas 'iA Writer', id: 775737590
+mas 'Dash', id: 449589707
+mas 'xScope', id: 889428659
+mas 'Rocket.Chat+', id: 1086818840
+mas 'DaisyDisk', id: 411643860
+mas 'Transmit', id: 403388562
