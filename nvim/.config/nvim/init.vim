@@ -1,17 +1,5 @@
-call plug#begin('~/.vim/plugged')
-
-
-" Make sure you use single quotes
-Plug 'tpope/vim-sensible'
-Plug 'dracula/vim'
-
-" Plugin outside ~/.vim/plugged with post-update hook
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-
-" Add plugins to &runtimepath
-
-call plug#end()
-
-
-colorscheme dracula
+source $HOME/.config/nvim/config/init.vimrc
+source $HOME/.config/nvim/config/general.vimrc
+source $HOME/.config/nvim/config/plugins.vimrc
+source $HOME/.config/nvim/config/keys.vimrc
+source $HOME/.config/nvim/config/line.vimrc
