@@ -1,6 +1,5 @@
-# For Homebrew
+# Homebrew
 export PATH="/usr/local/sbin:$PATH"
-
 
 # Load ZPLUG
   export ZPLUG_HOME=/usr/local/opt/zplug
@@ -56,3 +55,7 @@ fi
 zplug load
 
 [ -f ~/.zshrc.pluginconf ] && source ~/.zshrc.pluginconf
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
