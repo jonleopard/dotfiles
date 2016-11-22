@@ -2,27 +2,6 @@
 let g:python_host_prog = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
-
-
-" tern & deoplete
-if exists('g:plugs["tern_for_vim"]')
-  let g:deoplete#omni#functions = {}
-  let g:deoplete#omni#functions.javascript = [
-    \ 'tern#Complete',
-    \ 'jspc#omni'
-  \]
-endif
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources = {}
-let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
-
-let g:tern#command = ['tern']
-let g:tern#arguments = ['--persistent']
-
-" close the preview window when you're not using it
-let g:SuperTabClosePreviewOnPopupClose = 1
-
 " neomake
 autocmd! BufWritePost * Neomake
 let g:neomake_open_list = 2
@@ -41,10 +20,8 @@ let g:neomake_open_list = 2
 let g:neomake_javascript_enabled_makers = ['xo']
 
 " vim color scheme
-syntax on
-color dracula
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+syntax enable
+set background=dark
+colorscheme solarized
 
-" lightline color scheme
-let g:lightline = {
-      \ 'colorscheme': 'Dracula',
-      \ }

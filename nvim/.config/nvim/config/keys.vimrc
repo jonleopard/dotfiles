@@ -1,8 +1,3 @@
-" tern
-autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
-let g:UltiSnipsExpandTrigger="<C-j>"
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
 " utilsnips trigger
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -27,3 +22,22 @@ nmap <Leader><Space>, :ll<CR>         " go to current error/warning
 nmap <Leader><Space>n :lnext<CR>      " next error/warning
 nmap <Leader><Space>p :lprev<CR>      " previous error/warning
 
+" Search settings
+set hlsearch   " Highlight results
+set ignorecase " Ignore casing of searches
+set incsearch  " Start showing results as you type
+set smartcase  " Be smart about case sensitivity when searching
+
+" Tab settings
+set expandtab     " Expand tabs to the proper type and size
+set tabstop=4     " Tabs width in spaces
+set softtabstop=4 " Soft tab width in spaces
+set shiftwidth=4  " Amount of spaces when shifting
+
+" Shortcut to yanking to the system clipboard
+map <leader>y "*y
+map <leader>p "*p
+
+" Navigating tabs easier
+map <D-S-{> :tabprevious
+map <D-S-}> :tabprevious

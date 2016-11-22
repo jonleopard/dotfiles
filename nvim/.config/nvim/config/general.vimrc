@@ -1,18 +1,25 @@
 syntax on
-set showcmd             " Show (partial) command in status line.
-set showmatch           " Show matching brackets.
-set showmode            " Show current mode.
-set ruler               " Show the line and column numbers of the cursor.
-set number              " Show the line numbers on the left side.
-set formatoptions+=o    " Continue comment marker in new lines.
-set textwidth=0         " Hard-wrap long lines as you type them.
-set expandtab           " Insert spaces when TAB is pressed.
-set tabstop=2           " Render TABs using this many spaces.
-set shiftwidth=2        " Indentation amount for < and > commands.
+let mapleader=";"         " The <leader> key
+set autoread              " Reload files that have not been modified
+set backspace=2           " Makes backspace not behave all retarded-like
+set colorcolumn=80        " Highlight 80 character limit
+set hidden                " Allow buffers to be backgrounded without being saved
+set laststatus=2          " Always show the status bar
+set list                  " Show invisible characters
+set listchars=tab:›\ ,eol:¬,trail:⋅ "Set the characters for the invisibles
+set number
+set ruler                 " Show the line number and column in the status bar
+set t_Co=256              " Use 256 colors
+set scrolloff=999         " Keep the cursor centered in the screen
+set showmatch             " Highlight matching braces
+set showmode              " Show the current mode on the open buffer
+set splitbelow            " Splits show up below by default
+set splitright            " Splits go to the right by default
+set title                 " Set the title for gvim
+set visualbell            " Use a visual bell to notify us
 
-set noerrorbells        " No beeps.
-set modeline            " Enable modeline.
-set esckeys             " Cursor keys in insert mode.
-set linespace=0         " Set line-spacing to minimum.
-set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
+set expandtab     " Expand tabs to the proper type and size
+set tabstop=4     " Tabs width in spaces
+set softtabstop=4 " Soft tab width in spaces
+set shiftwidth=4  " Amount of spaces when shifting
 
