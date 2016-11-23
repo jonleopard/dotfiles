@@ -1,35 +1,35 @@
+#!/usr/bin/env zsh
+
 # Homebrew
-export PATH="/usr/local/sbin:$PATH"
+ export PATH="/usr/local/sbin:$PATH"
 
 # Load ZPLUG
   export ZPLUG_HOME=/usr/local/opt/zplug
   source $ZPLUG_HOME/init.zsh
 
-
 # Load ZSH Config Files
 for config (~/.zsh/*.zsh) source $config
-
-# Check if zplug is installed
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
-fi
-
-# Essential for zplug
-source ~/.zplug/init.zsh
-
-
-# zplug for managing zsh plugins
-source ~/.zplug/init.zsh
 
 # No GAnalytics Logging in homebrew
 HOMEBREW_NO_ANALYTICS=1
 
 # zsh theme
-zplug "dracula/zsh", from:oh-my-zsh,  use:dracula.zsh-theme
+zplug "agnoster/agnoster-zsh-theme", from:oh-my-zsh,  as:theme
 
 # prompt
 zplug "sindresorhus/pure", use:pure.zsh, nice:9
+
+
+# Plugins related to git.
+zplug 'so-fancy/diff-so-fancy', \
+      if:"(($+commands[git] + $+commands[perl] + $(perl -e 'use open qw(:std :utf8);' 2> /dev/null && echo 1 || echo 0) == 3))", \
+      as:command, \
+      use:'diff-so-fancy'
+zplug 'nvie/gitflow', \
+      if:"(($+commands[git]))", \
+      as:command
+zplug 'bobthecow/git-flow-completion'
+zplug "k4rthik/git-cal", as:command
 
 ### zplug plugins
 zplug "zsh-users/zsh-completions", as:plugin, use:"src"
@@ -37,8 +37,8 @@ zplug "mafredri/zsh-async", on:sindresorhus/pure
 zplug "lukechilds/zsh-nvm"
 zplug "knu/z", use:z.sh, nice:10
 zplug "peco/peco", as:command, from:gh-r
-zplug "k4rthik/git-cal", as:command
-zplug "supercrabtree/k"
+zplug "zlsun/solarized-man"
+zplug "seebi/dircolors-solarized"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
 
@@ -52,10 +52,10 @@ if ! zplug check --verbose; then
     fi
 fi
 
-zplug load
 
 [ -f ~/.zshrc.pluginconf ] && source ~/.zshrc.pluginconf
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
