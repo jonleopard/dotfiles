@@ -24,6 +24,10 @@ Plug 'plasticboy/vim-markdown'
 Plug 'godlygeek/tabular'
 " Javascript
 
+" Puppet
+Plug 'voxpupuli/vim-puppet'
+
+
 " Go
 Plug 'fatih/vim-go'
 Plug 'zchee/deoplete-go'
