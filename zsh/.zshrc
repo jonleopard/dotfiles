@@ -21,25 +21,36 @@ zplug "sindresorhus/pure", use:pure.zsh, nice:9
 
 
 # Plugins related to git.
-zplug 'so-fancy/diff-so-fancy', \
+zplug "so-fancy/diff-so-fancy", \
       if:"(($+commands[git] + $+commands[perl] + $(perl -e 'use open qw(:std :utf8);' 2> /dev/null && echo 1 || echo 0) == 3))", \
       as:command, \
-      use:'diff-so-fancy'
-zplug 'nvie/gitflow', \
+      use:"diff-so-fancy"
+zplug "nvie/gitflow", \
       if:"(($+commands[git]))", \
       as:command
-zplug 'bobthecow/git-flow-completion'
-zplug "k4rthik/git-cal", as:command
+zplug "bobthecow/git-flow-completion"
 
-### zplug plugins
+### Plugins
 zplug "zsh-users/zsh-completions", as:plugin, use:"src"
 zplug "mafredri/zsh-async", on:sindresorhus/pure
 zplug "lukechilds/zsh-nvm"
-zplug "knu/z", use:z.sh, nice:10
 zplug "peco/peco", as:command, from:gh-r
 zplug "zlsun/solarized-man"
 zplug "seebi/dircolors-solarized"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+
+zplug "junegunn/fzf-bin", \
+    from:gh-r, \
+    as:command, \
+    rename-to:fzf, \
+    use:"*darwin*amd64*"
+
+# Plugins to be loaded after compinit was run.
+zplug 'zsh-users/zsh-syntax-highlighting', \
+      nice:10, \
+
+zplug 'knu/z', \
+      use:'z.sh', \
+      nice:10
 
 
 # Install packages that have not been installed yet
