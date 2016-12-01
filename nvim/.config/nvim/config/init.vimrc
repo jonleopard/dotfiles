@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
 " Colorscheme & Syntax Highlighting
 Plug 'Yggdroot/indentLine'
 Plug 'Raimondi/delimitMate'
-Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 
 " Git
 Plug 'junegunn/vim-github-dashboard'

@@ -7,6 +7,10 @@
   export ZPLUG_HOME=/usr/local/opt/zplug
   source $ZPLUG_HOME/init.zsh
 
+# Prettier colors
+alias v='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
+alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
+
 # Load ZSH Config Files
 for config (~/.zsh/*.zsh) source $config
 
