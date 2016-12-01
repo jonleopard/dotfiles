@@ -197,7 +197,3 @@
 	smudge = git-lfs smudge -- %f
 	clean = git-lfs clean -- %f
 
-[http "https://git.demo.localflynn.com"]
-	sslCAInfo = /Users/jon/.flynn/ca-certs/demo-virtualbox.pem
-[credential "https://git.demo.localflynn.com"]
-	helper = /usr/local/bin/flynn git-credentials
