@@ -22,6 +22,8 @@ Plug 'tomtom/tcomment_vim'
 Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
 Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
+
 " Javascript
 
 " Puppet
@@ -46,3 +48,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 
 call plug#end()
+
+" Auto install missing plugins
+autocmd VimEnter *
+    \ if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
+    \|   PlugInstall| q
+    \| endif

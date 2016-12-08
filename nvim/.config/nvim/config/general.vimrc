@@ -6,7 +6,7 @@ set hidden                " Allow buffers to be backgrounded without being saved
 set laststatus=2          " Always show the status bar
 set list                  " Show invisible characters
 set listchars=tab:›\ ,eol:¬,trail:⋅ "Set the characters for the invisibles
-set number
+set number relativenumber
 set ruler                 " Show the line number and column in the status bar
 set scrolloff=999         " Keep the cursor centered in the screen
 set showmatch             " Highlight matching braces
@@ -21,3 +21,4 @@ set tabstop=4     " Tabs width in spaces
 set softtabstop=4 " Soft tab width in spaces
 set shiftwidth=4  " Amount of spaces when shifting
 
+filetype plugin indent on

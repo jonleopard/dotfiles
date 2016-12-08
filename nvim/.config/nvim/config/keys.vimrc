@@ -41,3 +41,10 @@ map <leader>p "*p
 " Navigating tabs easier
 map <D-S-{> :tabprevious
 map <D-S-}> :tabprevious
+
+
+" For plebs. This is vim; use hjkl.
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
