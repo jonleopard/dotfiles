@@ -18,10 +18,10 @@ for config (~/.zsh/*.zsh) source $config
 HOMEBREW_NO_ANALYTICS=1
 
 # zsh theme
-zplug "agnoster/agnoster-zsh-theme", from:oh-my-zsh,  as:theme
+# zplug "agnoster/agnoster-zsh-theme", from:oh-my-zsh,  as:theme
 
 # prompt
-zplug "sindresorhus/pure", use:pure.zsh, nice:9
+zplug "sindresorhus/pure", use:pure.zsh, defer:2
 
 
 # Plugins related to git.
@@ -50,11 +50,11 @@ zplug "junegunn/fzf-bin", \
 
 # Plugins to be loaded after compinit was run.
 zplug 'zsh-users/zsh-syntax-highlighting', \
-      nice:10, \
+      defer:2, \
 
 zplug 'knu/z', \
       use:'z.sh', \
-      nice:10
+      defer:2,
 
 
 # Install packages that have not been installed yet
