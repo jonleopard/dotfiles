@@ -36,17 +36,21 @@ Plug 'zchee/deoplete-go'
 
 " Ruby/Rails
 
-" Utils
+" Searching/Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-vinegar'
+Plug 'justinmk/vim-dirvish'
+
+" Utils
 Plug 'tpope/vim-eunuch'
 Plug 'ervandew/supertab'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
-
+Plug 'metakirby5/codi.vim'
+Plug 'mhinz/vim-grepper'
 
 call plug#end()
 
