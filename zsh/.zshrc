@@ -17,12 +17,12 @@ for config (~/.zsh/*.zsh) source $config
 # No GAnalytics Logging in homebrew
 HOMEBREW_NO_ANALYTICS=1
 
-# zsh theme
-# zplug "agnoster/agnoster-zsh-theme", from:oh-my-zsh,  as:theme
-
 # prompt
 zplug "sindresorhus/pure", use:pure.zsh, defer:2
 
+# Load theme file
+zplug 'dracula/zsh', as:theme
+ZSH_THEME="dracula"
 
 # Plugins related to git.
 zplug "so-fancy/diff-so-fancy", \
@@ -35,26 +35,36 @@ zplug "nvie/gitflow", \
 zplug "bobthecow/git-flow-completion"
 
 ### Plugins
-zplug "zsh-users/zsh-completions", as:plugin, use:"src"
+zplug "zsh-users/zsh-autosuggestions", defer:2
+zplug "zsh-users/zsh-completions"
+
 zplug "mafredri/zsh-async", on:sindresorhus/pure
 zplug "lukechilds/zsh-nvm"
-zplug "peco/peco", as:command, from:gh-r
-zplug "zlsun/solarized-man"
-zplug "seebi/dircolors-solarized"
+
+
+zplug 'junegunn/fzf', \
+    as:command, \
+    hook-build:'./install --bin >/dev/null', \
+    use:'bin/fzf', \
+    rename-to:'fzf', \
+    if:'(( $+commands[go] ))'
 
 zplug "junegunn/fzf-bin", \
     from:gh-r, \
     as:command, \
+    use:"*${(L)$(uname -s)}*amd64*", \
     rename-to:fzf, \
-    use:"*darwin*amd64*"
 
-# Plugins to be loaded after compinit was run.
-zplug 'zsh-users/zsh-syntax-highlighting', \
-      defer:2, \
+zplug "zsh-users/zsh-history-substring-search", \
+    defer:3 # Should be loaded last.
+
+zplug "zsh-users/zsh-syntax-highlighting", \
+    defer:3 # Should be loaded 2nd last.
 
 zplug 'knu/z', \
-      use:'z.sh', \
-      defer:2,
+    use:'z.sh', \
+    defer:1
+
 
 
 # Install packages that have not been installed yet
@@ -67,10 +77,10 @@ if ! zplug check --verbose; then
     fi
 fi
 
-
 [ -f ~/.zshrc.pluginconf ] && source ~/.zshrc.pluginconf
 
+# For FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Then, source plugins and add commands to $PATH
-zplug load --verbose
+zplug load
