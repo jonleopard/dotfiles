@@ -3,7 +3,7 @@ call plug#begin('~/.vim/plugged')
 " Colorscheme & Syntax Highlighting
 Plug 'Yggdroot/indentLine'
 Plug 'Raimondi/delimitMate'
-Plug 'morhetz/gruvbox'
+Plug 'dracula/vim'
 
 " Git
 Plug 'junegunn/vim-github-dashboard'
@@ -47,10 +47,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 
+
 call plug#end()
 
-" Auto install missing plugins
-autocmd VimEnter *
-    \ if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-    \|   PlugInstall| q
-    \| endif

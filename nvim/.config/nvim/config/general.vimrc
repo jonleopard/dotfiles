@@ -1,3 +1,5 @@
+" General Vim Settings
+
 let mapleader=";"         " The <leader> key
 set autoread              " Reload files that have not been modified
 set backspace=2           " Makes backspace not behave all retarded-like
