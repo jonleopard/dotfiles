@@ -35,6 +35,13 @@ Plug 'fatih/vim-go'
 Plug 'zchee/deoplete-go'
 
 " Ruby/Rails
+Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby'
+
+
+
 
 " Searching/Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
