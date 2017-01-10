@@ -9,10 +9,10 @@ let g:neomake_verbose = 3
 let g:neomake_javascript_enabled_makers=['xo']
 let g:neomake_jsx_enabled_makers = ['xo']
 let g:neomake_javascript_xo_maker={
-      \ 'args': ['--reporter=compact'],
-      \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-      \ '%W%f: line %l\, col %c\, Warning - %m'
-      \ }
+     \ 'args': ['--reporter=compact'],
+     \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+     \ '%W%f: line %l\, col %c\, Warning - %m'
+     \ }
 
 
 " Tell FZF to match your vim color sceheme.

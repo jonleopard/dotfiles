@@ -3,7 +3,7 @@
 
 <img src="screenshot.png" width="703">
 
-## Table of Contents
+## Table of Contents (Not yet complete!)
 - [Introduction](#introduction)
 - [Installation protocol](#installation-protocol)
 - [Todo](#todo)
