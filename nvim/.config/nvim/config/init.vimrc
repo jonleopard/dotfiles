@@ -23,6 +23,7 @@ Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/vim-easy-align'
+Plug 'reasonml/vim-reason-loader'
 
 " Javascript
 
