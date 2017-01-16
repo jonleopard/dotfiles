@@ -78,13 +78,13 @@ All my dotfiles are managed with the extremely light weight [GNU Stow](https://w
 Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). My Brewfile with generated with [Homebrew-Bundle](https://github.com/Homebrew/homebrew-bundle). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called Brewfile. All you gotta do is
 
 ## ZSH Plugin Management
-I've tried OMZ(Oh my ZSH), Prezto, and other ZSH frameworks. Since I'd rather know exactly what's going on in my .zshrc file and add only what I need, I chose to go with [zplug](https://github.com/zplug/zplug). So, that's what I've started here. Take a look inside my .zshrc file to see what plugins I have installed with [zplug](https://github.com/zplug/zplug).
+I've tried OMZ(Oh my ZSH), Prezto, and other ZSH frameworks. Since I'd rather know exactly what's going on in my .zshrc file and add only what I need, I chose to go with [zplug](https://github.com/zplug/zplug). Take a look inside my .zshrc file to see what plugins I have installed with [zplug](https://github.com/zplug/zplug).
 
 ## Node Management
 [NVM](https://github.com/creationix/nvm) Allows me to switch between different node versions on the fly. Avoid installing NVM through Homebrew, just use either the cURL or Wget script. Since I'm using ZSH, I added [zsh-nvm](https://github.com/lukechilds/zsh-nvm) to my zplugins.
 
 ## Vim Plugin Management
-My vim plugins are managed with [Vim-Plug](https://github.com/junegunn/vim-plug). Vim-Plug also ties in nicely with [Neovim](https://github.com/junegunn/vim-plug#neovim). You'll notice that my vim environment is pretty slim at the moment. This is because I am still learning how to use vim as my main text editor. So far so good!
+My vim plugins are managed with [Vim-Plug](https://github.com/junegunn/vim-plug). Vim-Plug also ties in nicely with [Neovim](https://github.com/junegunn/vim-plug#neovim). You'll notice that my vim environment is pretty slim at the moment. I'm  am still learning how to use vim as my main text editor. So far so good!
 
 ## Dev Fonts
 Below is a list of some of my favourite dev fonts that go great in your terminal, IDE, Text Editor, etc...
