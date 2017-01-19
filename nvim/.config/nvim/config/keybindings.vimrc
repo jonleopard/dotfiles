@@ -1,8 +1,9 @@
-" utilsnips trigger
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+
+" Supertab
+autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:UltiSnipsExpandTrigger="<C-j>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Use ; for commands.
 nnoremap ; :
@@ -43,7 +44,7 @@ map <D-S-{> :tabprevious
 map <D-S-}> :tabprevious
 
 
-" For plebs. This is vim; use hjkl.
+" To force myself to use hjkl. Pleb mode.
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>

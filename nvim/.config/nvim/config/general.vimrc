@@ -24,3 +24,4 @@ set softtabstop=4 " Soft tab width in spaces
 set shiftwidth=4  " Amount of spaces when shifting
 
 filetype plugin indent on
+

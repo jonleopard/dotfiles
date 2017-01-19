@@ -1,3 +1,9 @@
+" Plasticboy/Vim-Markdown
+let g:vim_markdown_conceal = 0
+
+
+
+
 " Set Python Paths
 let g:python_host_prog = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
@@ -14,6 +20,34 @@ let g:neomake_javascript_xo_maker={
      \ '%W%f: line %l\, col %c\, Warning - %m'
      \ }
 
+" Tern
+" close the preview window when you're not using it
+let g:SuperTabClosePreviewOnPopupClose = 1
+
+" Omnifunc
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+set completeopt=longest,menuone,preview
+let g:deoplete#sources = {}
+let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
+
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+
+
+
+" UltiSnips`
+inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Tell FZF to match your vim color sceheme.
 function! s:update_fzf_colors()

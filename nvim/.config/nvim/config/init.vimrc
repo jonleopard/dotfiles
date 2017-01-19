@@ -1,4 +1,4 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " Colorscheme & Syntax Highlighting
 Plug 'Yggdroot/indentLine'
@@ -13,11 +13,21 @@ Plug 'airblade/vim-gitgutter'
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 
+
+" Auto completion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ervandew/supertab'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+
 " Syntax
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
 Plug 'sheerun/vim-polyglot'
 Plug 'neomake/neomake'
-Plug 'SirVer/ultisnips'
 Plug 'tomtom/tcomment_vim'
 Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
@@ -30,7 +40,6 @@ Plug 'reasonml/vim-reason-loader'
 " Puppet
 Plug 'voxpupuli/vim-puppet'
 
-
 " Go
 Plug 'fatih/vim-go'
 Plug 'zchee/deoplete-go'
@@ -38,11 +47,6 @@ Plug 'zchee/deoplete-go'
 " Ruby/Rails
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
-Plug 'vim-ruby/vim-ruby'
-Plug 'vim-ruby/vim-ruby'
-
-
-
 
 " Searching/Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
