@@ -1,7 +1,7 @@
 " vim color scheme (dracula)
 let draculacolorspace=256  " Access colors present in 256 colorspace
-syntax enable
-colorscheme dracula
+syntax on
+color dracula
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
