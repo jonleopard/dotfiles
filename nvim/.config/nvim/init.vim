@@ -1,4 +1,9 @@
 " Basics {{{
+
+" Faster startup time
+let g:python_host_skip_check=1
+let g:loaded_python3_provider=1
+
 set nocompatible                          " Use Vim's improvements
 filetype plugin indent on                 " Enable fitetype detection, filetype scripts & indent scripts
 
@@ -40,7 +45,11 @@ set visualbell                            " Use a visual bell to notify us
 set expandtab smarttab                    " Expand tabs to the proper type and size
 set tabstop=2                             " Tabs width in spaces
 set shiftwidth=2                          " Amount of spaces when shifting
-
+set shell=/usr/local/bin/zsh              " Setting shell to homebrew zsh
+set synmaxcol=160                         " Don't try to syntax highlight minified files"
+set notimeout
+set ttimeout
+set ttimeoutlen=10
 let g:netrw_localrmdir='rm -r'            " Allow deletion of a dir that isn't empty
 let g:netrw_banner=0                      " Dont show the banner
 
@@ -101,7 +110,7 @@ Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 
 " Searching/Navigation
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf',        { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-vinegar'
@@ -127,10 +136,9 @@ let g:airline_theme='dracula'
 
 " }}}
 
-" Color settings (256, italics, etc) {{{
+" Color settings {{{
 
 " vim color scheme (dracula)
-let draculacolorspace=256  " Access colors present in 256 colorspace
 syntax on
 color dracula
 
@@ -155,19 +163,6 @@ if (empty($TMUX))
   endif
 endif
 
-
-" Enable Italics
-let g:dracula_italic = 1
-hi htmlArg gui=italic
-hi Comment gui=italic
-hi Type    gui=italic
-hi htmlArg cterm=italic
-hi Comment cterm=italic
-hi Type    cterm=italic
-
-" Highlight Italics
-highlight Comment cterm=italic
-
 " }}}
 " Windows
 map <C-h> <C-w>h
@@ -175,10 +170,53 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+
+" Plugin Settings {{{
+
+
 " Supertab
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:UltiSnipsExpandTrigger="<C-j>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+
+" FZF+Ag
+
+if has('nvim')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+ " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
+
+" File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
+let g:fzf_files_options = printf('--preview "%s {} | head -'.&lines.'"',
+      \ g:plugs['fzf.vim'].dir.'/bin/preview.rb')
+
+" nnoremap <silent> <Leader><Leader> :Files<CR>
+nnoremap <silent> <Leader>C        :Colors<CR>
+nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
+xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
+nnoremap <silent> <Leader>`        :Marks<CR>
+" nnoremap <silent> q: :History:<CR>
+" nnoremap <silent> q/ :History/<CR>
+
+inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+command! Plugs call fzf#run({
+  \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
+  \ 'options': '--delimiter / --nth -1',
+  \ 'down':    '~40%',
+  \ 'sink':    'Explore'})
+
 
 " Use ; for commands.
 nnoremap ; :
@@ -186,11 +224,8 @@ nnoremap ; :
 " Use Q to execute default register.
 nnoremap Q @q
 
-" ack_or_silver_searcher
-let g:ackprg = 'ag --vimgrep'
-
-" Fuzzy Search
-nnoremap <C-p> :FZF<CR>
+" FZF + Ripgrep
+nnoremap <leader>o :Files<cr>
 
 " Set // to search the current visual selection
 vnoremap // y/<C-R>"<CR>"
@@ -244,3 +279,18 @@ nnoremap <Leader>p :set invpaste<CR>
 ""  autocmd VimEnter * :Vexplore
 "augroup END
 
+
+" }}}
+"
+" Pyenv Paths {{{
+if has('nvim')
+  let g:python_host_prog  = '/Users/jon/.pyenv/versions/neovim2/bin/python'
+  let g:python3_host_prog = '/Users/jon/.pyenv/versions/neovim3/bin/python'
+
+
+" Faster startup time
+  let g:python_host_skip_check=1            " Skip python 2 host check
+  let g:loaded_python3_provider=1           " Disable python 2 interface
+
+endif
+" }}}

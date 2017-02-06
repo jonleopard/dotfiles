@@ -1,5 +1,4 @@
 # History
-#
 HISTFILE=~/.zhistory
 setopt APPEND_HISTORY
 HISTSIZE=1200

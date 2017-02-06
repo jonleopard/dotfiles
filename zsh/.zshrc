@@ -1,15 +1,11 @@
 #!/usr/bin/env zsh
 
 # Homebrew
- export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
 
 # Load ZPLUG
-  export ZPLUG_HOME=/usr/local/opt/zplug
-  source $ZPLUG_HOME/init.zsh
-
-# Prettier colors
-alias v='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
-alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
 
 # Load ZSH Config Files
 for config (~/.zsh/*.zsh) source $config
@@ -49,11 +45,23 @@ zplug 'junegunn/fzf', \
     rename-to:'fzf', \
     if:'(( $+commands[go] ))'
 
+csi() {
+  echo -en "\x1b[$@"
+}
+
+fzf-down() {
+  fzf --height 50% "$@"
+}
+
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+[ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
+      
 zplug "junegunn/fzf-bin", \
     from:gh-r, \
     as:command, \
     use:"*${(L)$(uname -s)}*amd64*", \
     rename-to:fzf, \
+    use:"*darwin*amd64*"
 
 zplug "zsh-users/zsh-history-substring-search", \
     defer:3 # Should be loaded last.
