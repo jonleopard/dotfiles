@@ -1,8 +1,4 @@
-" Basics {{{
-
-" Faster startup time
-let g:python_host_skip_check=1
-let g:loaded_python3_provider=1
+" Basic Settings {{{
 
 set nocompatible                          " Use Vim's improvements
 filetype plugin indent on                 " Enable fitetype detection, filetype scripts & indent scripts
@@ -25,7 +21,12 @@ set matchpairs+=<:>                       " Show matching <>'s, mostly for HTML
 set noswapfile                            " Turn off file backups
 set nowritebackup                         " Turn off swap file generation
 set showbreak=                            " Show that a line has been wrapped
-set nojoinspaces
+set nojoinspaces                          " Avoid double spaced when joining lines
+set formatoptions=tcr                     " Auto-wrap text and comments at textwidth and insert the comment leader in insert mode
+set formatoptions+=l                      " If a line is longer that textwidth when the insert starts, don't reformat it
+set formatoptions+=1                      " Don't wrap after a 1 letter word, wrap before
+set formatoptions+=jq                     " Delete comment leaders when joining lines and allow `gq` on comments
+
 set smartindent
 set backspace=indent,eol,start
 "set colorcolumn=80                       " Highlight 80 character limit
@@ -36,6 +37,8 @@ set list                                  " Show invisible characters
 set listchars=tab:›\ ,eol:¬,trail:⋅       " Set the characters for the invisibles
 set number relativenumber                 " Line number is relative to your position
 set scrolloff=5                           " Keep the cursor centered in the screen
+set sidescroll=1                          " Scroll sideways a character at a time, not a screen at a time
+set sidescrolloff=5                       " Show 5 characters of context when side scrolling
 set showmatch                             " Highlight matching braces
 set showmode                              " Show the current mode on the open buffer
 set splitbelow                            " Better split opening
@@ -57,6 +60,14 @@ let g:netrw_banner=0                      " Dont show the banner
 " }}}
 
 " Plugins {{{
+
+"Check for vim-plug before installing plugins
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin('~/.config/nvim/plugged')
 
 " Colorscheme & Syntax Highlighting
@@ -77,10 +88,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'Raimondi/delimitMate'
 
 " Editing
 Plug 'tpope/vim-surround'
@@ -89,14 +96,19 @@ Plug 'sheerun/vim-polyglot'
 Plug 'neomake/neomake'
 "Plug 'tomtom/tcomment_vim
 Plug 'tpope/vim-commentary',        { 'on': '<Plug>Commentary' }
+Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
-Plug 'godlygeek/tabular'
-Plug 'junegunn/vim-easy-align'
 Plug 'reasonml/vim-reason-loader'
 Plug 'tpope/vim-repeat'
+Plug 'mattn/emmet-vim'
 
 " Javascript
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+"Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
 " Puppet
 Plug 'voxpupuli/vim-puppet'
@@ -110,9 +122,9 @@ Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 
 " Searching/Navigation
-Plug 'junegunn/fzf',        { 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'rking/ag.vim'
+Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'justinmk/vim-dirvish'
 
@@ -125,6 +137,8 @@ Plug 'mhinz/vim-startify'
 Plug 'metakirby5/codi.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'easymotion/vim-easymotion'
+Plug 'sjl/gundo.vim'
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 " }}}
@@ -141,6 +155,7 @@ let g:airline_theme='dracula'
 " vim color scheme (dracula)
 syntax on
 color dracula
+set t_Co=256
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later,
@@ -164,6 +179,7 @@ if (empty($TMUX))
 endif
 
 " }}}
+
 " Windows
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -173,6 +189,30 @@ map <C-l> <C-w>l
 
 " Plugin Settings {{{
 
+" ----------------------------------------------------------------------------
+" vim-commentary
+" ----------------------------------------------------------------------------
+map  gc  <Plug>Commentary
+nmap gcc <Plug>CommentaryLine
+
+"Gundu
+nnoremap <leader>t :GundoToggle<CR>
+
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+set completeopt=longest,menuone,preview
+let g:deoplete#sources = {}
+let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
+
+" Omnifuncs
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
 
 " Supertab
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
@@ -181,9 +221,8 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 " FZF+Ag
-
 if has('nvim')
-  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+ let $FZF_DEFAULT_OPTS .= ' --inline-info'
  " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
 
@@ -217,20 +256,24 @@ command! Plugs call fzf#run({
   \ 'down':    '~40%',
   \ 'sink':    'Explore'})
 
-
 " Use ; for commands.
 nnoremap ; :
 
 " Use Q to execute default register.
 nnoremap Q @q
 
-" FZF + Ripgrep
-nnoremap <leader>o :Files<cr>
 
 " Set // to search the current visual selection
 vnoremap // y/<C-R>"<CR>"
 
 " neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+autocmd! BufWritePost * Neomake
+let g:neomake_verbose=3
+let g:neomake_open_list = 2
+
+" Neomake bindings
 nmap <Leader><Space>o :lopen<CR>      " open location window
 nmap <Leader><Space>c :lclose<CR>     " close location window
 nmap <Leader><Space>, :ll<CR>         " go to current error/warning
@@ -281,16 +324,14 @@ nnoremap <Leader>p :set invpaste<CR>
 
 
 " }}}
-"
+
 " Pyenv Paths {{{
-if has('nvim')
   let g:python_host_prog  = '/Users/jon/.pyenv/versions/neovim2/bin/python'
   let g:python3_host_prog = '/Users/jon/.pyenv/versions/neovim3/bin/python'
 
 
 " Faster startup time
-  let g:python_host_skip_check=1            " Skip python 2 host check
-  let g:loaded_python3_provider=1           " Disable python 2 interface
+  "let g:python_host_skip_check=1            " Skip python 2 host check
+  "let g:loaded_python3_provider=1           " Disable python 2 interface
 
-endif
 " }}}
