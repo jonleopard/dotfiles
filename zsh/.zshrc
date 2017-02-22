@@ -8,7 +8,9 @@ export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 # Load ZSH Config Files
-for config (~/.zsh/*.zsh) source $config
+for config in ~/.zsh/*; do
+  source $config
+done
 
 # No GAnalytics Logging in homebrew
 HOMEBREW_NO_ANALYTICS=1
