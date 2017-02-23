@@ -6,3 +6,30 @@ ssh/.ssh/.known_hosts
 ssh/.ssh/known_hosts.save
 ssh/.ssh/id_rsa
 ssh/.ssh/id_rsa.pub
+
+# working files
+.vim/viminfo
+.vim/swaps/*
+.vim/undo
+
+# git credential file
+.gitconfig.local
+
+# no thx
+node_modules
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Compiled Python files
+*.pyc
+
