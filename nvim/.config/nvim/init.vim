@@ -156,11 +156,6 @@ let g:airline_theme='dracula'
 syntax on
 color dracula
 set t_Co=256
-highlight Comment gui=italic
-highlight Comment cterm=italic
-highlight htmlArg gui=italic
-highlight htmlArg cterm=italic
-
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later,
@@ -311,7 +306,7 @@ endif
 " Keybind crosshairs on and off
 hi CursorLine   cterm=NONE ctermbg=235
 hi CursorColumn cterm=NONE ctermbg=235
-"nnoremap x :set cursorline! cursorcolumn!
+nnoremap x :set cursorline! cursorcolumn!
 
 " toggle paste in cmd only
 nnoremap <Leader>p :set invpaste<CR>

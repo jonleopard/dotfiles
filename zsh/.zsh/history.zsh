@@ -1,5 +1,8 @@
 # History
-setopt hist_ignore_all_dups inc_append_history
 HISTFILE=~/.zhistory
-HISTSIZE=4096
-SAVEHIST=4096
+setopt APPEND_HISTORY
+HISTSIZE=1200
+SAVEHIST=1000
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt EXTENDED_HISTORY
+setopt SHARE_HISTORY
