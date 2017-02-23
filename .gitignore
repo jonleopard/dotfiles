@@ -1,1 +1,8 @@
-/nvim/.config/nvim/plugged/*
+# Git ignore for the root of your dotfiles folder.
+!bin
+nvim/.config/nvim/plugged/*
+gnupg/*
+ssh/.ssh/.known_hosts
+ssh/.ssh/known_hosts.save
+ssh/.ssh/id_rsa
+ssh/.ssh/id_rsa.pub
