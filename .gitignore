@@ -2,6 +2,7 @@
 !bin
 nvim/.config/nvim/plugged/*
 gnupg/*
+ssh/.ssh/known_hosts
 ssh/.ssh/.known_hosts
 ssh/.ssh/known_hosts.save
 ssh/.ssh/known_hosts.swp
