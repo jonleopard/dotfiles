@@ -1,5 +1,4 @@
-# Git ignore for the root of your dotfiles folder.
-!bin
+# Sensitive or unnecessary files don't need to be uploaded
 nvim/.config/nvim/plugged/*
 gnupg/*
 ssh/.ssh/known_hosts
@@ -8,17 +7,8 @@ ssh/.ssh/known_hosts.save
 ssh/.ssh/known_hosts.swp
 ssh/.ssh/id_rsa
 ssh/.ssh/id_rsa.pub
-
-# working files
-.vim/viminfo
-.vim/swaps/*
-.vim/undo
-
-# git credential file
-.gitconfig.local
-
-# no thx
-node_modules
+nvim/.config/nvim/autoload/plug.vim.old
+nvim/.config/nvim/.netrwhist
 
 # Folder view configuration files
 .DS_Store
@@ -31,7 +21,4 @@ Thumbs.db
 # Files that might appear on external disks
 .Spotlight-V100
 .Trashes
-
-# Compiled Python files
-*.pyc
 
