@@ -60,14 +60,14 @@ I talk a bit more about stow below in the dotfile management section. Be sure to
 
 ### Todo
 - [x] Add Brewfile file that will manage all my Homebrew packages, App Store apps, and Casks.
-- [ ] Add .vimrc dotfiles
+- [x] Add .vimrc dotfiles
 - [ ] Add .osx dotfiles
 - [x] Add .git dotfiles
 - [ ] Finish scripts
 
 
 ## Management Overview
-I like having everything as modular as possible. [GNU Stow](https://www.gnu.org/software/stow/) handles all my dotfiles. I'm using that in unison with [Git](https://git-scm.com/) for backups/versioning. [Homebrew](http://brew.sh/) handles all my packages and will also install all of my Mac App Store apps as well. ZSH plugins are managed with [zplug](https://github.com/zplug/zplug). I work a bit with Node, so [NVM](https://github.com/creationix/nvm) was chosen as my Node version manager. Lastly, [Vim-Plug](https://github.com/junegunn/vim-plug) handles all of my Neomvim plugins.
+[GNU Stow](https://www.gnu.org/software/stow/) handles all my dotfiles. I'm using that in unison with [Git](https://git-scm.com/) for backups/versioning. [Homebrew](http://brew.sh/) handles all my packages and will also install all of my Mac App Store apps as well. ZSH plugins are managed with [zplug](https://github.com/zplug/zplug). I work a bit with Node, so [NVM](https://github.com/creationix/nvm) was chosen as my Node version manager. Lastly, [Vim-Plug](https://github.com/junegunn/vim-plug) handles all of my Neomvim plugins.
 
 ## Dotfile Management
 There are [so many flavors](https://www.reddit.com/r/fossworldproblems/comments/2jk4gi/there_are_too_many_solutions_for_managing_dotfiles/) when it comes to dotfile management. I wanted something lightweight and that could run in any \*nix environment with little to no dependencies.
@@ -78,8 +78,7 @@ All my dotfiles are managed with the extremely light weight [GNU Stow](https://w
 Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). My Brewfile with generated with [Homebrew-Bundle](https://github.com/Homebrew/homebrew-bundle). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called Brewfile. All you gotta do is
 
 ## ZSH Plugin Management
-I've tried OMZ(Oh my ZSH), Prezto, and other ZSH frameworks. Since I'd rather know exactly what's going on in my .zshrc file and add only what I need, I chose to go with [zplug](https://github.com/zplug/zplug). Take a look inside my .zshrc file to see what plugins I have installed with [zplug](https://github.com/zplug/zplug).
-
+I've tried OMZ(Oh my ZSH), Prezto, and other ZSH frameworks. Since I'd rather know exactly what's going on in my .zshrc file and add only what I need, I chose to go with [zplug](https://github.com/zplug/zplug). 
 ## Node Management
 [NVM](https://github.com/creationix/nvm) Allows me to switch between different node versions on the fly. Avoid installing NVM through Homebrew, just use either the cURL or Wget script. Since I'm using ZSH, I added [zsh-nvm](https://github.com/lukechilds/zsh-nvm) to my zplugins.
 

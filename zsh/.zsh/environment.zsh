@@ -1,5 +1,11 @@
 # Environment Paths
 
+# Homebrew
+export PATH="/usr/local/sbin:$PATH"
+
+# Curl
+export PATH="/usr/local/opt/curl/bin:$PATH"
+
 # Ruby (rbenv)
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
@@ -17,8 +23,3 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 autoload bashcompinit
 bashcompinit
 eval "$(_TMUXP_COMPLETE=source tmuxp)"
-
-## Editors
-export EDITOR=nvim
-export VISUAL=nvim
-
