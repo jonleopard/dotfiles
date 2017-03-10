@@ -3,6 +3,9 @@
 # Homebrew
 export PATH="/usr/local/sbin:$PATH"
 
+# Vault
+export VAULT_ADDR='http://127.0.0.1:8200'
+
 # Curl
 export PATH="/usr/local/opt/curl/bin:$PATH"
 

@@ -139,6 +139,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'easymotion/vim-easymotion'
 Plug 'sjl/gundo.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'rizzatti/dash.vim'
 
 call plug#end()
 " }}}
