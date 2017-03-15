@@ -1,27 +1,37 @@
-local _old_path="$PATH"
+typeset -gx -U path
+path=( \
+    /usr/local/bin(N-/) \
+    ~/bin(N-/) \
+    ~/.zplug/bin(N-/) \
+    ~/.tmux/bin(N-/) \
+    "$path[@]" \
+    )
 
-# Local config
-[[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
+# NOTE: set fpath before compinit
+typeset -gx -U fpath
+fpath=( \
+    ~/.zsh/Completion(N-/) \
+    ~/.zsh/functions(N-/) \
+    ~/.zsh/plugins/zsh-completions(N-/) \
+    /usr/local/share/zsh/site-functions(N-/) \
+    $fpath \
+    )
 
-if [[ $PATH != $_old_path ]]; then
-  # `colors` isn't initialized yet, so define a few manually
-  typeset -AHg fg fg_bold
-  if [ -t 2 ]; then
-    fg[red]=$'\e[31m'
-    fg_bold[white]=$'\e[1;37m'
-    reset_color=$'\e[m'
-  else
-    fg[red]=""
-    fg_bold[white]=""
-    reset_color=""
-  fi
+# autoload
+autoload -Uz run-help
+autoload -Uz add-zsh-hook
+autoload -Uz colors && colors
+autoload -Uz compinit && compinit -u
+autoload -Uz is-at-least
 
-  cat <<MSG >&2
-${fg[red]}Warning:${reset_color} your \`~/.zshenv.local' configuration seems to edit PATH entries.
-Please move that configuration to \`.zshrc.local' like so:
-  ${fg_bold[white]}cat ~/.zshenv.local >> ~/.zshrc.local && rm ~/.zshenv.local${reset_color}
-(called from ${(%):-%N:%i})
-MSG
-fi
+# LANGUAGE must be set by en_US
+export LANGUAGE="en_US.UTF-8"
+export LANG="${LANGUAGE}"
+export LC_ALL="${LANGUAGE}"
+export LC_CTYPE="${LANGUAGE}"
 
-unset _old_path
+# Editor
+export EDITOR=nvim
+export CVSEDITOR="${EDITOR}"
+export SVN_EDITOR="${EDITOR}"
+export GIT_EDITOR="${EDITOR}"
