@@ -17,10 +17,9 @@ prompt_confirm() {
 echo  "WARNING! This script will backup existing dotfiles to ${HOME}/bak"
 prompt_confirm "Do you wish to continue?" || exit 0
 
-
 # Backup existing dotfiles
 sleep .5
-echo "Backing up files..."
+echo "Backing up existing dotfiles..."
 cd || exit
 shopt -s dotglob
 for file in ./*rc ./*profile tmux.conf; do
@@ -28,23 +27,26 @@ for file in ./*rc ./*profile tmux.conf; do
     mkdir -pv bak
     mv "$file" bak/
 done
+echo
 
 # CD Into Dotfiles folder
 sleep .5
-echo "Opening dotfiles directory..."
-cd ./dotfiles
-echo $(PWD)
+echo "Current path is ${PWD}"
+if [ "$(PWD)" != "$(PWD)"/dotfiles ]; then
+  echo "Changing directory..." && cd ./dotfiles || return
+fi
+echo "Path is now ${PWD}"
 echo
 
 # Discover system type
 sleep .5
-system_type="$(uname -s)"
-echo "Looking at your kernel..."
-echo "System type: ${system_type}"
+kernel_type="$(uname -s)"
+echo "Inspecting kernel..."
+echo "kernel type: ${kernel_type}"
 
 # Linux (Ubuntu)
 sleep .5
-if [ "$system_type" = 'Linux' ]; then
+if [ "$kernel_type" = 'Linux' ]; then
     echo "Installing prerequisites for Linux (ubuntu)..."
     [ -x "$(command -v stow)" ] &&
       apt-get install -y stow && apt-get install -y neovim
@@ -52,7 +54,7 @@ fi
 
 # MacOS
 sleep .5
-if [ "$system_type" = 'Darwin' ]; then
+if [ "$kernel_type" = 'Darwin' ]; then
   # Check if homebrew is installed
   echo "Looks like you're on a mac. Checking if Homebrew and GNU Stow are installed..."
   if [ ! -f "$(which brew)" ] || [ ! -f "$(which stow)" ]; then
@@ -107,7 +109,7 @@ done
 
 # Homebrew packages
 prompt_homebrew() {
-if [ "$system_type" = 'Darwin' ]; then
+if [ "$kernel_type" = 'Darwin' ]; then
   while true; do
     read -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
@@ -120,13 +122,9 @@ fi
 }
 prompt_homebrew "Would you like to install all the Homebrew packages?" || exit 0
 
-
-
-
-
 # Neovim
 prompt_vim() {
-if [ "$system_type" = 'Darwin' ]; then
+if [ "$kernel_type" = 'Darwin' ]; then
   while true; do
     read -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
