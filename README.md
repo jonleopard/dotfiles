@@ -3,7 +3,7 @@
 
 <img src="screenshot.png" width="703">
 
-## Table of Contents (Not yet complete!)
+## How to use these dotfiles
 - [Introduction](#introduction)
 - [Installation](#installation-protocol)
 - [Todo](#todo)
@@ -60,13 +60,13 @@ I talk a bit more about stow below in the dotfile management section. Be sure to
 ### Todo
 - [x] Add Brewfile file that will manage all my Homebrew packages, App Store apps, and Casks.
 - [x] Add .vimrc dotfiles
-- [ ] Add .osx dotfiles
+- [ ] Add .osx system variables
 - [x] Add .git dotfiles
 - [ ] Thoroughly test install.sh for mac environment
 - [ ] Finish vim-install.sh
 - [ ] Implement a chsh command for switching shells (if installing/using zsh)
-- [ ] Finish linux commands and test in Ubuntu env\
-- [ ] Finish scripts
+- [ ] Finish linux commands and test in Ubuntu env
+- [ ] Finish/test install scripts
 - [ ] Once finished, cleanup README.md and write installation instructions.
 
 
@@ -79,10 +79,11 @@ There are [so many flavors](https://www.reddit.com/r/fossworldproblems/comments/
 All my dotfiles are managed with the extremely light weight [GNU Stow](https://www.gnu.org/software/stow/). Basically, stow creates & manages symlinks to files that are located in the home directory. This allows me to keep everything in an organized folder called 'dotfiles'. This method makes sharing these files with other users and my other workstations really easy and avoids cluttering the home directory with VCS files.
 
 ## MacOS Package Management
-Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). My Brewfile with generated with [Homebrew-Bundle](https://github.com/Homebrew/homebrew-bundle). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called Brewfile. All you gotta do is
+Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). My Brewfile with generated with [Homebrew-Bundle](https://github.com/Homebrew/homebrew-bundle). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called Brewfile.
 
 ## ZSH Plugin Management
 I've tried OMZ(Oh my ZSH), Prezto, and other ZSH frameworks. Since I'd rather know exactly what's going on in my .zshrc file and add only what I need, I chose to go with [zplug](https://github.com/zplug/zplug).
+
 ## Node Management
 [NVM](https://github.com/creationix/nvm) Allows me to switch between different node versions on the fly. Avoid installing NVM through Homebrew, just use either the cURL or Wget script. Since I'm using ZSH, I added [zsh-nvm](https://github.com/lukechilds/zsh-nvm) to my zplugins.
 
@@ -104,7 +105,7 @@ As you could have guessed by now, I am using [ZSH](http://www.zsh.org/) instead 
 
 ## Resources
 - GNU Stow
-  - [Managing your dotfiles with gnu stow](https://codyreichert.github.io/blog/2015/07/07/managing-your-dotfiles-with-gnu-stow/)
+  - [Manage Your Dotfile with GNU Stow](https://jonleopard.com/dotfile-management-with-gnu-stow/)
   - [Getting started with dotfiles](https://medium.com/@webprolific/getting-started-with-dotfiles-43c3602fd789#.6u2xwvbpv)
   - [Using gnu stow to manage your dotfiles](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html)
   - [Managing dotfiles with gnu snow](https://alexpearce.me/2016/02/managing-dotfiles-with-stow/)
