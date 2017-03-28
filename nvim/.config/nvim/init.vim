@@ -115,7 +115,7 @@ Plug 'voxpupuli/vim-puppet'
 
 " Go
 Plug 'fatih/vim-go'
-Plug 'zchee/deoplete-go'
+"Plug 'zchee/deoplete-go'
 
 " Ruby/Rails
 Plug 'tpope/vim-rails'
