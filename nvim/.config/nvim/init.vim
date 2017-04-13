@@ -88,12 +88,18 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+"Plug 'Shougo/neocomplcache'
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
+
 
 " Editing
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-endwise'
 Plug 'sheerun/vim-polyglot'
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
+"Plug 'neomake/neomake'
 "Plug 'tomtom/tcomment_vim
 Plug 'tpope/vim-commentary',        { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
@@ -101,25 +107,17 @@ Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
 Plug 'reasonml/vim-reason-loader'
 Plug 'tpope/vim-repeat'
-Plug 'mattn/emmet-vim'
 
 " Javascript
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
-"Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-
-" Puppet
-Plug 'voxpupuli/vim-puppet'
 
 " Go
 Plug 'fatih/vim-go'
 "Plug 'zchee/deoplete-go'
-
-" Ruby/Rails
-Plug 'tpope/vim-rails'
-Plug 'vim-ruby/vim-ruby'
 
 " Searching/Navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -130,16 +128,17 @@ Plug 'justinmk/vim-dirvish'
 
 " Utils
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-unimpaired'
 Plug 'ervandew/supertab'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
-Plug 'metakirby5/codi.vim'
-Plug 'mhinz/vim-grepper'
-Plug 'easymotion/vim-easymotion'
-Plug 'sjl/gundo.vim'
+"Plug 'metakirby5/codi.vim'
+"Plug 'mhinz/vim-grepper'
+"Plug 'easymotion/vim-easymotion'
+"Plug 'sjl/gundo.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'rizzatti/dash.vim'
+"Plug 'rizzatti/dash.vim'
 
 call plug#end()
 " }}}
@@ -148,6 +147,8 @@ call plug#end()
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='dracula'
+let g:airline_section_error = '%{ALEGetStatusLine()}'
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 " }}}
 
@@ -197,7 +198,7 @@ map  gc  <Plug>Commentary
 nmap gcc <Plug>CommentaryLine
 
 "Gundu
-nnoremap <leader>t :GundoToggle<CR>
+"nnoremap <leader>t :GundoToggle<CR>
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -215,7 +216,11 @@ let g:deoplete#omni#functions.javascript = [
   \ 'jspc#omni'
 \]
 
-" Supertab
+
+"Autopairs
+let g:AutoPairsMapCR=0 
+
+" Supertab & UltiSnips
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:UltiSnipsExpandTrigger="<C-j>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -268,18 +273,18 @@ nnoremap Q @q
 vnoremap // y/<C-R>"<CR>"
 
 " neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-autocmd! BufWritePost * Neomake
-let g:neomake_verbose=3
-let g:neomake_open_list = 2
+"let g:neomake_javascript_enabled_makers = ['eslint']
+"let g:neomake_jsx_enabled_makers = ['eslint']
+"autocmd! BufWritePost * Neomake
+"let g:neomake_verbose=3
+"let g:neomake_open_list = 2
 
 " Neomake bindings
-nmap <Leader><Space>o :lopen<CR>      " open location window
-nmap <Leader><Space>c :lclose<CR>     " close location window
-nmap <Leader><Space>, :ll<CR>         " go to current error/warning
-nmap <Leader><Space>n :lnext<CR>      " next error/warning
-nmap <Leader><Space>p :lprev<CR>      " previous error/warning
+"nmap <Leader><Space>o :lopen<CR>      " open location window
+"nmap <Leader><Space>c :lclose<CR>     " close location window
+"nmap <Leader><Space>, :ll<CR>         " go to current error/warning
+"nmap <Leader><Space>n :lnext<CR>      " next error/warning
+"nmap <Leader><Space>p :lprev<CR>      " previous error/warning
 
 
 " Shortcut to yanking to the system clipboard
@@ -303,11 +308,6 @@ if has("clipboard")
     set clipboard+=unnamedplus
   endif
 endif
-
-" Keybind crosshairs on and off
-hi CursorLine   cterm=NONE ctermbg=235
-hi CursorColumn cterm=NONE ctermbg=235
-nnoremap x :set cursorline! cursorcolumn!
 
 " toggle paste in cmd only
 nnoremap <Leader>p :set invpaste<CR>
