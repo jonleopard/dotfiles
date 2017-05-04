@@ -57,6 +57,19 @@ let g:netrw_localrmdir='rm -r'            " Allow deletion of a dir that isn't e
 let g:netrw_banner=0                      " Dont show the banner
 
 
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+
+" Quicker window movement
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+
+
 " }}}
 
 " Plugins {{{
@@ -72,7 +85,8 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Colorscheme & Syntax Highlighting
 Plug 'Yggdroot/indentLine'
-Plug 'dracula/vim'
+"Plug 'dracula/vim'
+Plug 'chriskempson/base16-vim'
 
 " Git
 Plug 'junegunn/vim-github-dashboard'
@@ -146,7 +160,7 @@ call plug#end()
 " Statusline (Airline) {{{
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='dracula'
+let g:airline_theme='base16'
 let g:airline_section_error = '%{ALEGetStatusLine()}'
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
@@ -154,31 +168,15 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 " Color settings {{{
 
-" vim color scheme (dracula)
+" vim color scheme (base16)
 syntax on
-color dracula
-set t_Co=256
 
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later,
-"you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 
-  "< https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.40 (`guicolors` option) 
-  "< https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  "< https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-        set termguicolors
-  endif
+"base16-vim
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
 endif
+
 
 " }}}
 
