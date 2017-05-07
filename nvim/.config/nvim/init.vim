@@ -91,7 +91,7 @@ Plug 'chriskempson/base16-vim'
 " Git
 Plug 'junegunn/vim-github-dashboard'
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -100,21 +100,20 @@ Plug 'christoomey/vim-tmux-navigator'
 " Auto completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-"Plug 'Shougo/neocomplcache'
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
+" Syntax Highlighting
+Plug 'sheerun/vim-polyglot'
 
 " Editing
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-endwise'
-Plug 'sheerun/vim-polyglot'
 Plug 'w0rp/ale'
 "Plug 'neomake/neomake'
-"Plug 'tomtom/tcomment_vim
 Plug 'tpope/vim-commentary',        { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'fatih/vim-hclfmt'
@@ -198,7 +197,7 @@ nmap gcc <Plug>CommentaryLine
 "Gundu
 "nnoremap <leader>t :GundoToggle<CR>
 
-" Deoplete
+" Deoplete (completion)
 let g:deoplete#enable_at_startup = 1
 set completeopt=longest,menuone,preview
 let g:deoplete#sources = {}
