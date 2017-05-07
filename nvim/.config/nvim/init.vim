@@ -164,7 +164,11 @@ Plug 'chriskempson/base16-vim'
 " ----------------------------------------------------------------------------
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'tpope/vim-fugitive'
+<<<<<<< HEAD
 Plug 'tpope/vim-rhubarb'
+=======
+"Plug 'airblade/vim-gitgutter'
+>>>>>>> minimal
 
 " ----------------------------------------------------------------------------
 " Tmux
@@ -176,24 +180,36 @@ Plug 'christoomey/vim-tmux-navigator'
 " ----------------------------------------------------------------------------
 Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-"Plug 'Shougo/neocomplcache'
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
+<<<<<<< HEAD
 " ----------------------------------------------------------------------------
+=======
+" Syntax Highlighting
+Plug 'sheerun/vim-polyglot'
+
+>>>>>>> minimal
 " Editing
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-endwise'
+<<<<<<< HEAD
 Plug 'sheerun/vim-polyglot'
 Plug 'w0rp/ale',                     { 'on': 'ALEEnable', 'for': ['javascript'] }
 "Plug 'neomake/neomake'
 "Plug 'tomtom/tcomment_vim
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+=======
+Plug 'w0rp/ale'
+"Plug 'neomake/neomake'
+Plug 'tpope/vim-commentary',        { 'on': '<Plug>Commentary' }
+Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+>>>>>>> minimal
 Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
 Plug 'reasonml/vim-reason-loader'
@@ -302,6 +318,7 @@ nmap gcc <Plug>CommentaryLine
 " ----------------------------------------------------------------------------
 "nnoremap <leader>t :GundoToggle<CR>
 
+<<<<<<< HEAD
 " ----------------------------------------------------------------------------
 " indentLine
 " ----------------------------------------------------------------------------
@@ -310,6 +327,9 @@ let g:indentLine_enabled = 0
 " ----------------------------------------------------------------------------
 " Deoplete
 " ----------------------------------------------------------------------------
+=======
+" Deoplete (completion)
+>>>>>>> minimal
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources = {}
 let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
