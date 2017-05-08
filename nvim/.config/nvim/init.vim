@@ -8,6 +8,11 @@
 " BASIC SETTINGS {{{
 " ============================================================================
 
+if &compatible
+	set nocompatible
+endif
+
+
 let mapleader = ' '                       " Map  <leader> key to space
 let maplocalleader = ' '                  " Map local leader to space
 set nu
@@ -82,6 +87,15 @@ set complete-=i
 " mouse
 silent! set ttymouse=xterm2
 set mouse=a
+
+" yank to clipboard
+if has("clipboard")
+  set clipboard=unnamed " copy to the system clipboard
+
+  if has("unnamedplus") " X11 support
+    set clipboard+=unnamedplus
+  endif
+endif
 " }}}
 " ============================================================================
 " MAPPINGS {{{
@@ -158,6 +172,13 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
 autocmd! User indentLine doautocmd indentLine Syntax
 Plug 'chriskempson/base16-vim'
+Plug 'sheerun/vim-polyglot'
+
+" ----------------------------------------------------------------------------
+" Linting
+" ----------------------------------------------------------------------------
+Plug 'w0rp/ale',                     { 'on': 'ALEEnable', 'for': ['html', 'css', 'javascript', 'sh'] }
+Plug 'metakirby5/codi.vim'
 
 " ----------------------------------------------------------------------------
 " Git
@@ -172,19 +193,14 @@ Plug 'tpope/vim-rhubarb'
 Plug 'christoomey/vim-tmux-navigator'
 
 " ----------------------------------------------------------------------------
-" Auto completion
+" Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
-Plug 'ervandew/supertab'
-" Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'Shougo/neosnippet'
+Plug 'honza/vim-snippets' 
 Plug 'Shougo/neosnippet-snippets'
-
-" ----------------------------------------------------------------------------
-" Syntax Highlighting
-" ----------------------------------------------------------------------------
-Plug 'sheerun/vim-polyglot'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neco-vim'
+Plug 'zchee/deoplete-zsh'
 
 
 " ----------------------------------------------------------------------------
@@ -194,14 +210,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-endwise'
 Plug 'sheerun/vim-polyglot'
-Plug 'w0rp/ale',                     { 'on': 'ALEEnable', 'for': ['javascript'] }
-"Plug 'neomake/neomake'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
-Plug 'w0rp/ale'
-"Plug 'neomake/neomake'
-Plug 'tpope/vim-commentary',        { 'on': '<Plug>Commentary' }
-Plug 'junegunn/vim-easy-align',     { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
 Plug 'reasonml/vim-reason-loader'
@@ -222,6 +232,9 @@ Plug 'mxw/vim-jsx'
 Plug 'fatih/vim-go',                  {'do': ':GoInstallBinaries' }
 "Plug 'zchee/deoplete-go'
 
+
+
+
 " ----------------------------------------------------------------------------
 " Searching/Navigation
 " ----------------------------------------------------------------------------
@@ -237,11 +250,9 @@ Plug 'justinmk/vim-dirvish'
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
-Plug 'ervandew/supertab'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
-Plug 'metakirby5/codi.vim'
 "Plug 'mhinz/vim-grepper'
 "Plug 'easymotion/vim-easymotion'
 "Plug 'sjl/gundo.vim'
@@ -254,6 +265,11 @@ call plug#end()
 " ============================================================================
 " COLOR SETTINGS {{{
 " ============================================================================
+
+" True color
+if has('nvim')
+  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
 
 " vim color scheme (base16)
 syntax enable
@@ -279,7 +295,6 @@ function ALE() abort
     return exists('*ALEGetStatusLine') ? ALEGetStatusLine() : ''
 endfunction
 let g:airline_section_error = '%{ALE()}'
-
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 " ----------------------------------------------------------------------------
@@ -318,22 +333,92 @@ let g:indentLine_enabled = 0
 " ----------------------------------------------------------------------------
 " Deoplete
 " ----------------------------------------------------------------------------
-" Deoplete (completion)
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Javscript Completion
 let g:deoplete#sources = {}
-let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+let g:deoplete#sources['javascript.jsx'] = ['file', 'neosnippet', 'ternjs']
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
 
-" ----------------------------------------------------------------------------
-" Omnifuncs
-" ----------------------------------------------------------------------------
-autocmd filetype css setlocal omnifunc=csscomplete#completecss
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
   \ 'tern#complete',
   \ 'jspc#omni'
 \]
+
+
+" HTML completion
+let g:deoplete#sources = {}
+let g:deoplete#sources['html'] = ['file', 'neosnippet', 'vim-snippets']
+
+
+
+" ----------------------------------------------------------------------------
+" Neosnippet controls
+" ----------------------------------------------------------------------------
+
+
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+
+
+" I want to use my tab more smarter. If we are inside a completion menu jump
+" to the next item. Otherwise check if there is any snippet to expand, if yes
+" expand it. Also if inside a snippet and we need to jump tab jumps. If none
+" of the above matches we just call our usual 'tab'.
+function! s:neosnippet_complete()
+  if pumvisible()
+    return "\<c-n>"
+  else
+    if neosnippet#expandable_or_jumpable() 
+      return "\<Plug>(neosnippet_expand_or_jump)"
+    endif
+    return "\<tab>"
+  endif
+endfunction
+
+imap <expr><TAB> <SID>neosnippet_complete()
+
+
+" function! s:tab_complete()
+"   " is completion menu open? cycle to next item
+"   if pumvisible()
+"     return "\<c-n>"
+"   endif
+
+"   " is there a snippet that can be expanded?
+"   " is there a placholder inside the snippet that can be jumped to?
+"   if neosnippet#expandable_or_jumpable() 
+"     return "\<Plug>(neosnippet_expand_or_jump)"
+"   endif
+
+"   " if none of these match just use regular tab
+"   return "\<tab>"
+" endfunction
+
+" imap <silent><expr><TAB> <SID>tab_complete()
 
 " ----------------------------------------------------------------------------
 " vim-signify
@@ -341,18 +426,10 @@ let g:deoplete#omni#functions.javascript = [
 let g:signify_vcs_list = ['git']
 let g:signify_skip_filetype = { 'journal': 1 }
 
-
 " ----------------------------------------------------------------------------
 " autopairs
 " ----------------------------------------------------------------------------
 let g:autopairsmapcr=0 
-
-" ----------------------------------------------------------------------------
-" supertab & ultisnips
-" ----------------------------------------------------------------------------
-autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-let g:UltiSnipsExpandTrigger="<C-j>"
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " ----------------------------------------------------------------------------
 " <Enter> | vim-easy-align
@@ -422,7 +499,6 @@ nmap gaa ga_
 
 if has('nvim')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
-  " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
 
 command! -bang -nargs=? -complete=dir Files
