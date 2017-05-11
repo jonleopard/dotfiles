@@ -225,6 +225,7 @@ Plug 'carlitux/deoplete-ternjs',      { 'for': ['javascript', 'javascript.jsx'],
 Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'digitaltoad/vim-pug'
 
 " ----------------------------------------------------------------------------
 " Go
@@ -260,6 +261,7 @@ Plug 'jiangmiao/auto-pairs'
 "Plug 'rizzatti/dash.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
+Plug 'tpope/vim-sensible'
 call plug#end()
 " }}}
 " ============================================================================
