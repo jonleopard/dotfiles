@@ -106,7 +106,7 @@ endif
 " ----------------------------------------------------------------------------
 
 noremap <C-F> <C-D>
-noremap <C-B> <C-U>:wq
+noremap <C-B> <C-U>
 
 " qq to record, Q to replay
 nnoremap Q @q
@@ -177,7 +177,7 @@ Plug 'sheerun/vim-polyglot'
 " ----------------------------------------------------------------------------
 " Linting
 " ----------------------------------------------------------------------------
-Plug 'w0rp/ale',                     { 'on': 'ALEEnable', 'for': ['html', 'css', 'javascript', 'sh'] }
+Plug 'w0rp/ale' 
 Plug 'metakirby5/codi.vim'
 
 " ----------------------------------------------------------------------------
@@ -226,6 +226,9 @@ Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] 
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'digitaltoad/vim-pug'
+autocmd FileType javascript set formatprg=prettier\ --stdin
+
+
 
 " ----------------------------------------------------------------------------
 " Go
@@ -321,6 +324,14 @@ let g:signify_skip_filetype = { 'journal': 1 }
 " ----------------------------------------------------------------------------
 map  gc  <Plug>Commentary
 nmap gcc <Plug>CommentaryLine
+
+
+" ----------------------------------------------------------------------------
+" ale
+" ----------------------------------------------------------------------------
+let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+let g:ale_linter_aliases = {'jsx': 'css'}
+
 
 " ----------------------------------------------------------------------------
 "Gundu
