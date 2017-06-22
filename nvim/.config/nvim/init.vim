@@ -8,14 +8,11 @@
 " BASIC SETTINGS {{{
 " ============================================================================
 
-if &compatible
-	set nocompatible
-endif
-
-
 let mapleader = ' '                       " Map  <leader> key to space
 let maplocalleader = ' '                  " Map local leader to space
 set nu
+set autoindent
+set smartindent
 set autoread                              " Auto-reload modified files
 set encoding=utf-8                        " Encode characters as utf-8
 set fileencoding=utf-8                    " Encode files as utf-8
@@ -31,12 +28,9 @@ let &showbreak= '4 '                      " Show that a line has been wrapped
 set breakindent
 set breakindentopt=sbr
 set nojoinspaces                          " Avoid double spaced when joining lines
-set formatoptions=tcr                     " Auto-wrap text and comments at textwidth and insert the comment leader in insert mode
-set formatoptions+=l                      " If a line is longer than textwidth when the insert starts, don't reformat it
 set formatoptions+=1                      " Don't wrap after a 1 letter word, wrap before
-set formatoptions+=jq                     " Delete comment leaders when joining lines and allow `gq` on comments
-set autoindent
-set smartindent
+set formatoptions+=j
+set foldlevelstart=99
 set showcmd
 set backspace=indent,eol,start
 set nocursorline
@@ -49,17 +43,14 @@ set list                                  " Show invisible characters
 set listchars=tab:\|\ ,                   " Set the characters for the invisibles
 set virtualedit=block
 set scrolloff=5                           " Keep the cursor centered in the screen
-set sidescroll=1                          " Scroll sideways a character at a time, not a screen at a time
-set sidescrolloff=5                       " Show 5 characters of context when side scrolling
-set showmatch                             " Highlight matching braces
 set showmode                              " Show the current mode on the open buffer
 set visualbell                            " Use a visual bell to notify us
 set expandtab smarttab                    " Expand tabs to the proper type and size
 set tabstop=2                             " Tabs width in spaces
 set shiftwidth=2                          " Amount of spaces when shifting
-set synmaxcol=160                         " Don't try to syntax highlight minified files"
+set synmaxcol=1000                        " Don't try to syntax highlight minified files"
 set timeoutlen=500
-set ttimeoutlen=0
+set modelines=2
 let g:netrw_localrmdir='rm -r'            " Allow deletion of a dir that isn't empty
 let g:netrw_banner=0                      " Dont show the banner
 
@@ -111,6 +102,11 @@ noremap <C-B> <C-U>
 " qq to record, Q to replay
 nnoremap Q @q
 
+" Disable CTRL-A on tmux or on screen
+if $TERM =~ 'screen'
+  nnoremap <C-a> <nop>
+  nnoremap <Leader><C-a> <C-a>
+endif
 
 " Save
 inoremap <C-s>     <C-O>:update<cr>
@@ -137,6 +133,13 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Movement in insert mode
+inoremap <C-h> <C-o>h
+inoremap <C-l> <C-o>a
+inoremap <C-j> <C-o>j
+inoremap <C-k> <C-o>k
+inoremap <C-^> <C-o><C-^>
+
 " Navigating tabs easier
 map <D-S-{> :tabprevious
 map <D-S-}> :tabprevious
@@ -144,21 +147,33 @@ map <D-S-}> :tabprevious
 " toggle paste in cmd only
 nnoremap <Leader>p :set invpaste<CR>
 
-" Last inserted text
-nnoremap g. :normal! `[v`]<cr><left>
-
 
 " ----------------------------------------------------------------------------
-" Buffers
+" tmux
 " ----------------------------------------------------------------------------
-nnoremap ]b :bnext<cr>
-nnoremap [b :bprev<cr>
+function! s:tmux_send(content, dest) range
+  let dest = empty(a:dest) ? input('To which pane? ') : a:dest
+  let tempfile = tempname()
+  call writefile(split(a:content, "\n", 1), tempfile, 'b')
+  call system(printf('tmux load-buffer -b vim-tmux %s \; paste-buffer -d -b vim-tmux -t %s',
+        \ shellescape(tempfile), shellescape(dest)))
+  call delete(tempfile)
+endfunction
 
-" ----------------------------------------------------------------------------
-" Tabs
-" ----------------------------------------------------------------------------
-nnoremap ]t :tabn<cr>
-nnoremap [t :tabp<cr>
+function! s:tmux_map(key, dest)
+  execute printf('nnoremap <silent> %s "tyy:call <SID>tmux_send(@t, "%s")<cr>', a:key, a:dest)
+  execute printf('xnoremap <silent> %s "ty:call <SID>tmux_send(@t, "%s")<cr>gv', a:key, a:dest)
+endfunction
+
+call s:tmux_map('<leader>tt', '')
+call s:tmux_map('<leader>th', '.left')
+call s:tmux_map('<leader>tj', '.bottom')
+call s:tmux_map('<leader>tk', '.top')
+call s:tmux_map('<leader>tl', '.right')
+call s:tmux_map('<leader>ty', '.top-left')
+call s:tmux_map('<leader>to', '.top-right')
+call s:tmux_map('<leader>tn', '.bottom-left')
+call s:tmux_map('<leader>t.', '.bottom-right')
 
 " }}}
 " ============================================================================
