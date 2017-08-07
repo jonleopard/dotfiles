@@ -195,7 +195,6 @@ brew 'homebrew/php/brew-php-switcher'
 brew 'koekeishiya/kwm/kwm'
 brew 'neovim/neovim/neovim', args: ['HEAD', 'without-jemalloc']
 brew 'ravenac95/sudolikeaboss/sudolikeaboss'
-cask 'adium'
 cask 'alfred'
 cask 'atom'
 cask 'battle-net'
@@ -241,6 +240,5 @@ mas '1Password', id: 443987910
 mas 'Slack', id: 803453959
 mas 'xScope', id: 889428659
 mas 'Rocket.Chat+', id: 1086818840
-mas 'Transmit', id: 403388562
 mas 'DaisyDisk', id: 411643860
 mas 'ClamXav', id: 430207028
