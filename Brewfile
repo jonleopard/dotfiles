@@ -57,11 +57,7 @@ brew 'libksba'
 brew 'pth'
 brew 'dirmngr'
 brew 'dns2tcp'
-brew 'docker-machine'
-brew 'libev'
 brew 'opam'
-brew 'docker-machine-driver-xhyve'
-brew 'doxygen'
 brew 'fcrackzip'
 brew 'lame'
 brew 'x264'
@@ -187,12 +183,10 @@ brew 'zsh-syntax-highlighting'
 brew 'bramstein/webfonttools/sfnt2woff'
 brew 'bramstein/webfonttools/sfnt2woff-zopfli'
 brew 'bramstein/webfonttools/woff2'
-brew 'homebrew/boneyard/pyenv-pip-rehash'
 brew 'homebrew/dupes/grep'
 brew 'homebrew/dupes/openssh'
 brew 'homebrew/dupes/zlib'
 brew 'homebrew/php/brew-php-switcher'
-brew 'koekeishiya/kwm/kwm'
 brew 'neovim/neovim/neovim', args: ['HEAD', 'without-jemalloc']
 brew 'ravenac95/sudolikeaboss/sudolikeaboss'
 cask 'alfred'
@@ -227,15 +221,7 @@ cask 'virtualbox'
 cask 'vlc'
 cask 'wireshark'
 cask 'xld'
-mas 'iCleanMemory', id: 439277582
-mas 'Xcode', id: 497799835
-mas 'The Unarchiver', id: 425424353
-mas 'Twitter', id: 409789998
 mas 'Monosnap', id: 540348655
-mas 'Skitch', id: 425955336
-mas 'Evernote', id: 406056744
-mas 'CloudApp', id: 417602904
-mas 'iA Writer', id: 775737590
 mas '1Password', id: 443987910
 mas 'Slack', id: 803453959
 mas 'xScope', id: 889428659

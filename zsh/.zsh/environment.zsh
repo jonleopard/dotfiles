@@ -23,6 +23,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Tmuxp Completion
-autoload bashcompinit
-bashcompinit
-eval "$(_TMUXP_COMPLETE=source tmuxp)"
+#autoload bashcompinit
+#bashcompinit
+#if [[ -n $(which tmuxp) ]]; then
+#    eval "$(_TMUXP_COMPLETE=source tmuxp)"
+#fi

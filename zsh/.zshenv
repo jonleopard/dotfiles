@@ -1,7 +1,7 @@
 typeset -gx -U path
 
 
-#NOTE: set fpath before compinit
+# NOTE: set fpath before compinit
 typeset -gx -U fpath
 fpath=( \
     ~/.zsh/Completion(N-/) \

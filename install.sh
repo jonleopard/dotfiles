@@ -90,7 +90,7 @@ case $choice in
      2)
      echo "Symlinking vim dotfiles..."
      echo
-     stow vim
+     stow nvim
      ;;
      3)
      stow ssh
@@ -113,7 +113,7 @@ if [ "$kernel_type" = 'Darwin' ]; then
   while true; do
     read -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
-      [yY]) chmod +x ./brew.sh && ./brew.sh ; return 0 ;;
+      [yY]) brew bundle ; return 0 ;;
       [nN]) echo ; return 0 ;;
       *) printf " \033[31m %s \n\033[0m" "invalid option"
     esac
@@ -121,6 +121,29 @@ if [ "$kernel_type" = 'Darwin' ]; then
 fi
 }
 prompt_homebrew "Would you like to install all the Homebrew packages?" || exit 0
+
+
+
+# Shell Switch
+prompt_shell() {
+if [ "$SHELL" = '/bin/bash' ]; then
+  while true; do
+   read -p "${1:-Continue} [y/n]: " REPLY
+   case $REPLY in
+    [yY]) echo "Switching to brew zsh, please restart your terminal after installation completes." && sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh && source ~/dotfiles/zsh/.zsh* ; return 0 ;;
+    [nN]) echo ; return 0 ;;
+    *) printf " \033[31m %s \n\033[0m" "invalid option"
+    esac
+  done
+fi
+}
+prompt_shell "Would you like to swith to zsh?" || exit 0
+
+
+# Color Scheme
+echo "Setting up base16 colors"
+stow colors && base16_dracula
+
 
 # Neovim
 prompt_vim() {
@@ -138,4 +161,3 @@ fi
 prompt_vim "Would you like to set up Neovim's dependencies (vim-plug/ruby/python)?" || exit 0
 
 echo "All done!" || exit 0
-
