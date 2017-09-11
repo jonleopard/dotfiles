@@ -57,9 +57,6 @@ let g:netrw_banner=0                      " Dont show the banner
 " Keep the cursor on the same column
 set nostartofline
 
-" Annoying temporary files
-set backupdir=/tmp//,.
-set directory=/tmp//,.
 
 " 80 chars/line
 set textwidth=0
@@ -198,7 +195,6 @@ Plug 'metakirby5/codi.vim'
 " ----------------------------------------------------------------------------
 " Git
 " ----------------------------------------------------------------------------
-Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
@@ -241,6 +237,11 @@ Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] 
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'digitaltoad/vim-pug'
+Plug 'prettier/vim-prettier',         {
+                                      \ 'do': 'npm install',
+                                      \ 'for': ['javascript', 'typescript',
+                                      \ 'css', 'less', 'scss', 'json', 'graphql'] }
+Plug 'styled-components/vim-styled-components'
 autocmd FileType javascript set formatprg=prettier\ --stdin
 
 
@@ -251,18 +252,14 @@ autocmd FileType javascript set formatprg=prettier\ --stdin
 Plug 'fatih/vim-go',                  {'do': ':GoInstallBinaries' }
 "Plug 'zchee/deoplete-go'
 
-
-
-
 " ----------------------------------------------------------------------------
 " Searching/Navigation
 " ----------------------------------------------------------------------------
 Plug 'junegunn/fzf',                  { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'justinmk/vim-dirvish'
-
+Plug 'jremmen/vim-ripgrep'
 
 " ----------------------------------------------------------------------------
 " Utils
@@ -324,11 +321,6 @@ nmap     <Leader>g :Gstatus<CR>gg<c-n>
 nnoremap <Leader>d :Gdiff<CR>
 
 " ----------------------------------------------------------------------------
-" vim-github-dashboard
-" ----------------------------------------------------------------------------
-let g:github_dashboard = { 'username': 'jonleopard' }
-
-" ----------------------------------------------------------------------------
 " vim-signify
 " ----------------------------------------------------------------------------
 let g:signify_vcs_list = ['git']
@@ -344,8 +336,8 @@ nmap gcc <Plug>CommentaryLine
 " ----------------------------------------------------------------------------
 " ale
 " ----------------------------------------------------------------------------
-let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
-let g:ale_linter_aliases = {'jsx': 'css'}
+"let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+"let g:ale_linter_aliases = {'jsx': 'css'}
 
 
 " ----------------------------------------------------------------------------
@@ -361,7 +353,8 @@ let g:indentLine_enabled = 0
 " ----------------------------------------------------------------------------
 " Deoplete
 " ----------------------------------------------------------------------------
-let g:deoplete#enable_at_startup = 1
+call deoplete#enable()
+"let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:neosnippet#enable_snipmate_compatibility = 1
 
@@ -525,50 +518,35 @@ nmap gaa ga_
 " FZF {{{
 " ============================================================================
 
-if has('nvim')
-  let $FZF_DEFAULT_OPTS .= ' --inline-info'
-endif
+" FZF + Ripgrep
 
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
-" nnoremap <silent> <Leader><Leader> :Files<CR>
-nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
-nnoremap <silent> <Leader>C        :Colors<CR>
-nnoremap <silent> <Leader><Enter>  :Buffers<CR>
-nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
-nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
-xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
-nnoremap <silent> <Leader>`        :Marks<CR>
-" nnoremap <silent> q: :History:<CR>
-" nnoremap <silent> q/ :History/<CR>
+nmap <C-p> :Files<cr>
+  imap <c-x><c-l> <plug>(fzf-complete-line)
 
-inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+  let g:fzf_action = {
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-i': 'split',
+    \ 'ctrl-s': 'vsplit' }
+  let g:fzf_layout = { 'down': '~20%' }
 
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+  let g:rg_command = '
+    \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+    \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}"
+    \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
 
-function! s:plugs_sink(line)
-  let dir = g:plugs[a:line].dir
-  for pat in ['doc/*.txt', 'README.md']
-    let match = get(split(globpath(dir, pat), "\n"), 0, '')
-    if len(match)
-      execute 'tabedit' match
-      return
-    endif
-  endfor
-  tabnew
-  execute 'Explore' dir
-endfunction
-
-command! PlugHelp call fzf#run(fzf#wrap({
-  \ 'source':  sort(keys(g:plugs)),
-  \ 'sink':    function('s:plugs_sink')}))
+  command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 " }}}
 " ============================================================================
@@ -577,8 +555,9 @@ command! PlugHelp call fzf#run(fzf#wrap({
 
 
 " Pyenv Paths
-  let g:python_host_prog  = '/Users/jon/.pyenv/versions/neovim2/bin/python'
-  let g:python3_host_prog = '/Users/jon/.pyenv/versions/neovim3/bin/python'
+" https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
+let g:python_host_prog  = '/Users/jon/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/Users/jon/.pyenv/versions/neovim3/bin/python'
 
 
 " Faster startup time
