@@ -10,53 +10,33 @@
 
 let mapleader = ' '                       " Map  <leader> key to space
 let maplocalleader = ' '                  " Map local leader to space
-set nu
-set autoindent
-set smartindent
-set autoread                              " Auto-reload modified files
-set encoding=utf-8                        " Encode characters as utf-8
-set fileencoding=utf-8                    " Encode files as utf-8
-set termencoding=utf-8                    " Set encoding used for the terminal
-set foldmethod=marker                     " Fold based on specified markers
-set hlsearch                              " Highlight results
-set ignorecase smartcase                  " Ignore the case in regexes | override ignorecase if an uppercase is typed
-set wildmenu
-set wildmode=full
-set incsearch                             " Enable incremental search
-set lazyredraw                            " For better performance when replaying macros
-let &showbreak= '4 '                      " Show that a line has been wrapped
-set breakindent
-set breakindentopt=sbr
-set nojoinspaces                          " Avoid double spaced when joining lines
-set formatoptions+=1                      " Don't wrap after a 1 letter word, wrap before
-set formatoptions+=j
-set foldlevelstart=99
-set showcmd
-set backspace=indent,eol,start
-set nocursorline
-set diffopt=filler,vertical
-set completeopt=menuone,preview
-set hidden                                " Hide buffers instead of closing them
-set history=500                           " Rememebr command mode history
-set laststatus=2                          " Always show the status bar. Airline requires this.
-set list                                  " Show invisible characters
-set listchars=tab:\|\ ,                   " Set the characters for the invisibles
-set virtualedit=block
-set scrolloff=5                           " Keep the cursor centered in the screen
-set showmode                              " Show the current mode on the open buffer
-set visualbell                            " Use a visual bell to notify us
-set expandtab smarttab                    " Expand tabs to the proper type and size
-set tabstop=2                             " Tabs width in spaces
-set shiftwidth=2                          " Amount of spaces when shifting
-set synmaxcol=1000                        " Don't try to syntax highlight minified files"
-set timeoutlen=500
-set modelines=2
+
+
+set showcmd             " Show (partial) command in status line.
+set showmatch           " Show matching brackets.
+set showmode            " Show current mode.
+set ruler               " Show the line and column numbers of the cursor.
+set number              " Show the line numbers on the left side.
+set formatoptions+=o    " Continue comment marker in new lines.
+set textwidth=0         " Hard-wrap long lines as you type them.
+set expandtab           " Insert spaces when TAB is pressed.
+set tabstop=2           " Render TABs using this many spaces.
+set shiftwidth=2        " Indentation amount for < and > commands.
+
+set noerrorbells        " No beeps.
+set modeline            " Enable modeline.
+set linespace=0         " Set line-spacing to minimum.
+set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
+
 let g:netrw_localrmdir='rm -r'            " Allow deletion of a dir that isn't empty
 let g:netrw_banner=0                      " Dont show the banner
 
 " Keep the cursor on the same column
 set nostartofline
 
+" Annoying temporary files
+set backupdir=/tmp//,.
+set directory=/tmp//,.
 
 " 80 chars/line
 set textwidth=0
@@ -186,6 +166,8 @@ autocmd! User indentLine doautocmd indentLine Syntax
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
 
+
+
 " ----------------------------------------------------------------------------
 " Linting
 " ----------------------------------------------------------------------------
@@ -237,6 +219,7 @@ Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] 
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'digitaltoad/vim-pug'
+Plug 'leshill/vim-json'
 Plug 'prettier/vim-prettier',         {
                                       \ 'do': 'npm install',
                                       \ 'for': ['javascript', 'typescript',
@@ -250,7 +233,6 @@ autocmd FileType javascript set formatprg=prettier\ --stdin
 " Go
 " ----------------------------------------------------------------------------
 Plug 'fatih/vim-go',                  {'do': ':GoInstallBinaries' }
-"Plug 'zchee/deoplete-go'
 
 " ----------------------------------------------------------------------------
 " Searching/Navigation
@@ -288,8 +270,6 @@ if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
 
-" vim color scheme (base16)
-syntax enable
 
 " base16-vim will match whatever you have set your shell color schceme as
 if filereadable(expand("~/.vimrc_background"))
@@ -300,6 +280,13 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
+
+
+" ----------------------------------------------------------------------------
+" vim-javascript, vim-jsx
+" ----------------------------------------------------------------------------
+let g:javascript_plugin_flow = 1
+let g:jsx_ext_required = 0
 
 
 " ----------------------------------------------------------------------------
