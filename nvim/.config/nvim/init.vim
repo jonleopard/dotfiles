@@ -10,8 +10,6 @@
 
 let mapleader = ' '                       " Map  <leader> key to space
 let maplocalleader = ' '                  " Map local leader to space
-
-
 set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
 set showmode            " Show current mode.
@@ -161,18 +159,15 @@ call plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------
 " Colorscheme & Syntax Highlighting
 " ----------------------------------------------------------------------------
-Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
+Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
 autocmd! User indentLine doautocmd indentLine Syntax
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
-
-
 
 " ----------------------------------------------------------------------------
 " Linting
 " ----------------------------------------------------------------------------
 Plug 'w0rp/ale' 
-Plug 'metakirby5/codi.vim'
 
 " ----------------------------------------------------------------------------
 " Git
@@ -216,10 +211,9 @@ Plug 'tpope/vim-repeat'
 Plug 'ternjs/tern_for_vim',           { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'carlitux/deoplete-ternjs',      { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
 Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 Plug 'digitaltoad/vim-pug'
-Plug 'leshill/vim-json'
+Plug 'elzr/vim-json'
+Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'prettier/vim-prettier',         {
                                       \ 'do': 'npm install',
                                       \ 'for': ['javascript', 'typescript',
@@ -251,14 +245,12 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
-"Plug 'mhinz/vim-grepper'
-"Plug 'easymotion/vim-easymotion'
-"Plug 'sjl/gundo.vim'
 Plug 'jiangmiao/auto-pairs'
 "Plug 'rizzatti/dash.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
-Plug 'tpope/vim-sensible'
+Plug 'metakirby5/codi.vim'
+
 call plug#end()
 " }}}
 " ============================================================================
@@ -280,13 +272,6 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
-
-
-" ----------------------------------------------------------------------------
-" vim-javascript, vim-jsx
-" ----------------------------------------------------------------------------
-let g:javascript_plugin_flow = 1
-let g:jsx_ext_required = 0
 
 
 " ----------------------------------------------------------------------------
@@ -326,22 +311,16 @@ nmap gcc <Plug>CommentaryLine
 "let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
 "let g:ale_linter_aliases = {'jsx': 'css'}
 
-
-" ----------------------------------------------------------------------------
-"Gundu
-" ----------------------------------------------------------------------------
-"nnoremap <leader>t :GundoToggle<CR>
-
 " ----------------------------------------------------------------------------
 " indentLine
 " ----------------------------------------------------------------------------
-let g:indentLine_enabled = 0
+" let g:indentLine_setColors = 0
 
 " ----------------------------------------------------------------------------
 " Deoplete
 " ----------------------------------------------------------------------------
 call deoplete#enable()
-"let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:neosnippet#enable_snipmate_compatibility = 1
 
@@ -351,12 +330,17 @@ let g:deoplete#sources['javascript.jsx'] = ['file', 'neosnippet', 'ternjs']
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
 
+let g:deoplete#sources#ternjs#filetypes = [
+                \ 'jsx',
+                \ 'javascript.jsx',
+                \ 'vue',
+                \ ]
+
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
-  \ 'tern#complete',
-  \ 'jspc#omni'
-\]
-
+                \ 'tern#complete',
+                \ 'jspc#omni'
+                \ ]
 
 " HTML completion
 let g:deoplete#sources = {}
