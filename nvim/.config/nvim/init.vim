@@ -7,7 +7,6 @@
 " ============================================================================
 " BASIC SETTINGS {{{
 " ============================================================================
-
 let mapleader = ' '                       " Map  <leader> key to space
 let maplocalleader = ' '                  " Map local leader to space
 set showcmd             " Show (partial) command in status line.
@@ -120,7 +119,7 @@ map <D-S-{> :tabprevious
 map <D-S-}> :tabprevious
 
 " toggle paste in cmd only
-nnoremap <Leader>p :set invpaste<CR>
+" nnoremap <Leader>p :set invpaste<CR>
 
 
 " ----------------------------------------------------------------------------
@@ -163,6 +162,8 @@ Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
 autocmd! User indentLine doautocmd indentLine Syntax
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
+"Plug 'hail2u/vim-css3-syntax'
+"Plug 'styled-components/vim-styled-components'
 
 " ----------------------------------------------------------------------------
 " Linting
@@ -190,7 +191,6 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neco-vim'
 Plug 'zchee/deoplete-zsh'
 
-
 " ----------------------------------------------------------------------------
 " Editing
 " ----------------------------------------------------------------------------
@@ -204,7 +204,7 @@ Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
 Plug 'reasonml/vim-reason-loader'
 Plug 'tpope/vim-repeat'
-
+Plug 'jiangmiao/auto-pairs'
 " ----------------------------------------------------------------------------
 " Javascript
 " ----------------------------------------------------------------------------
@@ -214,13 +214,7 @@ Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] 
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'prettier/vim-prettier',         {
-                                      \ 'do': 'npm install',
-                                      \ 'for': ['javascript', 'typescript',
-                                      \ 'css', 'less', 'scss', 'json', 'graphql'] }
-Plug 'styled-components/vim-styled-components'
-autocmd FileType javascript set formatprg=prettier\ --stdin
-
+Plug 'alexlafroscia/deoplete-flow',   { 'branch': 'pass-filename-to-autocomplete' }
 
 
 " ----------------------------------------------------------------------------
@@ -245,25 +239,25 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
-Plug 'jiangmiao/auto-pairs'
 "Plug 'rizzatti/dash.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
+Plug 'tpope/vim-obsession'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 call plug#end()
 " }}}
 " ============================================================================
 " COLOR SETTINGS {{{
 " ============================================================================
-
 " True color
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
 
 
-" base16-vim will match whatever you have set your shell color schceme as
+" base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
@@ -277,9 +271,13 @@ endif
 " ----------------------------------------------------------------------------
 " vim-airline (statusbar)
 " ----------------------------------------------------------------------------
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='base16'
+let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_powerline_fonts=1
+
+let g:airline#extensions#ale#enabled = 1
 function ALE() abort
     return exists('*ALEGetStatusLine') ? ALEGetStatusLine() : ''
 endfunction
@@ -293,12 +291,6 @@ nmap     <Leader>g :Gstatus<CR>gg<c-n>
 nnoremap <Leader>d :Gdiff<CR>
 
 " ----------------------------------------------------------------------------
-" vim-signify
-" ----------------------------------------------------------------------------
-let g:signify_vcs_list = ['git']
-let g:signify_skip_filetype = { 'journal': 1 }
-
-" ----------------------------------------------------------------------------
 " vim-commentary
 " ----------------------------------------------------------------------------
 map  gc  <Plug>Commentary
@@ -308,13 +300,42 @@ nmap gcc <Plug>CommentaryLine
 " ----------------------------------------------------------------------------
 " ale
 " ----------------------------------------------------------------------------
-"let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
-"let g:ale_linter_aliases = {'jsx': 'css'}
+nmap <leader>p <Plug>(ale_fix)
+"let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
+let g:ale_echo_msg_format = '%linter% says %s'
+let g:ale_fixers = {}
+let g:ale_linters = {
+\   'javascript': ['eslint', 'flow'],
+\   'html': ['htmlhint', 'tidy'],
+\   'json': ['jsonlint'],
+\ }
+
+"let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier', 'eslint']
+
+
+let g:ale_javascript_prettier_use_global = 1
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_javascript_eslint_executable = 'eslint_d'
+let g:ale_javascript_prettier_executable = 'prettier_d'
+let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
+autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
+"autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
 
 " ----------------------------------------------------------------------------
 " indentLine
 " ----------------------------------------------------------------------------
 " let g:indentLine_setColors = 0
+
+
+
+" ----------------------------------------------------------------------------
+" auto-pairs
+" ----------------------------------------------------------------------------
+"let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 " ----------------------------------------------------------------------------
 " Deoplete
@@ -322,7 +343,6 @@ nmap gcc <Plug>CommentaryLine
 call deoplete#enable()
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
-let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Javscript Completion
 let g:deoplete#sources = {}
@@ -411,17 +431,6 @@ imap <expr><TAB> <SID>neosnippet_complete()
 " endfunction
 
 " imap <silent><expr><TAB> <SID>tab_complete()
-
-" ----------------------------------------------------------------------------
-" vim-signify
-" ----------------------------------------------------------------------------
-let g:signify_vcs_list = ['git']
-let g:signify_skip_filetype = { 'journal': 1 }
-
-" ----------------------------------------------------------------------------
-" autopairs
-" ----------------------------------------------------------------------------
-let g:autopairsmapcr=0 
 
 " ----------------------------------------------------------------------------
 " <Enter> | vim-easy-align
@@ -551,8 +560,8 @@ let g:fzf_colors =
 
 " Pyenv Paths
 " https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
-let g:python_host_prog  = '/Users/jon/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/Users/jon/.pyenv/versions/neovim3/bin/python'
+"let g:python_host_prog  = '/Users/jon/.pyenv/versions/neovim2/bin/python'
+"let g:python3_host_prog = '/Users/jon/.pyenv/versions/neovim3/bin/python'
 
 
 " Faster startup time
