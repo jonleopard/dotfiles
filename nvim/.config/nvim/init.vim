@@ -236,8 +236,10 @@ Plug 'jremmen/vim-ripgrep'
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'daviesjamie/vim-base16-lightline'
 Plug 'mhinz/vim-startify'
 "Plug 'rizzatti/dash.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -256,6 +258,9 @@ if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
 
+let g:lightline = {
+\   'colorscheme': 'base16'
+\ }
 
 " base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
@@ -271,11 +276,14 @@ endif
 " ----------------------------------------------------------------------------
 " vim-airline (statusbar)
 " ----------------------------------------------------------------------------
-let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
+"let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_powerline_fonts=1
+"let g:airline_left_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_powerline_fonts=1
+
+
+
 
 let g:airline#extensions#ale#enabled = 1
 function ALE() abort
