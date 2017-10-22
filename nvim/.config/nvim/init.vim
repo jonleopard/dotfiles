@@ -1,4 +1,4 @@
-" vim: set foldmethod=marker foldlevel=0:
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
 " ============================================================================
 " Jon Leopard's .vimrc {{{
 " ============================================================================
@@ -9,22 +9,20 @@
 " ============================================================================
 let mapleader = ' '                       " Map  <leader> key to space
 let maplocalleader = ' '                  " Map local leader to space
-set showcmd             " Show (partial) command in status line.
-set showmatch           " Show matching brackets.
+set showcmd                               " Show (partial) command in status line.
+set showmatch           " Show matching bracket.
 set showmode            " Show current mode.
 set ruler               " Show the line and column numbers of the cursor.
 set number              " Show the line numbers on the left side.
 set formatoptions+=o    " Continue comment marker in new lines.
 set textwidth=0         " Hard-wrap long lines as you type them.
-set expandtab           " Insert spaces when TAB is pressed.
-set tabstop=2           " Render TABs using this many spaces.
-set shiftwidth=2        " Indentation amount for < and > commands.
-
+"set expandtab           " Insert spaces when TAB is pressed.
+"set tabstop=2           " Render TABs using this many spaces.
+"set shiftwidth=2        " Indentation amount for < and > commands.
 set noerrorbells        " No beeps.
 set modeline            " Enable modeline.
 set linespace=0         " Set line-spacing to minimum.
 set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
-
 let g:netrw_localrmdir='rm -r'            " Allow deletion of a dir that isn't empty
 let g:netrw_banner=0                      " Dont show the banner
 
@@ -175,6 +173,7 @@ Plug 'w0rp/ale'
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 
 " ----------------------------------------------------------------------------
 " Tmux
@@ -197,13 +196,14 @@ Plug 'zchee/deoplete-zsh'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
 Plug 'reasonml/vim-reason-loader'
-Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 " ----------------------------------------------------------------------------
 " Javascript
@@ -240,6 +240,7 @@ Plug 'tpope/vim-unimpaired'
 "Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
+Plug 'taohex/lightline-buffer'
 Plug 'mhinz/vim-startify'
 "Plug 'rizzatti/dash.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -257,10 +258,6 @@ call plug#end()
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 endif
-
-let g:lightline = {
-\   'colorscheme': 'base16'
-\ }
 
 " base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
@@ -285,12 +282,83 @@ endif
 
 
 
-let g:airline#extensions#ale#enabled = 1
-function ALE() abort
-    return exists('*ALEGetStatusLine') ? ALEGetStatusLine() : ''
+"let g:airline#extensions#ale#enabled = 1
+"function ALE() abort
+"    return exists('*ALEGetStatusLine') ? ALEGetStatusLine() : ''
+"endfunction
+"let g:airline_section_error = '%{ALE()}'
+"let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+
+
+
+
+" ----------------------------------------------------------------------------
+" lightline (statusbar)
+" ----------------------------------------------------------------------------
+
+" ALE
+let g:ale_sign_warning = '▲'
+let g:ale_sign_error = '✗'
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+
+" Lightline
+let g:lightline = {
+\ 'colorscheme': 'base16',
+\ 'active': {
+\   'left': [['mode', 'paste'], ['gitbranch', 'filename', 'modified']],
+\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+\ },
+\ 'component_expand': {
+\   'linter_warnings': 'LightlineLinterWarnings',
+\   'linter_errors': 'LightlineLinterErrors',
+\   'linter_ok': 'LightlineLinterOK'
+\ },
+\ 'component_type': {
+\   'readonly': 'error',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error'
+\ },
+\ 'component_function': {
+\   'gitbranch': 'fugitive#head'
+\ },
+\ }
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
 endfunction
-let g:airline_section_error = '%{ALE()}'
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+endfunction
+function! LightlineLinterOK() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+autocmd User ALELint call s:MaybeUpdateLightline()
+function! s:MaybeUpdateLightline()
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction
+
+
+
+" ----------------------------------------------------------------------------
+" git-gutter
+" ----------------------------------------------------------------------------
+" GitGutter styling to use · instead of +/-
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+
 
 " ----------------------------------------------------------------------------
 " vim-fugitive
@@ -331,13 +399,7 @@ let g:ale_javascript_prettier_executable = 'prettier_d'
 let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
 autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
 "autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
-
-" ----------------------------------------------------------------------------
-" indentLine
-" ----------------------------------------------------------------------------
-" let g:indentLine_setColors = 0
-
-
+ 
 
 " ----------------------------------------------------------------------------
 " auto-pairs
@@ -348,7 +410,6 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 " ----------------------------------------------------------------------------
 " Deoplete
 " ----------------------------------------------------------------------------
-call deoplete#enable()
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 
@@ -566,10 +627,10 @@ let g:fzf_colors =
 " ============================================================================
 
 
-" Pyenv Paths
+" Python Paths
 " https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
-"let g:python_host_prog  = '/Users/jon/.pyenv/versions/neovim2/bin/python'
-"let g:python3_host_prog = '/Users/jon/.pyenv/versions/neovim3/bin/python'
+let g:python_host_prog  = '/usr/local/bin/python2'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 
 " Faster startup time
