@@ -380,25 +380,26 @@ nmap <leader>p <Plug>(ale_fix)
 "let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 let g:ale_echo_msg_format = '%linter% says %s'
-let g:ale_fixers = {}
+"let g:ale_linters = {}
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow'],
 \   'html': ['htmlhint', 'tidy'],
 \   'json': ['jsonlint'],
 \ }
 
-"let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier', 'eslint']
+"let g:ale_fixers = {}
+"let g:ale_fixers['javascript'] = ['prettier_eslint']
+let g:ale_fixers = {
+\   'javascript': ['prettier_eslint']
+\ }
 
-
-let g:ale_javascript_prettier_use_global = 1
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_javascript_prettier_executable = 'prettier_d'
-let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
-autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
-"autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
+"let g:ale_javascript_prettier_use_global = 1
+"let g:ale_javascript_eslint_use_global = 1
+"let g:ale_javascript_eslint_executable = 'eslint_d'
+"let g:ale_javascript_prettier_executable = 'prettier_d'
+"let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
+"autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
+autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier-eslint\ --stdin
  
 
 " ----------------------------------------------------------------------------
@@ -607,9 +608,10 @@ let g:rg_command = '
 
 nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
-nnoremap <silent> <Leader>ag       :Rg <C-R><C-W><CR>
-nnoremap <silent> <Leader>AG       :Rg <C-R><C-A><CR>
-xnoremap <silent> <Leader>ag       y:Rg <C-R>"<CR>
+nnoremap <silent> <Leader>l        :Lines<CR>
+nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
+xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
 nnoremap <silent> <Leader>`        :Marks<CR>
 
 let g:fzf_colors =
