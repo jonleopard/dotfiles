@@ -13,9 +13,6 @@ zplug "nvie/gitflow", \
       if:"(($+commands[git]))", \
       as:command
 
-zplug "dracula/zsh", \
-      as:theme
-
 zplug "mafredri/zsh-async, from:github"
 zplug "sindresorhus/pure, use:pure.zsh, from:github, as:theme"
 zplug "felixr/docker-zsh-completion"
