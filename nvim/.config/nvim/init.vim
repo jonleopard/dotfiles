@@ -9,10 +9,8 @@
 " ============================================================================
 let mapleader = ' '                       " Map  <leader> key to space
 let maplocalleader = ' '                  " Map local leader to space
-set showcmd                               " Show (partial) command in status line.
 set showmatch           " Show matching bracket.
 set showmode            " Show current mode.
-set ruler               " Show the line and column numbers of the cursor.
 set number              " Show the line numbers on the left side.
 set formatoptions+=o    " Continue comment marker in new lines.
 set textwidth=0         " Hard-wrap long lines as you type them.
@@ -162,6 +160,8 @@ Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
 "Plug 'hail2u/vim-css3-syntax'
 "Plug 'styled-components/vim-styled-components'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'jparise/vim-graphql'
 
 " ----------------------------------------------------------------------------
 " Linting
@@ -194,17 +194,15 @@ Plug 'zchee/deoplete-zsh'
 " Editing
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
-Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
-Plug 'reasonml/vim-reason-loader'
 Plug 'jiangmiao/auto-pairs'
+
 " ----------------------------------------------------------------------------
 " Javascript
 " ----------------------------------------------------------------------------
@@ -213,7 +211,6 @@ Plug 'carlitux/deoplete-ternjs',      { 'for': ['javascript', 'javascript.jsx'],
 Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
-Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'alexlafroscia/deoplete-flow',   { 'branch': 'pass-filename-to-autocomplete' }
 
 
@@ -236,8 +233,6 @@ Plug 'jremmen/vim-ripgrep'
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
 Plug 'taohex/lightline-buffer'
@@ -269,38 +264,18 @@ endif
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
-
-" ----------------------------------------------------------------------------
-" vim-airline (statusbar)
-" ----------------------------------------------------------------------------
-"let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
-
-"let g:airline_left_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_powerline_fonts=1
-
-
-
-
-"let g:airline#extensions#ale#enabled = 1
-"function ALE() abort
-"    return exists('*ALEGetStatusLine') ? ALEGetStatusLine() : ''
-"endfunction
-"let g:airline_section_error = '%{ALE()}'
-"let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-
-
-
-
 " ----------------------------------------------------------------------------
 " lightline (statusbar)
 " ----------------------------------------------------------------------------
 
-" ALE
+" ALE settings
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
+
+set hidden  " allow buffer switching without saving
+set showtabline=2  " always show tabline
 
 " Lightline
 let g:lightline = {
@@ -309,20 +284,69 @@ let g:lightline = {
 \   'left': [['mode', 'paste'], ['gitbranch', 'filename', 'modified']],
 \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
 \ },
+\ 'tabline': {
+\   'left': [ [ 'bufferinfo' ],
+\             [ 'separator' ],
+\             [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
+\   'right': [ [ 'close' ], ],
+\ },
 \ 'component_expand': {
 \   'linter_warnings': 'LightlineLinterWarnings',
 \   'linter_errors': 'LightlineLinterErrors',
-\   'linter_ok': 'LightlineLinterOK'
+\   'linter_ok': 'LightlineLinterOK',
+\   
+\   'buffercurrent': 'lightline#buffer#buffercurrent',
+\   'bufferbefore': 'lightline#buffer#bufferbefore',
+\   'bufferafter': 'lightline#buffer#bufferafter',
 \ },
 \ 'component_type': {
 \   'readonly': 'error',
 \   'linter_warnings': 'warning',
-\   'linter_errors': 'error'
+\   'linter_errors': 'error',
+\
+\   'buffercurrent': 'tabsel',
+\   'bufferbefore': 'raw',
+\   'bufferafter': 'raw',
 \ },
 \ 'component_function': {
-\   'gitbranch': 'fugitive#head'
+\   'gitbranch': 'fugitive#head',
+\
+\   'bufferinfo': 'lightline#buffer#bufferinfo',
+\ },
+\ 'component': {
+\   'separator': '',
 \ },
 \ }
+
+" remap arrow keys
+nnoremap <Left> :bprev<CR>
+nnoremap <Right> :bnext<CR>
+
+" lightline-buffer ui settings
+" replace these symbols with ascii characters if your environment does not support unicode
+let g:lightline_buffer_logo = ' '
+let g:lightline_buffer_readonly_icon = ''
+let g:lightline_buffer_modified_icon = '✭'
+let g:lightline_buffer_git_icon = ' '
+let g:lightline_buffer_ellipsis_icon = '..'
+let g:lightline_buffer_expand_left_icon = '◀ '
+let g:lightline_buffer_expand_right_icon = ' ▶'
+let g:lightline_buffer_active_buffer_left_icon = ''
+let g:lightline_buffer_active_buffer_right_icon = ''
+let g:lightline_buffer_separator_icon = '  '
+
+" lightline-buffer function settings
+let g:lightline_buffer_show_bufnr = 1
+let g:lightline_buffer_rotate = 0
+let g:lightline_buffer_fname_mod = ':t'
+let g:lightline_buffer_excludes = ['vimfiler']
+
+let g:lightline_buffer_maxflen = 30
+let g:lightline_buffer_maxfextlen = 3
+let g:lightline_buffer_minflen = 16
+let g:lightline_buffer_minfextlen = 3
+let g:lightline_buffer_reservelen = 20
+
 function! LightlineLinterWarnings() abort
   let l:counts = ale#statusline#Count(bufnr(''))
   let l:all_errors = l:counts.error + l:counts.style_error
@@ -349,6 +373,9 @@ function! s:MaybeUpdateLightline()
     call lightline#update()
   end
 endfunction
+
+
+
 
 
 
@@ -629,6 +656,13 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+
+
+" Hide status bar while using fzf commands                                                                          
+if has('nvim') || has('gui_running')                                                                                
+  autocmd! FileType fzf                                                                                             
+  autocmd  FileType fzf set laststatus=0 | autocmd WinLeave <buffer> set laststatus=2                               
+endif   
 
 " }}}
 " ============================================================================
