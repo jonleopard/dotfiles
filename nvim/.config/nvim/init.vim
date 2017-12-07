@@ -184,11 +184,12 @@ Plug 'christoomey/vim-tmux-navigator'
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
-Plug 'honza/vim-snippets' 
+"Plug 'honza/vim-snippets' 
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neco-vim'
 Plug 'zchee/deoplete-zsh'
+Plug 'ajh17/VimCompletesMe'
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -374,11 +375,6 @@ function! s:MaybeUpdateLightline()
   end
 endfunction
 
-
-
-
-
-
 " ----------------------------------------------------------------------------
 " git-gutter
 " ----------------------------------------------------------------------------
@@ -447,12 +443,27 @@ let g:deoplete#sources['javascript.jsx'] = ['file', 'neosnippet', 'ternjs']
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
 
+" Deoplete-ternjs
 let g:deoplete#sources#ternjs#filetypes = [
                 \ 'jsx',
                 \ 'javascript.jsx',
                 \ 'vue',
+                \ 'javascript'
                 \ ]
 
+" Use tern_for_vim.
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
+function! StrTrim(txt)
+return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+let g:tern_path = StrTrim(system('PATH=$(npm bin):$PATH && which tern'))
+
+if g:tern_path != 'tern not found'
+let g:deoplete#sources#ternjs#tern_bin = g:tern_path
+endif
+
+" Omni
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
                 \ 'tern#complete',
@@ -469,65 +480,46 @@ let g:deoplete#sources['html'] = ['file', 'neosnippet', 'vim-snippets']
 " Neosnippet controls
 " ----------------------------------------------------------------------------
 
+"let g:neosnippet#enable_completed_snippet = 1
 
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"" Plugin key-mappings.
+"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"" SuperTab like snippets behavior.
+"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+""imap <expr><TAB>
+"" \ pumvisible() ? "\<C-n>" :
+"" \ neosnippet#expandable_or_jumpable() ?
+"" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-
-
-" I want to use my tab more smarter. If we are inside a completion menu jump
-" to the next item. Otherwise check if there is any snippet to expand, if yes
-" expand it. Also if inside a snippet and we need to jump tab jumps. If none
-" of the above matches we just call our usual 'tab'.
-function! s:neosnippet_complete()
-  if pumvisible()
-    return "\<c-n>"
-  else
-    if neosnippet#expandable_or_jumpable() 
-      return "\<Plug>(neosnippet_expand_or_jump)"
-    endif
-    return "\<tab>"
-  endif
-endfunction
-
-imap <expr><TAB> <SID>neosnippet_complete()
+"" For conceal markers.
+"if has('conceal')
+"  set conceallevel=2 concealcursor=niv
+"endif
 
 
-" function! s:tab_complete()
-"   " is completion menu open? cycle to next item
-"   if pumvisible()
-"     return "\<c-n>"
-"   endif
+"" I want to use my tab more smarter. If we are inside a completion menu jump
+"" to the next item. Otherwise check if there is any snippet to expand, if yes
+"" expand it. Also if inside a snippet and we need to jump tab jumps. If none
+"" of the above matches we just call our usual 'tab'.
+"function! s:neosnippet_complete()
+"  if pumvisible()
+"    return "\<c-n>"
+"  else
+"    if neosnippet#expandable_or_jumpable() 
+"      return "\<Plug>(neosnippet_expand_or_jump)"
+"    endif
+"    return "\<tab>"
+"  endif
+"endfunction
 
-"   " is there a snippet that can be expanded?
-"   " is there a placholder inside the snippet that can be jumped to?
-"   if neosnippet#expandable_or_jumpable() 
-"     return "\<Plug>(neosnippet_expand_or_jump)"
-"   endif
-
-"   " if none of these match just use regular tab
-"   return "\<tab>"
-" endfunction
-
-" imap <silent><expr><TAB> <SID>tab_complete()
+"imap <expr><TAB> <SID>neosnippet_complete()
 
 " ----------------------------------------------------------------------------
 " <Enter> | vim-easy-align
