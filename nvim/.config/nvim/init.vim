@@ -14,9 +14,9 @@ set showmode            " Show current mode.
 set number              " Show the line numbers on the left side.
 set formatoptions+=o    " Continue comment marker in new lines.
 set textwidth=0         " Hard-wrap long lines as you type them.
-"set expandtab           " Insert spaces when TAB is pressed.
-"set tabstop=2           " Render TABs using this many spaces.
-"set shiftwidth=2        " Indentation amount for < and > commands.
+set expandtab           " Insert spaces when TAB is pressed.
+set tabstop=2           " Render TABs using this many spaces.
+set shiftwidth=2        " Indentation amount for < and > commands.
 set noerrorbells        " No beeps.
 set modeline            " Enable modeline.
 set linespace=0         " Set line-spacing to minimum.
@@ -420,7 +420,7 @@ let g:ale_fixers = {
 "let g:ale_javascript_eslint_use_global = 1
 "let g:ale_javascript_eslint_executable = 'eslint_d'
 "let g:ale_javascript_prettier_executable = 'prettier_d'
-"let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
+let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
 "autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
 autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier-eslint\ --stdin
  
