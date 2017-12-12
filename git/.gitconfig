@@ -99,7 +99,7 @@
 
 	# use separate file for username / github token / etc
 [commit]
-	gpgsign = true
+	gpgSign = true
 	# https://help.github.com/articles/about-gpg/
 	# https://git-scm.com/docs/git-config#git-config-commitgpgSign
 	# https://help.github.com/articles/signing-commits-using-gpg/
