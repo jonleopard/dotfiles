@@ -7,12 +7,21 @@
 	co = checkout
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-
-	# Show the diff between the latest commit and the current state
+	# No need for a GUI - a nice, colorful, graphical representation
+	# https://git-scm.com/docs/git-log
+	# via https://medium.com/@payload.dd/thanks-for-the-git-st-i-will-use-this-4da5839a21a4
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-
+    	# Show the diff between the latest commit and the current state
 	reup = rebase-update # depot_tools specific
-
+	prune = fetch --prune
+	# Because I constantly forget how to do this
+	# https://git-scm.com/docs/git-fetch#git-fetch--p
+	undo = reset --soft HEAD^
+	# Not quite as common as an amend, but still common
+	# https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt1
+	stash-all = stash save --include-untracked
+	# We wanna grab those pesky un-added files!
+	# https://git-scm.com/docs/git-stash
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
@@ -40,7 +49,7 @@
 	oldNormal = red bold
 	oldHighlight = "red bold 52"
 	newNormal = "green bold"
-	newHighlight = "green bold 22"
+	newHighlight = "green bold 22t"
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -75,30 +84,26 @@
 [help]
 	autocorrect = 1
 
-# push easily. http://stackoverflow.com/a/23918418/89484
 [push]
-	default = current
+	default = simple
+	# "push the current branch back to the branch whose changes are usually integrated into the current branch"
+	# "refuse to push if the upstream branch’s name is different from the local one"
+	# https://git-scm.com/docs/git-config#git-config-pushdefault
 
-# use separate file for username / github token / etc
+	followTags = true
+	# Because I get sick of telling git to do it manually
+	# https://git-scm.com/docs/git-config#git-config-pushfollowTags
+
 [include]
-  path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
 
-
-# https://help.github.com/articles/signing-commits-using-gpg/
+	# use separate file for username / github token / etc
 [commit]
 	gpgsign = true
+	# https://help.github.com/articles/about-gpg/
+	# https://git-scm.com/docs/git-config#git-config-commitgpgSign
+	# https://help.github.com/articles/signing-commits-using-gpg/
 
 
-#[init]
-#	templatedir = ~/.git_template
-
-[filter "lfs"]
-	required = true
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	clean = git-lfs clean -- %f
-
-[fetch]
-	prune = true
 [diff]
 	compactionHeuristic = true
