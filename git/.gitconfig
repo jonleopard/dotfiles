@@ -59,10 +59,6 @@
 	changed = green
 	untracked = cyan
 
-# git mergetool
-[merge]
-	tool = opendiff
-
 # rewrites of repo paths
 [url "git@github.com:"]
 	insteadOf = "https://github.com/"
@@ -84,26 +80,45 @@
 [help]
 	autocorrect = 1
 
-[push]
-	default = simple
-	# "push the current branch back to the branch whose changes are usually integrated into the current branch"
-	# "refuse to push if the upstream branch’s name is different from the local one"
-	# https://git-scm.com/docs/git-config#git-config-pushdefault
+[merge]
+	ff = only
+	# I pretty much never mean to do a real merge, since I use a rebase workflow.
+	# Note: this global option applies to all merges, including those done during a git pull
+	# https://git-scm.com/docs/git-config#git-config-mergeff
 
+	conflictstyle = diff3
+	# Standard diff is two sets of final changes. This introduces the original text before each side's changes.
+	# https://git-scm.com/docs/git-config#git-config-mergeconflictStyle
+
+[push]
+	default = current
+	# push easily. http://stackoverflow.com/a/23918418/89484
+	
 	followTags = true
 	# Because I get sick of telling git to do it manually
 	# https://git-scm.com/docs/git-config#git-config-pushfollowTags
 
+[fetch]
+	prune = true
+      
+
 [include]
 	path = ~/.gitconfig.local
-
 	# use separate file for username / github token / etc
+	
+[status]
+	showUntrackedFiles = all
+	# Sometimes a newly-added folder, since it's only one line in git status, can slip under the radar.
+	# https://git-scm.com/docs/git-config#git-config-statusshowUntrackedFiles
+	
 [commit]
 	gpgSign = true
 	# https://help.github.com/articles/about-gpg/
 	# https://git-scm.com/docs/git-config#git-config-commitgpgSign
 	# https://help.github.com/articles/signing-commits-using-gpg/
-
-
+	
 [diff]
 	compactionHeuristic = true
+
+[log]
+	date = relative
