@@ -207,7 +207,7 @@ Plug 'jiangmiao/auto-pairs'
 " ----------------------------------------------------------------------------
 " Javascript
 " ----------------------------------------------------------------------------
-Plug 'ternjs/tern_for_vim',           { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'ternjs/tern_for_vim',           { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
 Plug 'carlitux/deoplete-ternjs',      { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
 Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'digitaltoad/vim-pug'
@@ -244,6 +244,7 @@ Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 "Plug 'tpope/vim-obsession'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+"Plug 'skywind3000/asyncrun.vim'
 
 call plug#end()
 " }}}
@@ -416,14 +417,15 @@ let g:ale_fixers = {
 \   'javascript': ['prettier_eslint']
 \ }
 
+"let g:ale_javascript_prettier_use_local_config = 1
 "let g:ale_javascript_prettier_use_global = 1
 "let g:ale_javascript_eslint_use_global = 1
 "let g:ale_javascript_eslint_executable = 'eslint_d'
 "let g:ale_javascript_prettier_executable = 'prettier_d'
-let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
+"let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
 "autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
-autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier-eslint\ --stdin
- 
+autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
+"autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/prettier-eslint --fix %
 
 " ----------------------------------------------------------------------------
 " auto-pairs
@@ -454,14 +456,14 @@ let g:deoplete#sources#ternjs#filetypes = [
 " Use tern_for_vim.
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
-function! StrTrim(txt)
-return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-endfunction
-let g:tern_path = StrTrim(system('PATH=$(npm bin):$PATH && which tern'))
+" function! StrTrim(txt)
+" return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+" endfunction
+" let g:tern_path = StrTrim(system('PATH=$(npm bin):$PATH && which tern'))
 
-if g:tern_path != 'tern not found'
-let g:deoplete#sources#ternjs#tern_bin = g:tern_path
-endif
+" if g:tern_path != 'tern not found'
+" let g:deoplete#sources#ternjs#tern_bin = g:tern_path
+" endif
 
 " Omni
 let g:deoplete#omni#functions = {}
