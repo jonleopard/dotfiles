@@ -158,8 +158,8 @@ Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
 autocmd! User indentLine doautocmd indentLine Syntax
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
-"Plug 'hail2u/vim-css3-syntax'
-"Plug 'styled-components/vim-styled-components'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'styled-components/vim-styled-components'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'jparise/vim-graphql'
 
@@ -423,6 +423,7 @@ let g:ale_fixers = {
 "let g:ale_javascript_prettier_executable = 'prettier_d'
 "let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
 "autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
+
 autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
 "autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/prettier-eslint --fix %
 
