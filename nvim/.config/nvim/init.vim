@@ -244,6 +244,7 @@ Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 "Plug 'tpope/vim-obsession'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 " }}}
