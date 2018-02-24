@@ -402,29 +402,28 @@ nmap gcc <Plug>CommentaryLine
 " ----------------------------------------------------------------------------
 nmap <leader>p <Plug>(ale_fix)
 "let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
+" let g:ale_fix_on_save = 1
 let g:ale_echo_msg_format = '%linter% says %s'
-"let g:ale_linters = {}
+
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow'],
 \   'html': ['htmlhint', 'tidy'],
 \   'json': ['jsonlint'],
 \ }
 
-"let g:ale_fixers = {}
-"let g:ale_fixers['javascript'] = ['prettier_eslint']
 let g:ale_fixers = {
-\   'javascript': ['prettier_eslint']
+\   'javascript': ['prettier_eslint'],
+\   'javascript.jsx': ['prettier_eslint']
 \ }
 
-"let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_completion_enabled = 1
+let g:ale_javascript_prettier_use_local_config = 1
 "let g:ale_javascript_prettier_use_global = 1
 "let g:ale_javascript_eslint_use_global = 1
 "let g:ale_javascript_eslint_executable = 'eslint_d'
 "let g:ale_javascript_prettier_executable = 'prettier_d'
-"let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
+let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
 "autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
-
 autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
 "autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/prettier-eslint --fix %
 
