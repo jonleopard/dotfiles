@@ -12,31 +12,25 @@ let maplocalleader = ' '                  " Map local leader to space
 set showmatch           " Show matching bracket.
 set showmode            " Show current mode.
 set number              " Show the line numbers on the left side.
+set relativenumber
+set lazyredraw
 set formatoptions+=o    " Continue comment marker in new lines.
-set textwidth=0         " Hard-wrap long lines as you type them.
+set textwidth=80        " Hard-wrap long lines as you type them.
+set colorcolumn=80
 set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
 set noerrorbells        " No beeps.
 set modeline            " Enable modeline.
-set linespace=0         " Set line-spacing to minimum.
 set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
 let g:netrw_localrmdir='rm -r'            " Allow deletion of a dir that isn't empty
 let g:netrw_banner=0                      " Dont show the banner
+set nostartofline       " Keep the cursor on the same column
 
-" Keep the cursor on the same column
-set nostartofline
 
 " Annoying temporary files
 set backupdir=/tmp//,.
 set directory=/tmp//,.
-
-" 80 chars/line
-set textwidth=0
-if exists('&colorcolumn')
-  set colorcolumn=80
-endif
-
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -243,7 +237,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 "Plug 'tpope/vim-obsession'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
+"Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
