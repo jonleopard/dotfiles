@@ -276,6 +276,7 @@ set showtabline=2  " always show tabline
 " Lightline
 let g:lightline = {
 \ 'colorscheme': 'base16',
+\ 'tabline_separator': { 'left': '' },
 \ 'active': {
 \   'left': [['mode', 'paste'], ['gitbranch', 'filename', 'modified']],
 \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
