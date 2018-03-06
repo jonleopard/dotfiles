@@ -111,6 +111,9 @@ map <D-S-}> :tabprevious
 " toggle paste in cmd only
 " nnoremap <Leader>p :set invpaste<CR>
 
+" <F10> | NERD Tree
+nnoremap <F10> :NERDTreeToggle<cr>
+
 
 " ----------------------------------------------------------------------------
 " tmux
@@ -240,6 +243,19 @@ Plug 'metakirby5/codi.vim'
 "Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'editorconfig/editorconfig-vim'
 
+
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+augroup nerd_loader
+  autocmd!
+  autocmd VimEnter * silent! autocmd! FileExplorer
+  autocmd BufEnter,BufNew *
+        \  if isdirectory(expand('<amatch>'))
+        \|   call plug#load('nerdtree')
+        \|   execute 'autocmd! nerd_loader'
+        \| endif
+augroup END
+
+
 call plug#end()
 " }}}
 " ============================================================================
@@ -260,6 +276,16 @@ endif
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
+" ----------------------------------------------------------------------------
+" NERDTree 
+" ----------------------------------------------------------------------------
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+" The default of 31 is just a little too narrow.
+let g:NERDTreeWinSize=40
+" Move up a directory using "-" like vim-vinegar (usually "u" does this).
+nmap <buffer> <expr> - g:NERDTreeMapUpdir
 " ----------------------------------------------------------------------------
 " lightline (statusbar)
 " ----------------------------------------------------------------------------
