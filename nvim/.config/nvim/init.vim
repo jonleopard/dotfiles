@@ -284,8 +284,6 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 " The default of 31 is just a little too narrow.
 let g:NERDTreeWinSize=40
-" Move up a directory using "-" like vim-vinegar (usually "u" does this).
-nmap <buffer> <expr> - g:NERDTreeMapUpdir
 " ----------------------------------------------------------------------------
 " lightline (statusbar)
 " ----------------------------------------------------------------------------
