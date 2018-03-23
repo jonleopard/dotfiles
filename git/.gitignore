@@ -4,6 +4,10 @@
 # Compiled Python files
 *.pyc
 
+# Exclude node packages
+node_modules
+
+
 # Folder view configuration files
 .DS_Store
 Desktop.ini
