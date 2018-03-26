@@ -1,27 +1,21 @@
 [alias]
 	c = commit -am
-	up = pull
-	p = push
+	fpush = push --force
 	s = status
 	sclone = clone --depth=1
+	amend = commit --amend --all
+	undocommit = reset HEAD~
+	hreset = reset --hard
 	co = checkout
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	# No need for a GUI - a nice, colorful, graphical representation
-	# https://git-scm.com/docs/git-log
-	# via https://medium.com/@payload.dd/thanks-for-the-git-st-i-will-use-this-4da5839a21a4
+
+	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-    	# Show the diff between the latest commit and the current state
+
 	reup = rebase-update # depot_tools specific
-	prune = fetch --prune
-	# Because I constantly forget how to do this
-	# https://git-scm.com/docs/git-fetch#git-fetch--p
-	undo = reset --soft HEAD^
-	# Not quite as common as an amend, but still common
-	# https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt1
-	stash-all = stash save --include-untracked
-	# We wanna grab those pesky un-added files!
-	# https://git-scm.com/docs/git-stash
+	git = !exec git
+
 [core]
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
@@ -37,7 +31,7 @@
 
 # so much color
 [color]
-	ui = always
+	ui = auto
 [color "diff"]
 	meta = yellow bold
 	commit = green bold
@@ -80,36 +74,35 @@
 [help]
 	autocorrect = 1
 
-[merge]
-	ff = only
-	# I pretty much never mean to do a real merge, since I use a rebase workflow.
-	# Note: this global option applies to all merges, including those done during a git pull
-	# https://git-scm.com/docs/git-config#git-config-mergeff
-
-	conflictstyle = diff3
-	# Standard diff is two sets of final changes. This introduces the original text before each side's changes.
-	# https://git-scm.com/docs/git-config#git-config-mergeconflictStyle
-
-[push]
-	default = current
-	# push easily. http://stackoverflow.com/a/23918418/89484
-	
-	followTags = true
-	# Because I get sick of telling git to do it manually
-	# https://git-scm.com/docs/git-config#git-config-pushfollowTags
 
 [fetch]
 	prune = true
       
+# push easily. http://stackoverflow.com/a/23918418/89484
+[push]
+	default = current
+	followTags = true
 
 [include]
 	path = ~/.gitconfig.local
 	# use separate file for username / github token / etc
 	
-[status]
-	showUntrackedFiles = all
-	# Sometimes a newly-added folder, since it's only one line in git status, can slip under the radar.
-	# https://git-scm.com/docs/git-config#git-config-statusshowUntrackedFiles
+
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+
+[fetch]
+	prune = true
+[diff]
+	compactionHeuristic = true
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[stash]
+	showPatch = true
+[log]
+	date = relative
 	
 [commit]
 	gpgSign = true
@@ -119,9 +112,4 @@
 [gpg]
 	program = gpg2
 	
-[diff]
-	compactionHeuristic = true
-
-[log]
-	date = relative
 

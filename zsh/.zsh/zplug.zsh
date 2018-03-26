@@ -23,7 +23,7 @@ zplug "felixr/docker-zsh-completion"
 zplug "bobthecow/git-flow-completion"
 zplug "lukechilds/zsh-nvm"
 zplug "zsh-users/zsh-completions", defer:0
-# zplug "zsh-users/zsh-autosuggestions", defer:2, on:"zsh-users/zsh-completions"
+zplug "zsh-users/zsh-autosuggestions", defer:2, on:"zsh-users/zsh-completions"
 
 # FZF
 zplug "junegunn/fzf", \
