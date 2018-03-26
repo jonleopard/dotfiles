@@ -15,6 +15,10 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+
 # Python (pyenv)
 #export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 #eval "$(pyenv init -)"
