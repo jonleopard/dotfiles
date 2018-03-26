@@ -5,13 +5,13 @@ export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 zplug "so-fancy/diff-so-fancy", \
-      if:"(($+commands[git] + $+commands[perl] + $(perl -e 'use open qw(:std :utf8);' 2> /dev/null && echo 1 || echo 0) == 3))", \
-      as:command, \
-      use:"diff-so-fancy"
+    if:"(($+commands[git] + $+commands[perl] + $(perl -e 'use open qw(:std :utf8);' 2> /dev/null && echo 1 || echo 0) == 3))", \
+    as:command, \
+    use:"diff-so-fancy"
 
 zplug "nvie/gitflow", \
-      if:"(($+commands[git]))", \
-      as:command
+     if:"(($+commands[git]))", \
+     as:command
 
 
 zplug "g-plane/zsh-yarn-autocompletions", \
@@ -23,9 +23,12 @@ zplug "felixr/docker-zsh-completion"
 zplug "bobthecow/git-flow-completion"
 zplug "lukechilds/zsh-nvm"
 zplug "zsh-users/zsh-completions", defer:0
-zplug "zsh-users/zsh-autosuggestions", defer:2, on:"zsh-users/zsh-completions"
+# zplug "zsh-users/zsh-autosuggestions", defer:2, on:"zsh-users/zsh-completions"
 
 # FZF
+zplug "junegunn/fzf", \
+    as:command, \
+use:"bin/fzf-tmux"
 # Grab binaries from GitHub Releases
 # and rename with the "rename-to:" tag
 zplug "junegunn/fzf-bin", \
@@ -50,13 +53,13 @@ zplug 'rupa/z', use:'*.sh'
 zplug 'zsh-users/zsh-syntax-highlighting', defer:3
 
 # zsh-history-substring-search
-zplug "zsh-users/zsh-history-substring-search", defer:3, on:"zsh-users/zsh-syntax-highlighting"
+# zplug "zsh-users/zsh-history-substring-search", defer:3, on:"zsh-users/zsh-syntax-highlighting"
 if zplug check "zsh-users/zsh-history-substring-search"; then
   zmodload zsh/terminfo
-  [ -n "${terminfo[kcuu1]}" ] && bindkey "${terminfo[kcuu1]}" history-substring-search-up
-  [ -n "${terminfo[kcud1]}" ] && bindkey "${terminfo[kcud1]}" history-substring-search-down
-  bindkey -M vicmd 'k' history-substring-search-up
-  bindkey -M vicmd 'j' history-substring-search-down
+   [ -n "${terminfo[kcuu1]}" ] && bindkey "${terminfo[kcuu1]}" history-substring-search-up
+   [ -n "${terminfo[kcud1]}" ] && bindkey "${terminfo[kcud1]}" history-substring-search-down
+    bindkey -M vicmd 'k' history-substring-search-up
+    bindkey -M vicmd 'j' history-substring-search-down
 fi
 
 
