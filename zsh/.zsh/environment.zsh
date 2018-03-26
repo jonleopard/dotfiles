@@ -10,22 +10,16 @@ export VAULT_ADDR='http://127.0.0.1:8200'
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
 # Ruby (rbenv)
-export PATH="/usr/local/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
-
-# Python (pyenv)
-#export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
+# Look into improving NVM loading times
+# https://github.com/creationix/nvm/issues/1277
 
 # Tmuxp Completion
-autoload bashcompinit
-bashcompinit
+# Will fix later, see (https://github.com/creationix/nvm/issues/1650)
+#eval "$(_TMUXP_COMPLETE=source tmuxp)"
+
