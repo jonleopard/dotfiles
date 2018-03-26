@@ -13,15 +13,17 @@ zplug "nvie/gitflow", \
       if:"(($+commands[git]))", \
       as:command
 
+
+zplug "g-plane/zsh-yarn-autocompletions", \
+      hook-build:"cargo build --release && cp target/release/yarn-autocompletions ./"
+
 zplug "mafredri/zsh-async, from:github"
 zplug "sindresorhus/pure, use:pure.zsh, from:github, as:theme"
 zplug "felixr/docker-zsh-completion"
 zplug "bobthecow/git-flow-completion"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-history-substring-search", defer:3
 zplug "lukechilds/zsh-nvm"
-
-
+zplug "zsh-users/zsh-completions", defer:0
+zplug "zsh-users/zsh-autosuggestions", defer:2, on:"zsh-users/zsh-completions"
 
 # FZF
 # Grab binaries from GitHub Releases
@@ -38,7 +40,7 @@ fzf-down() {
 }
 
 # z
-# Navigate your most used directories based on 'frecency'.
+# Navigate your most used directories based on frequency.
 # https://github.com/rupa/z
 zplug 'rupa/z', use:'*.sh'
 
@@ -46,6 +48,17 @@ zplug 'rupa/z', use:'*.sh'
 # Syntax highlighing for the command line.
 # https://github.com/zsh-users/zsh-syntax-highlighting
 zplug 'zsh-users/zsh-syntax-highlighting', defer:3
+
+# zsh-history-substring-search
+zplug "zsh-users/zsh-history-substring-search", defer:3, on:"zsh-users/zsh-syntax-highlighting"
+if zplug check "zsh-users/zsh-history-substring-search"; then
+  zmodload zsh/terminfo
+  [ -n "${terminfo[kcuu1]}" ] && bindkey "${terminfo[kcuu1]}" history-substring-search-up
+  [ -n "${terminfo[kcud1]}" ] && bindkey "${terminfo[kcud1]}" history-substring-search-down
+  bindkey -M vicmd 'k' history-substring-search-up
+  bindkey -M vicmd 'j' history-substring-search-down
+fi
+
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
@@ -56,7 +69,6 @@ if ! zplug check --verbose; then
         echo
     fi
 fi
-
 
 # Then, source plugins and add commands to $PATH
 zplug load
