@@ -27,6 +27,10 @@ I initially started this repo to help myself learn more about the tools availabl
 
 If you have any improvements or suggestions, please feel free to submit it [here](https://github.com/jonleopard/dotfiles/issues) or [contact me](https://twitter.com/jonlprd)
 
+### Todo
+
+[View the todo board here](https://github.com/jonleopard/dotfiles/projects/1)
+
 ## Installation
 
 At the moment, this will only work in MacOS. Adding a Linux fork is in my todo. Feel free to help!
@@ -68,10 +72,6 @@ If you prefer, you can skip the install.sh script and run stow manually. Just te
 ```
 
 I talk a bit more about stow below in the dotfile management section. Be sure to also check out the links in the resources section.
-
-### Todo
-
-[View the todo board here](https://github.com/jonleopard/dotfiles/projects/1)View the todo board here
 
 ## Management Overview
 
