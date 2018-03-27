@@ -51,7 +51,7 @@ At the moment, this will only work in MacOS. Adding a Linux fork is in my todo. 
 
 ## Download and Stage Files
 
-If you are just setting up a new machine, you might not already have git installed. If this is the case, then run the cURL command in your home `$HOME` directory. If you already have git, then use git clone. It's imperative you place the dotfiles folder into your home directory. Not sure where that is? Run `echo $HOME`. Read Dotfile Management for more details.
+If you are just setting up a new machine, you might not already have git installed. If this is the case, then run the cURL command in your home `$HOME` directory. If you already have git, then use git clone. It's imperative you place the dotfiles folder into your home directory. Not sure where that is? Run `echo $HOME`. Read [Dotfile Management](https://github.com/jonleopard/dotfiles#dotfile-management) for more details.
 
 ### git
 
@@ -68,14 +68,14 @@ cd curl -#L https://github.com/jonleopard/dotfiles/tarball/master | tar -xzv
 If you prefer, you can skip the install.sh script and run stow manually. Just tell stow which dotfiles you want to symlink:
 
 ```
-./stow [foldername]
+`stow` [folder]
 ```
 
 I talk a bit more about stow below in the dotfile management section. Be sure to also check out the links in the resources section.
 
 ## Management Overview
 
-[GNU Stow](https://www.gnu.org/software/stow/) handles all my dotfiles. I'm using that in unison with [Git](https://git-scm.com/) for backups/versioning. [Homebrew](http://brew.sh/) handles all my packages and will also install all of my Mac App Store apps as well. ZSH plugins are managed with [zplug](https://github.com/zplug/zplug). I work a bit with Node, so [NVM](https://github.com/creationix/nvm) was chosen as my Node version manager. Lastly, [Vim-Plug](https://github.com/junegunn/vim-plug) handles all of my Neomvim plugins.
+[GNU Stow](https://www.gnu.org/software/stow/) handles all my dotfiles. I'm using that in unison with [Git](https://git-scm.com/) for backups/versioning. [Homebrew](http://brew.sh/) handles all my packages and will also install all of my Mac App Store apps as well. ZSH plugins are managed with [zplug](https://github.com/zplug/zplug). I work a bit with Node, so [NVM](https://github.com/creationix/nvm) was chosen as my Node version manager. Lastly, [Vim-Plug](https://github.com/junegunn/vim-plug) handles all of my neomvim plugins.
 
 ## Dotfile Management
 
