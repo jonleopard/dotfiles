@@ -2,7 +2,7 @@
 
 > Dotfiles for MacOS
 
-<img src="screenshot.png" width="900">
+<img src="screenshot.png" width="888">
 
 ## How to use these dotfiles
 
