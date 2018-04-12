@@ -158,9 +158,16 @@ Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'styled-components/vim-styled-components'
-Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'jparise/vim-graphql'
 Plug 'chrisbra/Colorizer'
+
+"Temporary fix for CSS syntax
+augroup VimCSS3Syntax
+  autocmd!
+
+  autocmd FileType css setlocal iskeyword+=-
+augroup END
+
 " ----------------------------------------------------------------------------
 " Linting
 " ----------------------------------------------------------------------------
