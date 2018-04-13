@@ -1,13 +1,15 @@
 # Sensitive or unnecessary files don't need to be uploaded
-nvim/.config/nvim/plugged/*
 gnupg/*
 ssh/.ssh/known_hosts
 ssh/.ssh/.known_hosts
 ssh/.ssh/known_hosts.save
 ssh/.ssh/id_rsa
 ssh/.ssh/id_rsa.pub
+nvim/.config/nvim/plugged/*
+nvim/.config/autoload
 nvim/.config/nvim/autoload/plug.vim.old
 nvim/.config/nvim/.netrwhist
+tmux/.tmux/plugins
 
 # Folder view configuration files
 .DS_Store
