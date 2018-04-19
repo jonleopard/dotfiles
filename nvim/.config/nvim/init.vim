@@ -14,6 +14,7 @@ set showmode            " Show current mode.
 set number              " Show the line numbers on the left side.
 set relativenumber
 set lazyredraw
+set cursorline
 set formatoptions+=o    " Continue comment marker in new lines.
 set textwidth=80        " Hard-wrap long lines as you type them.
 set colorcolumn=80
@@ -212,8 +213,8 @@ Plug 'jiangmiao/auto-pairs'
 " ----------------------------------------------------------------------------
 " Javascript
 " ----------------------------------------------------------------------------
-Plug 'ternjs/tern_for_vim',           { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-Plug 'carlitux/deoplete-ternjs',      { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
+Plug 'ternjs/tern_for_vim',           { 'for': ['javascript', 'javascript.jsx'], 'do': 'yarn install' }
+Plug 'carlitux/deoplete-ternjs',      { 'for': ['javascript', 'javascript.jsx'], 'do': 'yarn global install tern' }
 Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
@@ -239,15 +240,21 @@ Plug 'jremmen/vim-ripgrep'
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
+
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
-Plug 'taohex/lightline-buffer'
+Plug 'maximbaz/lightline-ale'
+Plug 'maximbaz/lightline-trailing-whitespace'
+Plug 'mgee/lightline-bufferline'
+
+Plug 'gcavallanti/vim-noscrollbar'
 Plug 'mhinz/vim-startify'
 "Plug 'rizzatti/dash.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 "Plug 'tpope/vim-obsession'
+Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 augroup nerd_loader
@@ -293,103 +300,137 @@ let g:NERDTreeWinSize=40
 " lightline (statusbar)
 " ----------------------------------------------------------------------------
 
-" ALE settings
-let g:ale_sign_warning = '▲'
-let g:ale_sign_error = '✗'
-highlight link ALEWarningSign String
-highlight link ALEErrorSign Title
 
 set hidden  " allow buffer switching without saving
 set showtabline=2  " always show tabline
+set noshowmode " Don't show current mode in echo
 
 " Lightline
 let g:lightline = {
-\ 'colorscheme': 'base16',
-\ 'active': {
-\   'left': [['mode', 'paste'], ['gitbranch', 'filename', 'modified']],
-\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
-\ },
-\ 'tabline': {
-\   'left': [ [ 'bufferinfo' ],
-\             [ 'separator' ],
-\             [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
-\   'right': [ [ 'close' ], ],
-\ },
-\ 'component_expand': {
-\   'linter_warnings': 'LightlineLinterWarnings',
-\   'linter_errors': 'LightlineLinterErrors',
-\   'linter_ok': 'LightlineLinterOK',
-\   
-\   'buffercurrent': 'lightline#buffer#buffercurrent',
-\   'bufferbefore': 'lightline#buffer#bufferbefore',
-\   'bufferafter': 'lightline#buffer#bufferafter',
-\ },
-\ 'component_type': {
-\   'readonly': 'error',
-\   'linter_warnings': 'warning',
-\   'linter_errors': 'error',
-\
-\   'buffercurrent': 'tabsel',
-\   'bufferbefore': 'raw',
-\   'bufferafter': 'raw',
-\ },
-\ 'component_function': {
-\   'gitbranch': 'fugitive#head',
-\
-\   'bufferinfo': 'lightline#buffer#bufferinfo',
-\ },
-\ 'component': {
-\   'separator': '',
-\ },
-\ }
+      \   'colorscheme': 'base16',
+      \   'active': {
+      \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
+      \     'right': [ [ 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ], [ 'scrollbar' ] ],
+      \   },
+      \   'inactive': {
+      \     'left': [ [ 'pwd' ], [ 'gitbranch' ] ],
+      \     'right': [ [ 'lineinfo' ], [ 'fileinfo' ], [ 'scrollbar' ] ],
+      \   },
+      \   'tabline': {
+      \     'left': [ [ 'buffers' ] ],
+      \     'right': [ [ 'close' ] ],
+      \   },
+      \   'separator': { 'left': '', 'right': '' },
+      \   'subseparator': { 'left': '', 'right': '' },
+      \   'mode_map': {
+      \     'n' : 'N',
+      \     'i' : 'I',
+      \     'R' : 'R',
+      \     'v' : 'V',
+      \     'V' : 'V-LINE',
+      \     "\<C-v>": 'V-BLOCK',
+      \     'c' : 'C',
+      \     's' : 'S',
+      \     'S' : 'S-LINE',
+      \     "\<C-s>": 'S-BLOCK',
+      \     't': '󰀣 ',
+      \   },
+      \   'component': {
+      \     'lineinfo': '%l:%-v',
+      \   },
+      \   'component_expand': {
+      \     'buffers': 'lightline#bufferline#buffers',
+      \     'trailing': 'lightline#trailing_whitespace#component',
+      \     'linter_ok': 'lightline#ale#ok',
+      \     'linter_checking': 'lightline#ale#checking',
+      \     'linter_warnings': 'lightline#ale#warnings',
+      \     'linter_errors': 'lightline#ale#errors',
+      \   },
+      \   'component_function': {
+      \     'pwd': 'LightlineWorkingDirectory',
+      \     'scrollbar': 'LightlineScrollbar',
+      \     'fileinfo': 'LightlineFileinfo',
+      \     'gitbranch': 'fugitive#head',
+      \   },
+      \   'component_type': {
+      \     'buffers': 'tabsel',
+      \     'trailing': 'error',
+      \     'linter_ok': 'left',
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \   },
+      \ }
+
+"Custom components
+function! LightlineScrollbar()
+  let top_line = str2nr(line('w0'))
+  let bottom_line = str2nr(line('w$'))
+  let lines_count = str2nr(line('$'))
+
+  if bottom_line - top_line + 1 >= lines_count
+    return ''
+  endif
+
+  let window_width = winwidth(0)
+  if window_width < 90
+    let scrollbar_width = 6
+  elseif window_width < 120
+    let scrollbar_width = 9
+  else
+    let scrollbar_width = 12
+  endif
+
+  return noscrollbar#statusline(scrollbar_width, '-', '#')
+endfunction
+
+function! LightlineFileinfo()
+  if winwidth(0) < 90
+    return ''
+  endif
+
+  let encoding = &fenc !=# "" ? &fenc : &enc
+  let format = &ff
+  let type = &ft !=# "" ? &ft : "no ft"
+  return type . ' | ' . format . ' | ' . encoding
+endfunction
+
+function! LightlineWorkingDirectory()
+  return &ft =~ 'help\|qf' ? '' : fnamemodify(getcwd(), ":~:.")
+endfunction
+
+
+" Nerd Fonts in lightline
+let g:lightline#ale#indicator_checking = "\uf110"
+let g:lightline#ale#indicator_warnings = "\uf071"
+let g:lightline#ale#indicator_errors = "\uf05e"
+let g:lightline#ale#indicator_ok = "\uf00c"
+
+" Powerline fonts lightline
+"let g:lightline#ale#indicator_warnings = ' '
+"let g:lightline#ale#indicator_errors = ' '
+"let g:lightline#ale#indicator_checking = ' '
+
+"lightline-bufferline
+" Show filename relative to current directory
+let g:lightline#bufferline#filename_modifier = ':~:.'
+" Use fancy unicode symbols for various indicators
+let g:lightline#bufferline#unicode_symbols = 1
+" Default pencil is too ugly
+"let g:lightline#bufferline#modified = ''
+" Default name when no buffer is opened
+let g:lightline#bufferline#unnamed = '[No Name]'
+ " Don't compress ~/my/folder/name to ~/m/f/n
+let g:lightline#bufferline#shorten_path = 0
+
+"Lightline trailing whitespace
+let g:lightline#trailing_whitespace#indicator = '•'
+
 
 " remap arrow keys
 nnoremap <Left> :bprev<CR>
 nnoremap <Right> :bnext<CR>
 
-" lightline-buffer ui settings
-" replace these symbols with ascii characters if your environment does not support unicode
-let g:lightline_buffer_logo = ' '
-let g:lightline_buffer_readonly_icon = ''
-let g:lightline_buffer_modified_icon = '✭'
-let g:lightline_buffer_git_icon = ' '
-let g:lightline_buffer_ellipsis_icon = '..'
-let g:lightline_buffer_expand_left_icon = '◀ '
-let g:lightline_buffer_expand_right_icon = ' ▶'
-let g:lightline_buffer_active_buffer_left_icon = ''
-let g:lightline_buffer_active_buffer_right_icon = ''
-let g:lightline_buffer_separator_icon = '  '
-
-" lightline-buffer function settings
-let g:lightline_buffer_show_bufnr = 1
-let g:lightline_buffer_rotate = 0
-let g:lightline_buffer_fname_mod = ':t'
-let g:lightline_buffer_excludes = ['vimfiler']
-
-let g:lightline_buffer_maxflen = 30
-let g:lightline_buffer_maxfextlen = 3
-let g:lightline_buffer_minflen = 16
-let g:lightline_buffer_minfextlen = 3
-let g:lightline_buffer_reservelen = 20
-
-function! LightlineLinterWarnings() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
-endfunction
-function! LightlineLinterErrors() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
-endfunction
-function! LightlineLinterOK() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '✓ ' : ''
-endfunction
 
 " Update and show lightline but only if it's visible (e.g., not in Goyo)
 autocmd User ALELint call s:MaybeUpdateLightline()
@@ -403,8 +444,8 @@ endfunction
 " git-gutter
 " ----------------------------------------------------------------------------
 " GitGutter styling to use · instead of +/-
-let g:gitgutter_sign_added = '∙'
-let g:gitgutter_sign_modified = '∙'
+"let g:gitgutter_sign_added = '∙'
+"let g:gitgutter_sign_modified = '∙'
 
 
 " ----------------------------------------------------------------------------
@@ -415,6 +456,7 @@ nnoremap <Leader>d :Gdiff<CR>
 
 " ----------------------------------------------------------------------------
 " vim-commentary
+"
 " ----------------------------------------------------------------------------
 map  gc  <Plug>Commentary
 nmap gcc <Plug>CommentaryLine
@@ -424,9 +466,7 @@ nmap gcc <Plug>CommentaryLine
 " ale
 " ----------------------------------------------------------------------------
 nmap <leader>p <Plug>(ale_fix)
-"let g:ale_lint_on_save = 1
-" let g:ale_fix_on_save = 1
-let g:ale_echo_msg_format = '%linter% says %s'
+"let g:ale_echo_msg_format = '%linter% says %s'
 
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow'],
@@ -467,6 +507,7 @@ let g:deoplete#sources = {}
 let g:deoplete#sources['javascript.jsx'] = ['file', 'neosnippet', 'ternjs']
 let g:tern#command = ['tern']
 let g:tern#arguments = ['--persistent']
+let g:tern_request_timeout = 1
 
 " Deoplete-ternjs
 let g:deoplete#sources#ternjs#filetypes = [
@@ -476,17 +517,11 @@ let g:deoplete#sources#ternjs#filetypes = [
                 \ 'javascript'
                 \ ]
 
+let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
+
 " Use tern_for_vim.
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
-" function! StrTrim(txt)
-" return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-" endfunction
-" let g:tern_path = StrTrim(system('PATH=$(npm bin):$PATH && which tern'))
-
-" if g:tern_path != 'tern not found'
-" let g:deoplete#sources#ternjs#tern_bin = g:tern_path
-" endif
 
 " Omni
 let g:deoplete#omni#functions = {}
@@ -498,6 +533,7 @@ let g:deoplete#omni#functions.javascript = [
 " HTML completion
 let g:deoplete#sources = {}
 let g:deoplete#sources['html'] = ['file', 'neosnippet', 'vim-snippets']
+
 
 
 
