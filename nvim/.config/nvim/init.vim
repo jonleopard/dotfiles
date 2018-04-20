@@ -10,24 +10,27 @@
 let mapleader = ' '                       " Map  <leader> key to space
 let maplocalleader = ' '                  " Map local leader to space
 set showmatch           " Show matching bracket.
-set showmode            " Show current mode.
 set number              " Show the line numbers on the left side.
 set relativenumber
 set lazyredraw
 set cursorline
 set formatoptions+=o    " Continue comment marker in new lines.
 set textwidth=80        " Hard-wrap long lines as you type them.
-set colorcolumn=80
 set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
 set noerrorbells        " No beeps.
-set modeline            " Enable modeline.
-set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
 let g:netrw_localrmdir='rm -r'            " Allow deletion of a dir that isn't empty
 let g:netrw_banner=0                      " Dont show the banner
 set nostartofline       " Keep the cursor on the same column
-
+set report=0            " Always report how many lines substitute changed
+set list                " Display unusual whitespace characters
+set noswapfile          " Don't use swap files, use git
+set hidden              " allow buffer switching without saving
+set showtabline=2       " always show tabline
+set noshowmode          " Don't show current mode in echo
+set sidescrolloff=3     " Number of columns to keep on the left/right of the cursor
+set title               " Change terminal title based on the file name
 
 " Annoying temporary files
 set backupdir=/tmp//,.
@@ -296,16 +299,12 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 " The default of 31 is just a little too narrow.
 let g:NERDTreeWinSize=40
+
+
 " ----------------------------------------------------------------------------
-" lightline (statusbar)
+" Lightline (statusbar)
 " ----------------------------------------------------------------------------
 
-
-set hidden  " allow buffer switching without saving
-set showtabline=2  " always show tabline
-set noshowmode " Don't show current mode in echo
-
-" Lightline
 let g:lightline = {
       \   'colorscheme': 'base16',
       \   'active': {
@@ -440,13 +439,6 @@ function! s:MaybeUpdateLightline()
   end
 endfunction
 
-" ----------------------------------------------------------------------------
-" git-gutter
-" ----------------------------------------------------------------------------
-" GitGutter styling to use · instead of +/-
-"let g:gitgutter_sign_added = '∙'
-"let g:gitgutter_sign_modified = '∙'
-
 
 " ----------------------------------------------------------------------------
 " vim-fugitive
@@ -456,7 +448,6 @@ nnoremap <Leader>d :Gdiff<CR>
 
 " ----------------------------------------------------------------------------
 " vim-commentary
-"
 " ----------------------------------------------------------------------------
 map  gc  <Plug>Commentary
 nmap gcc <Plug>CommentaryLine
@@ -533,9 +524,6 @@ let g:deoplete#omni#functions.javascript = [
 " HTML completion
 let g:deoplete#sources = {}
 let g:deoplete#sources['html'] = ['file', 'neosnippet', 'vim-snippets']
-
-
-
 
 " ----------------------------------------------------------------------------
 " Neosnippet controls
@@ -619,28 +607,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign with a Vim movement
 nmap ga <Plug>(EasyAlign)
 nmap gaa ga_
-
-" xmap <Leader><Enter>   <Plug>(LiveEasyAlign)
-" nmap <Leader><Leader>a <Plug>(LiveEasyAlign)
-
-" inoremap <silent> => =><Esc>mzvip:EasyAlign/=>/<CR>`z$a<Space>
-
-" ----------------------------------------------------------------------------
-" neomake
-" ----------------------------------------------------------------------------
-"let g:neomake_javascript_enabled_makers = ['eslint']
-"let g:neomake_jsx_enabled_makers = ['eslint']
-"autocmd! BufWritePost * Neomake
-"let g:neomake_verbose=3
-"let g:neomake_open_list = 2
-
-
-" Neomake bindings
-"nmap <Leader><Space>o :lopen<CR>      " open location window
-"nmap <Leader><Space>c :lclose<CR>     " close location window
-"nmap <Leader><Space>, :ll<CR>         " go to current error/warning
-"nmap <Leader><Space>n :lnext<CR>      " next error/warning
-"nmap <Leader><Space>p :lprev<CR>      " previous error/warning
 
 
 " }}}
@@ -750,16 +716,9 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 " Python Location{{{
 " ============================================================================
 
-
 " Python Paths
 " https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
 let g:python_host_prog  = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
-
-
-" Faster startup time
-  "let g:python_host_skip_check=1            " Skip python 2 host check
-  "let g:loaded_python3_provider=1           " Disable python 2 interface
-
 " }}}
 " ============================================================================
