@@ -9,19 +9,20 @@
 " ============================================================================
 let mapleader = ' '                       " Map  <leader> key to space
 let maplocalleader = ' '                  " Map local leader to space
+filetype plugin indent on
+syntax on
 set showmatch           " Show matching bracket.
 set number              " Show the line numbers on the left side.
 set relativenumber
-set lazyredraw
-set cursorline
+set lazyredraw          " Don't redraw when there is no need for it
+set linebreak           " Wrap lines intelligently, e.g. by end of words
+set cursorline          " Spot the cursor easier
 set formatoptions+=o    " Continue comment marker in new lines.
 set textwidth=80        " Hard-wrap long lines as you type them.
 set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
 set noerrorbells        " No beeps.
-let g:netrw_localrmdir='rm -r'            " Allow deletion of a dir that isn't empty
-let g:netrw_banner=0                      " Dont show the banner
 set nostartofline       " Keep the cursor on the same column
 set report=0            " Always report how many lines substitute changed
 set list                " Display unusual whitespace characters
@@ -31,10 +32,6 @@ set showtabline=2       " always show tabline
 set noshowmode          " Don't show current mode in echo
 set sidescrolloff=3     " Number of columns to keep on the left/right of the cursor
 set title               " Change terminal title based on the file name
-
-" Annoying temporary files
-set backupdir=/tmp//,.
-set directory=/tmp//,.
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -115,10 +112,6 @@ map <D-S-}> :tabprevious
 " toggle paste in cmd only
 " nnoremap <Leader>p :set invpaste<CR>
 
-" <F10> | NERD Tree
-nnoremap <F10> :NERDTreeToggle<cr>
-
-
 " ----------------------------------------------------------------------------
 " tmux
 " ----------------------------------------------------------------------------
@@ -160,17 +153,10 @@ autocmd! User indentLine doautocmd indentLine Syntax
 
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'hail2u/vim-css3-syntax'
+"Plug 'hail2u/vim-css3-syntax'
 Plug 'styled-components/vim-styled-components'
 Plug 'jparise/vim-graphql'
 Plug 'chrisbra/Colorizer'
-
-"Temporary fix for CSS syntax
-augroup VimCSS3Syntax
-  autocmd!
-
-  autocmd FileType css setlocal iskeyword+=-
-augroup END
 
 " ----------------------------------------------------------------------------
 " Linting
@@ -193,12 +179,10 @@ Plug 'christoomey/vim-tmux-navigator'
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
-"Plug 'honza/vim-snippets' 
+"Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neco-vim'
-Plug 'zchee/deoplete-zsh'
-Plug 'ajh17/VimCompletesMe'
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -209,9 +193,10 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
-Plug 'fatih/vim-hclfmt'
 Plug 'plasticboy/vim-markdown'
-Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'     " auto close pairs
+Plug 'alvan/vim-closetag'       " html close tags
+Plug 'mattn/emmet-vim'          " html expressions
 
 " ----------------------------------------------------------------------------
 " Javascript
@@ -235,15 +220,13 @@ Plug 'fatih/vim-go',                  {'do': ':GoInstallBinaries' }
 Plug 'junegunn/fzf',                  { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-vinegar'
-Plug 'justinmk/vim-dirvish'
-Plug 'jremmen/vim-ripgrep'
 
 " ----------------------------------------------------------------------------
 " Utils
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
-
+Plug 'tpope/vim-obsession'
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
 Plug 'maximbaz/lightline-ale'
@@ -252,23 +235,13 @@ Plug 'mgee/lightline-bufferline'
 
 Plug 'gcavallanti/vim-noscrollbar'
 Plug 'mhinz/vim-startify'
-"Plug 'rizzatti/dash.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
-"Plug 'tpope/vim-obsession'
 Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-augroup nerd_loader
-  autocmd!
-  autocmd VimEnter * silent! autocmd! FileExplorer
-  autocmd BufEnter,BufNew *
-        \  if isdirectory(expand('<amatch>'))
-        \|   call plug#load('nerdtree')
-        \|   execute 'autocmd! nerd_loader'
-        \| endif
-augroup END
+Plug 'ervandew/supertab'
+
 
 
 call plug#end()
@@ -291,15 +264,29 @@ endif
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
+
 " ----------------------------------------------------------------------------
-" NERDTree 
+" startify
 " ----------------------------------------------------------------------------
 
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-" The default of 31 is just a little too narrow.
-let g:NERDTreeWinSize=40
+nnoremap <leader>st :Startify<cr>
+let g:startify_lists = [
+      \ { 'header': ['   MRU'],            'type': 'files' },
+      \ { 'header': ['   MRU '. getcwd()], 'type': 'dir' },
+      \ { 'header': ['   Sessions'],       'type': 'sessions' },
+      \ ]
 
+let g:startify_custom_header       = 'map(startify#fortune#boxed(), "\"   \".v:val")'
+let g:startify_fortune_use_unicode = 1
+let g:startify_use_env = 1
+
+
+" ----------------------------------------------------------------------------
+" netrw (file explorer)
+" ----------------------------------------------------------------------------
+
+" Dont show the banner
+let g:netrw_banner=0
 
 " ----------------------------------------------------------------------------
 " Lightline (statusbar)
@@ -479,7 +466,7 @@ let g:ale_javascript_prettier_use_local_config = 1
 "let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
 "autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
 "autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es6'
 
 " ----------------------------------------------------------------------------
 " auto-pairs
@@ -492,13 +479,32 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 " ----------------------------------------------------------------------------
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case  = 1
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+set completeopt=longest,menuone,preview
+
+
+
+" " Plugin key-mappings.
+" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" tab-complete
+"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" inoremap <silent><expr><CR> pumvisible() ? deoplete#mappings#close_popup()."\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
+
+
+" HTML completion
+let g:deoplete#sources = {}
+let g:deoplete#sources['html'] = ['file', 'neosnippet', 'vim-snippets']
 
 " Javscript Completion
 let g:deoplete#sources = {}
 let g:deoplete#sources['javascript.jsx'] = ['file', 'neosnippet', 'ternjs']
-let g:tern#command = ['tern']
-let g:tern#arguments = ['--persistent']
-let g:tern_request_timeout = 1
 
 " Deoplete-ternjs
 let g:deoplete#sources#ternjs#filetypes = [
@@ -507,7 +513,9 @@ let g:deoplete#sources#ternjs#filetypes = [
                 \ 'vue',
                 \ 'javascript'
                 \ ]
-
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
+let g:tern_request_timeout = 1
 let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
 
 " Use tern_for_vim.
@@ -520,10 +528,6 @@ let g:deoplete#omni#functions.javascript = [
                 \ 'tern#complete',
                 \ 'jspc#omni'
                 \ ]
-
-" HTML completion
-let g:deoplete#sources = {}
-let g:deoplete#sources['html'] = ['file', 'neosnippet', 'vim-snippets']
 
 " ----------------------------------------------------------------------------
 " Neosnippet controls
