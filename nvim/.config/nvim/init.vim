@@ -201,8 +201,6 @@ Plug 'mattn/emmet-vim'          " html expressions
 " ----------------------------------------------------------------------------
 " Javascript
 " ----------------------------------------------------------------------------
-Plug 'ternjs/tern_for_vim',           { 'for': ['javascript', 'javascript.jsx'], 'do': 'yarn install' }
-Plug 'carlitux/deoplete-ternjs',      { 'for': ['javascript', 'javascript.jsx'], 'do': 'yarn global install tern' }
 Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
@@ -481,7 +479,6 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case  = 1
 let g:deoplete#enable_camel_case = 1
-let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 set completeopt=longest,menuone,preview
@@ -506,23 +503,12 @@ let g:deoplete#sources['html'] = ['file', 'neosnippet', 'vim-snippets']
 
 " Javscript Completion
 let g:deoplete#sources = {}
-let g:deoplete#sources['javascript.jsx'] = ['file', 'neosnippet', 'ternjs']
+let g:deoplete#sources['javascript.jsx'] = ['file', 'neosnippet']
 
-" Deoplete-ternjs
-let g:deoplete#sources#ternjs#filetypes = [
-                \ 'jsx',
-                \ 'javascript.jsx',
-                \ 'vue',
-                \ ]
-
-" Use tern_for_vim.
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
 
 " Omni
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
-                \ 'tern#complete',
                 \ 'jspc#omni'
                 \ ]
 
