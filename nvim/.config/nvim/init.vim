@@ -183,6 +183,10 @@ Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neco-vim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'zsh install.sh',
+    \ }
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -262,6 +266,20 @@ endif
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
+
+" Minimal LSP configuration for JavaScript
+let g:LanguageClient_serverCommands = {}
+if executable('javascript-typescript-stdio')
+  let g:LanguageClient_serverCommands.javascript.jsx = ['javascript-typescript-stdio']
+  " Use LanguageServer for omnifunc completion
+  autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+else
+  echo "javascript-typescript-stdio not installed! npm or yarn install\n"
+  :cq
+endif
+
+autocmd FileType javascript nnoremap <buffer>
+  \ <leader>lf :call LanguageClient_textDocument_documentSymbol()<cr>
 
 " ----------------------------------------------------------------------------
 " startify
@@ -503,14 +521,8 @@ let g:deoplete#sources['html'] = ['file', 'neosnippet', 'vim-snippets']
 
 " Javscript Completion
 let g:deoplete#sources = {}
-let g:deoplete#sources['javascript.jsx'] = ['file', 'neosnippet']
+let g:deoplete#sources['javascript'] = ['omni', 'file', 'neosnippet']
 
-
-" Omni
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.javascript = [
-                \ 'jspc#omni'
-                \ ]
 
 " ----------------------------------------------------------------------------
 " Neosnippet controls
