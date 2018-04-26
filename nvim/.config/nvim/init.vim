@@ -153,10 +153,10 @@ autocmd! User indentLine doautocmd indentLine Syntax
 
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
-"Plug 'hail2u/vim-css3-syntax'
+Plug 'hail2u/vim-css3-syntax' " CSS3 syntax (and syntax defined in some foreign specifications) support for Vim's built-in syntax/css.vim
+Plug 'ap/vim-css-color'       " Highlight background of CSS colors
 Plug 'styled-components/vim-styled-components'
 Plug 'jparise/vim-graphql'
-Plug 'chrisbra/Colorizer'
 
 " ----------------------------------------------------------------------------
 " Linting
@@ -480,6 +480,8 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case  = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 set completeopt=longest,menuone,preview
@@ -511,12 +513,7 @@ let g:deoplete#sources#ternjs#filetypes = [
                 \ 'jsx',
                 \ 'javascript.jsx',
                 \ 'vue',
-                \ 'javascript'
                 \ ]
-let g:tern#command = ['tern']
-let g:tern#arguments = ['--persistent']
-let g:tern_request_timeout = 1
-let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/tern'
 
 " Use tern_for_vim.
 let g:tern#command = ["tern"]
