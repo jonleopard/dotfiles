@@ -47,7 +47,6 @@ set mouse=a
 " yank to clipboard
 if has("clipboard")
   set clipboard=unnamed " copy to the system clipboard
-
   if has("unnamedplus") " X11 support
     set clipboard+=unnamedplus
   endif
@@ -79,7 +78,6 @@ nnoremap <C-s>     :update<cr>
 nnoremap <leader>s :update<cr>
 nnoremap <leader>w :update<cr>
 
-
 " Quit
 inoremap <C-Q>     <esc>:q<cr>
 nnoremap <C-Q>     :q<cr>
@@ -108,9 +106,6 @@ inoremap <C-^> <C-o><C-^>
 " Navigating tabs easier
 map <D-S-{> :tabprevious
 map <D-S-}> :tabprevious
-
-" toggle paste in cmd only
-" nnoremap <Leader>p :set invpaste<CR>
 
 " ----------------------------------------------------------------------------
 " tmux
@@ -179,7 +174,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
-"Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neco-vim'
@@ -229,13 +223,14 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
+
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
 Plug 'maximbaz/lightline-ale'
 Plug 'maximbaz/lightline-trailing-whitespace'
 Plug 'mgee/lightline-bufferline'
 
-Plug 'gcavallanti/vim-noscrollbar'
+
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
@@ -267,19 +262,58 @@ endif
 " ============================================================================
 
 
-" Minimal LSP configuration for JavaScript
+" ----------------------------------------------------------------------------
+" LSP
+" ----------------------------------------------------------------------------
+
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
+
+" Don't need to automake in supported languages
+augroup automake
+  autocmd!
+  " JavaScript and Typescript lint via language servers
+  autocmd BufWritePost *.sh,*.less,*.css,*.vim,*.vimrc,*.txt,*.md make!
+augroup END
+
+" Use location list instead of quickfix
+let g:LanguageClient_diagnosticsList = 'location'
+
+" Use fuzzy matching
+let g:cm_matcher = {'case': 'smartcase', 'module': 'cm_matchers.fuzzy_matcher'}
+
 let g:LanguageClient_serverCommands = {}
+
+" LanguageClient
 if executable('javascript-typescript-stdio')
-  let g:LanguageClient_serverCommands.javascript.jsx = ['javascript-typescript-stdio']
-  " Use LanguageServer for omnifunc completion
-  autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-else
-  echo "javascript-typescript-stdio not installed! npm or yarn install\n"
-  :cq
+  let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+  let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
+  let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
+  let g:LanguageClient_serverCommands.html = ['html-languageserver', '--stdio']
+  let g:LanguageClient_serverCommands.css = ['css-languageserver', '--stdio']
+  let g:LanguageClient_serverCommands.less = ['css-languageserver', '--stdio']
+  let g:LanguageClient_serverCommands.json = ['json-languageserver', '--stdio']
 endif
 
-autocmd FileType javascript nnoremap <buffer>
-  \ <leader>lf :call LanguageClient_textDocument_documentSymbol()<cr>
+augroup LanguageClientConfig
+  autocmd!
+
+  " <leader>ld to go to definition
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>ld :call LanguageClient_textDocument_definition()<cr>
+  " <leader>lf to autoformat document
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lf :call LanguageClient_textDocument_formatting()<cr>
+  " <leader>lh for type info under cursor
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lh :call LanguageClient_textDocument_hover()<cr>
+  " <leader>lr to rename variable under cursor
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<cr>
+  " <leader>lc to switch omnifunc to LanguageClient
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lc :setlocal omnifunc=LanguageClient#complete<cr>
+  " <leader>ls to fuzzy find the symbols in the current document
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>ls :call LanguageClient_textDocument_documentSymbol()<cr>
+
+  " Use as omnifunc by default
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason setlocal omnifunc=LanguageClient#complete
+augroup END
 
 " ----------------------------------------------------------------------------
 " startify
@@ -294,7 +328,6 @@ let g:startify_lists = [
 
 let g:startify_custom_header       = 'map(startify#fortune#boxed(), "\"   \".v:val")'
 let g:startify_fortune_use_unicode = 1
-let g:startify_use_env = 1
 
 
 " ----------------------------------------------------------------------------
@@ -312,11 +345,11 @@ let g:lightline = {
       \   'colorscheme': 'base16',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
-      \     'right': [ [ 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ], [ 'scrollbar' ] ],
+      \     'right': [ [ 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
       \   },
       \   'inactive': {
       \     'left': [ [ 'pwd' ], [ 'gitbranch' ] ],
-      \     'right': [ [ 'lineinfo' ], [ 'fileinfo' ], [ 'scrollbar' ] ],
+      \     'right': [ [ 'lineinfo' ], [ 'fileinfo' ] ],
       \   },
       \   'tabline': {
       \     'left': [ [ 'buffers' ] ],
@@ -350,7 +383,6 @@ let g:lightline = {
       \   },
       \   'component_function': {
       \     'pwd': 'LightlineWorkingDirectory',
-      \     'scrollbar': 'LightlineScrollbar',
       \     'fileinfo': 'LightlineFileinfo',
       \     'gitbranch': 'fugitive#head',
       \   },
@@ -363,28 +395,6 @@ let g:lightline = {
       \     'linter_errors': 'error',
       \   },
       \ }
-
-"Custom components
-function! LightlineScrollbar()
-  let top_line = str2nr(line('w0'))
-  let bottom_line = str2nr(line('w$'))
-  let lines_count = str2nr(line('$'))
-
-  if bottom_line - top_line + 1 >= lines_count
-    return ''
-  endif
-
-  let window_width = winwidth(0)
-  if window_width < 90
-    let scrollbar_width = 6
-  elseif window_width < 120
-    let scrollbar_width = 9
-  else
-    let scrollbar_width = 12
-  endif
-
-  return noscrollbar#statusline(scrollbar_width, '-', '#')
-endfunction
 
 function! LightlineFileinfo()
   if winwidth(0) < 90
@@ -408,23 +418,16 @@ let g:lightline#ale#indicator_warnings = "\uf071"
 let g:lightline#ale#indicator_errors = "\uf05e"
 let g:lightline#ale#indicator_ok = "\uf00c"
 
-" Powerline fonts lightline
-"let g:lightline#ale#indicator_warnings = ' '
-"let g:lightline#ale#indicator_errors = ' '
-"let g:lightline#ale#indicator_checking = ' '
-
 "lightline-bufferline
+
 " Show filename relative to current directory
 let g:lightline#bufferline#filename_modifier = ':~:.'
 " Use fancy unicode symbols for various indicators
 let g:lightline#bufferline#unicode_symbols = 1
-" Default pencil is too ugly
-"let g:lightline#bufferline#modified = ''
 " Default name when no buffer is opened
 let g:lightline#bufferline#unnamed = '[No Name]'
- " Don't compress ~/my/folder/name to ~/m/f/n
+" Don't compress ~/my/folder/name to ~/m/f/n
 let g:lightline#bufferline#shorten_path = 0
-
 "Lightline trailing whitespace
 let g:lightline#trailing_whitespace#indicator = '•'
 
@@ -475,10 +478,6 @@ let g:ale_fixers = {
 
 let g:ale_completion_enabled = 1
 let g:ale_javascript_prettier_use_local_config = 1
-"let g:ale_javascript_prettier_use_global = 1
-"let g:ale_javascript_eslint_use_global = 1
-"let g:ale_javascript_eslint_executable = 'eslint_d'
-"let g:ale_javascript_prettier_executable = 'prettier_d'
 "let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
 "autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
 "autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
@@ -487,19 +486,23 @@ let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es6'
 " ----------------------------------------------------------------------------
 " auto-pairs
 " ----------------------------------------------------------------------------
-"let g:AutoPairsFlyMode = 1
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 " ----------------------------------------------------------------------------
 " Deoplete
 " ----------------------------------------------------------------------------
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case  = 1
+let g:deoplete#auto_complete_start_length = 2
 let g:deoplete#enable_camel_case = 1
+let g:deoplete#max_abbr_width = 0
+let g:deoplete#max_menu_width = 0
+
+
+set completeopt-=preview
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
-set completeopt=longest,menuone,preview
+"set completeopt=longest,menuone,preview
 
 
 
@@ -517,11 +520,11 @@ set completeopt=longest,menuone,preview
 
 " HTML completion
 let g:deoplete#sources = {}
-let g:deoplete#sources['html'] = ['file', 'neosnippet', 'vim-snippets']
+let g:deoplete#sources['html'] = ['file', 'neosnippet']
 
 " Javscript Completion
 let g:deoplete#sources = {}
-let g:deoplete#sources['javascript'] = ['omni', 'file', 'neosnippet']
+let g:deoplete#sources['javascript'] = ['omni', 'file', 'LanguageClient', 'neosnippet']
 
 
 " ----------------------------------------------------------------------------
@@ -530,27 +533,13 @@ let g:deoplete#sources['javascript'] = ['omni', 'file', 'neosnippet']
 
 "let g:neosnippet#enable_completed_snippet = 1
 
-"" Plugin key-mappings.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-"" SuperTab like snippets behavior.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-""imap <expr><TAB>
-"" \ pumvisible() ? "\<C-n>" :
-"" \ neosnippet#expandable_or_jumpable() ?
-"" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-"" For conceal markers.
-"if has('conceal')
-"  set conceallevel=2 concealcursor=niv
-"endif
-
+"
 
 "" I want to use my tab more smarter. If we are inside a completion menu jump
 "" to the next item. Otherwise check if there is any snippet to expand, if yes
@@ -715,7 +704,7 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 " Python Location{{{
 " ============================================================================
 
-" Python Paths
+" Python Path
 " https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
 let g:python_host_prog  = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
