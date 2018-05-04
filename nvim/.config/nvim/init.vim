@@ -237,7 +237,6 @@ Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'ervandew/supertab'
 
 
 
@@ -262,42 +261,20 @@ endif
 " ============================================================================
 
 
+
 " ----------------------------------------------------------------------------
 " LSP
 " ----------------------------------------------------------------------------
 
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
+let g:LanguageClient_changeThrottle = 0.5
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ }
 
-" Don't need to automake in supported languages
-augroup automake
-  autocmd!
-  " JavaScript and Typescript lint via language servers
-  autocmd BufWritePost *.sh,*.less,*.css,*.vim,*.vimrc,*.txt,*.md make!
-augroup END
-
-" Use location list instead of quickfix
-let g:LanguageClient_diagnosticsList = 'location'
-
-" Use fuzzy matching
-let g:cm_matcher = {'case': 'smartcase', 'module': 'cm_matchers.fuzzy_matcher'}
-
-let g:LanguageClient_serverCommands = {}
-
-" LanguageClient
-if executable('javascript-typescript-stdio')
-  let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-  let g:LanguageClient_serverCommands['javascript.jsx'] = ['javascript-typescript-stdio']
-  let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
-  let g:LanguageClient_serverCommands.html = ['html-languageserver', '--stdio']
-  let g:LanguageClient_serverCommands.css = ['css-languageserver', '--stdio']
-  let g:LanguageClient_serverCommands.less = ['css-languageserver', '--stdio']
-  let g:LanguageClient_serverCommands.json = ['json-languageserver', '--stdio']
-endif
 
 augroup LanguageClientConfig
   autocmd!
-
   " <leader>ld to go to definition
   autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>ld :call LanguageClient_textDocument_definition()<cr>
   " <leader>lf to autoformat document
@@ -336,6 +313,9 @@ let g:startify_fortune_use_unicode = 1
 
 " Dont show the banner
 let g:netrw_banner=0
+let g:netrw_liststyle = 3
+let g:netrw_sort_options = 'i'
+autocmd FileType netrw setl bufhidden=delete
 
 " ----------------------------------------------------------------------------
 " Lightline (statusbar)
@@ -493,70 +473,66 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 " ----------------------------------------------------------------------------
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case  = 1
-let g:deoplete#auto_complete_start_length = 2
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_menu_width = 0
+
+if !exists('g:deoplete#omni#input_patterns')
+	let g:deoplete#omni#input_patterns = {}
+endif
 
 
-set completeopt-=preview
-filetype plugin on
+" <TAB>: completion.
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+
+" <S-TAB>: completion back.
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+
+  " set sources
+let g:deoplete#sources = {}
+let g:deoplete#sources.javascript = ['LanguageClient']
+let g:deoplete#sources.cpp = ['LanguageClient']
+let g:deoplete#sources.python = ['LanguageClient']
+let g:deoplete#sources.python3 = ['LanguageClient']
+let g:deoplete#sources.rust = ['LanguageClient']
+let g:deoplete#sources.c = ['LanguageClient']
+let g:deoplete#sources.vim = ['vim']
+
+"set completeopt-=preview
 set omnifunc=syntaxcomplete#Complete
-"set completeopt=longest,menuone,preview
+set completeopt=longest,menuone,preview
 
-
-
-" " Plugin key-mappings.
-" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" tab-complete
-"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" inoremap <silent><expr><CR> pumvisible() ? deoplete#mappings#close_popup()."\<Plug>(neosnippet_expand_or_jump)" : "\<CR>"
-
-
-" HTML completion
-let g:deoplete#sources = {}
-let g:deoplete#sources['html'] = ['file', 'neosnippet']
-
-" Javscript Completion
-let g:deoplete#sources = {}
-let g:deoplete#sources['javascript'] = ['omni', 'file', 'LanguageClient', 'neosnippet']
-
-
-" ----------------------------------------------------------------------------
-" Neosnippet controls
-" ----------------------------------------------------------------------------
-
-"let g:neosnippet#enable_completed_snippet = 1
 
 " Plugin key-mappings.
+" " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+ xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-"
 
-"" I want to use my tab more smarter. If we are inside a completion menu jump
-"" to the next item. Otherwise check if there is any snippet to expand, if yes
-"" expand it. Also if inside a snippet and we need to jump tab jumps. If none
-"" of the above matches we just call our usual 'tab'.
-"function! s:neosnippet_complete()
-"  if pumvisible()
-"    return "\<c-n>"
-"  else
-"    if neosnippet#expandable_or_jumpable() 
-"      return "\<Plug>(neosnippet_expand_or_jump)"
-"    endif
-"    return "\<tab>"
-"  endif
-"endfunction
+" For conceal markers.
+if has('conceal')
+	set conceallevel=2 concealcursor=niv
+endif"
 
-"imap <expr><TAB> <SID>neosnippet_complete()
+
 
 " ----------------------------------------------------------------------------
 " <Enter> | vim-easy-align
@@ -594,7 +570,7 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign with a Vim movement
 nmap ga <Plug>(EasyAlign)
-nmap gaa ga_
+nmap gaa ga
 
 
 " }}}
