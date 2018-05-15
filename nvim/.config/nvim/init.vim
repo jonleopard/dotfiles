@@ -170,7 +170,7 @@ Plug 'airblade/vim-gitgutter'
 " ----------------------------------------------------------------------------
 Plug 'christoomey/vim-tmux-navigator'
 
-" ----------------------------------------------------------------------------
+"----------------------------------------------------------------------------
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
@@ -223,7 +223,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
-
+Plug 'mbbill/undotree'
+Plug 'roman/golden-ratio'
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
 Plug 'maximbaz/lightline-ale'
