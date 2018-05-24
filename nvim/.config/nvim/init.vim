@@ -22,7 +22,7 @@ set textwidth=80        " Hard-wrap long lines as you type them.
 set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
-set noerrorbells        " No beeps.
+set noerrorbells        " No beeps
 set nostartofline       " Keep the cursor on the same column
 set report=0            " Always report how many lines substitute changed
 set list                " Display unusual whitespace characters
@@ -148,8 +148,8 @@ autocmd! User indentLine doautocmd indentLine Syntax
 
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'hail2u/vim-css3-syntax' " CSS3 syntax (and syntax defined in some foreign specifications) support for Vim's built-in syntax/css.vim
-Plug 'ap/vim-css-color'       " Highlight background of CSS colors
+Plug 'hail2u/vim-css3-syntax'
+Plug 'ap/vim-css-color'
 Plug 'styled-components/vim-styled-components'
 Plug 'jparise/vim-graphql'
 
@@ -192,9 +192,9 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'plasticboy/vim-markdown'
-Plug 'jiangmiao/auto-pairs'     " auto close pairs
-Plug 'alvan/vim-closetag'       " html close tags
-Plug 'mattn/emmet-vim'          " html expressions
+Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
+Plug 'mattn/emmet-vim'
 
 " ----------------------------------------------------------------------------
 " Javascript
@@ -485,10 +485,10 @@ inoremap <silent><expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
   \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort "{{{
+function! s:check_back_space() abort 
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
+endfunction
 
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
@@ -677,7 +677,6 @@ command! -bang -nargs=? -complete=dir Files
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
 
 " }}}
 " ============================================================================
