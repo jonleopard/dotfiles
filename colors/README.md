@@ -6,3 +6,7 @@ Links:
 [base16](https://github.com/chriskempson/base16)
 [base16-shell](https://github.com/chriskempson/base16-shell)
 [dracula](https://github.com/dracula/dracula-theme)
+
+
+Read this for more info on TrueColor support in Terminals.
+https://gist.github.com/XVilka/8346728
