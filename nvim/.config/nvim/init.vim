@@ -32,6 +32,7 @@ set showtabline=2       " always show tabline
 set noshowmode          " Don't show current mode in echo
 set sidescrolloff=3     " Number of columns to keep on the left/right of the cursor
 set title               " Change terminal title based on the file name
+set shell=$SHELL
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -60,8 +61,8 @@ endif
 " Basic mappings
 " ----------------------------------------------------------------------------
 
-noremap <C-F> <C-D>
-noremap <C-B> <C-U>
+"noremap <C-F> <C-D>
+"noremap <C-B> <C-U>
 
 " qq to record, Q to replay
 nnoremap Q @q
@@ -156,7 +157,7 @@ Plug 'jparise/vim-graphql'
 " ----------------------------------------------------------------------------
 " Linting
 " ----------------------------------------------------------------------------
-Plug 'w0rp/ale' 
+Plug 'w0rp/ale'
 
 " ----------------------------------------------------------------------------
 " Git
@@ -225,12 +226,14 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
 Plug 'mbbill/undotree'
 Plug 'roman/golden-ratio'
+
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
+"Plug 'jonleopard/vim-base16-lightline'
+Plug 'mark-westerhof/vim-lightline-base16'
 Plug 'maximbaz/lightline-ale'
 Plug 'maximbaz/lightline-trailing-whitespace'
 Plug 'mgee/lightline-bufferline'
-
 
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -246,28 +249,27 @@ call plug#end()
 " ============================================================================
 " COLOR SETTINGS {{{
 " ============================================================================
+
+set t_Co=256
+
 " True color
-if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
+set termguicolors
 
 " base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
   source ~/.vimrc_background
 endif
+
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
-
-
 " ----------------------------------------------------------------------------
 " LSP
 " ----------------------------------------------------------------------------
 
-let g:LanguageClient_changeThrottle = 0.5
+"let g:LanguageClient_changeThrottle = 0.5
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
@@ -458,7 +460,7 @@ let g:ale_fixers = {
 \ }
 
 let g:ale_completion_enabled = 1
-let g:ale_javascript_prettier_use_local_config = 1
+"let g:ale_javascript_prettier_use_local_config = 1
 "let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
 "autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
 "autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
@@ -467,7 +469,7 @@ let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es6'
 " ----------------------------------------------------------------------------
 " auto-pairs
 " ----------------------------------------------------------------------------
-let g:AutoPairsShortcutBackInsert = '<M-b>'
+"let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 " ----------------------------------------------------------------------------
 " Deoplete
