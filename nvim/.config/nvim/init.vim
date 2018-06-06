@@ -449,19 +449,18 @@ nmap <leader>p <Plug>(ale_fix)
 "let g:ale_echo_msg_format = '%linter% says %s'
 
 let g:ale_linters = {
-\   'javascript': ['eslint', 'flow'],
+\   'javascript': ['prettier', 'flow'],
 \   'html': ['htmlhint', 'tidy'],
 \   'json': ['jsonlint'],
 \ }
 
 let g:ale_fixers = {
-\   'javascript': ['eslint'],
-\   'javascript.jsx': ['eslint']
+\   'javascript': ['prettier'],
+\   'javascript.jsx': ['prettier']
 \ }
 
 let g:ale_completion_enabled = 1
-"let g:ale_javascript_prettier_use_local_config = 1
-"let g:ale_javascript_prettier_eslint_options = '--write --single-quote --print-width=80 --parser=flow --tab-width=2'
+let g:ale_javascript_prettier_use_local_config = 1
 "autocmd FileType javascript.jsx,javascript setlocal formatprg=prettier\ --stdin
 "autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es6'
