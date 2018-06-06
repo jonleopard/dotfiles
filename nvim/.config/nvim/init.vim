@@ -51,6 +51,7 @@ set completeopt=menuone,preview
 set nocursorline
 set nrformats=hex
 set title
+set showtabline=2
 
 silent! set cryptmethod=blowfish2
 
