@@ -7,32 +7,56 @@
 " ============================================================================
 " BASIC SETTINGS {{{
 " ============================================================================
-let mapleader = ' '                       " Map  <leader> key to space
-let maplocalleader = ' '                  " Map local leader to space
-filetype plugin indent on
-syntax on
-set showmatch           " Show matching bracket.
-set number              " Show the line numbers on the left side.
-set relativenumber
-set lazyredraw          " Don't redraw when there is no need for it
-set linebreak           " Wrap lines intelligently, e.g. by end of words
-set cursorline          " Spot the cursor easier
-set formatoptions+=o    " Continue comment marker in new lines.
-set textwidth=80        " Hard-wrap long lines as you type them.
-set expandtab           " Insert spaces when TAB is pressed.
-set tabstop=2           " Render TABs using this many spaces.
-set shiftwidth=2        " Indentation amount for < and > commands.
-set noerrorbells        " No beeps
-set nostartofline       " Keep the cursor on the same column
-set report=0            " Always report how many lines substitute changed
-set list                " Display unusual whitespace characters
-set noswapfile          " Don't use swap files, use git
-set hidden              " allow buffer switching without saving
-set showtabline=2       " always show tabline
-set noshowmode          " Don't show current mode in echo
-set sidescrolloff=3     " Number of columns to keep on the left/right of the cursor
-set title               " Change terminal title based on the file name
-set shell=$SHELL
+let mapleader      = ' '
+let maplocalleader = ' '
+
+augroup vimrc
+    autocmd!
+    augroup END
+augroup END
+
+set nu
+syntax enable
+set autoindent
+set smartindent
+set lazyredraw
+set laststatus=2
+set showcmd
+set visualbell
+set backspace=indent,eol,start
+set timeoutlen=500
+set whichwrap=b,s
+set shortmess=aIT
+set hlsearch " CTRL-L / CTRL-R W
+set incsearch
+set hidden
+set ignorecase smartcase
+set wildmenu
+set wildmode=full
+set tabstop=2
+set shiftwidth=2
+set expandtab smarttab
+set scrolloff=5
+set encoding=utf-8
+set list
+set listchars=tab:\|\ ,
+set virtualedit=block
+set nojoinspaces
+set diffopt=filler,vertical
+set autoread
+set clipboard=unnamed
+set foldlevelstart=99
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+set completeopt=menuone,preview
+set nocursorline
+set nrformats=hex
+silent! set cryptmethod=blowfish2
+
+" 80 chars/line
+set textwidth=0
+if exists('&colorcolumn')
+  set colorcolumn=80
+endif
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -228,8 +252,8 @@ Plug 'mbbill/undotree'
 Plug 'roman/golden-ratio'
 
 Plug 'itchyny/lightline.vim'
-Plug 'daviesjamie/vim-base16-lightline'
-"Plug 'jonleopard/vim-base16-lightline'
+"Plug 'daviesjamie/vim-base16-lightline'
+Plug 'jonleopard/vim-base16-lightline'
 Plug 'mark-westerhof/vim-lightline-base16'
 Plug 'maximbaz/lightline-ale'
 Plug 'maximbaz/lightline-trailing-whitespace'
@@ -250,7 +274,11 @@ call plug#end()
 " COLOR SETTINGS {{{
 " ============================================================================
 
-set t_Co=256
+" if has('termguicolors')
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"   set termguicolors
+" endif
 
 " Need to figure out how to get termguicolors to play well with lightline
 " True color

@@ -50,7 +50,10 @@ zplug 'rupa/z', use:'*.sh'
 # zsh-syntax-highlighting
 # Syntax highlighing for the command line.
 # https://github.com/zsh-users/zsh-syntax-highlighting
-zplug 'zsh-users/zsh-syntax-highlighting', defer:3
+# zplug 'zsh-users/zsh-syntax-highlighting', defer:3
+
+# zsh-fast-syntax-highlighting
+zplug 'zdharma/fast-syntax-highlighting', defer:3
 
 # zsh-history-substring-search
 # zplug "zsh-users/zsh-history-substring-search", defer:3, on:"zsh-users/zsh-syntax-highlighting"
