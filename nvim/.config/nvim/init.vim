@@ -15,32 +15,42 @@ augroup vimrc
     augroup END
 augroup END
 
-filetype plugin indent on
-syntax on
-set nu                  " Show the line numbers on the left side.
-set showmatch           " Show matching bracket.
-set lazyredraw          " Don't redraw when there is no need for it
-set linebreak           " Wrap lines intelligently, e.g. by end of words
-set nocursorline
-set smartindent
+set nu
+syntax enable
 set autoindent
+set smartindent
+set lazyredraw
+set laststatus=2
 set showcmd
+set visualbell
+set backspace=indent,eol,start
+set timeoutlen=500
+set whichwrap=b,s
+set shortmess=aIT
+set hlsearch " CTRL-L / CTRL-R W
+set incsearch
+set hidden
 set ignorecase smartcase
-set formatoptions+=o    " Continue comment marker in new lines.
-set expandtab smarttab  " Insert spaces when TAB is pressed.
-set tabstop=2           " Render TABs using this many spaces.
-set shiftwidth=2        " Indentation amount for < and > commands.
-set nostartofline       " Keep the cursor on the same column
-set report=0            " Always report how many lines substitute changed
-set list                " Display unusual whitespace characters
+set wildmenu
+set wildmode=full
+set tabstop=2
+set shiftwidth=2
+set expandtab smarttab
+set scrolloff=5
+set encoding=utf-8
+set list
 set listchars=tab:\|\ ,
-set noswapfile          " Don't use swap files, use git
-set hidden              " allow buffer switching without saving
-set showtabline=2       " always show tabline
-set noshowmode          " Don't show current mode in echo
-set sidescrolloff=3     " Number of columns to keep on the left/right of the cursor
-set title               " Change terminal title based on the file name
-set shell=$SHELL
+set virtualedit=block
+set nojoinspaces
+set diffopt=filler,vertical
+set autoread
+set clipboard=unnamed
+set foldlevelstart=99
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+set completeopt=menuone,preview
+set nocursorline
+set nrformats=hex
+set title
 
 silent! set cryptmethod=blowfish2
 
