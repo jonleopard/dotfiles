@@ -252,11 +252,13 @@ call plug#end()
 
 set t_Co=256
 
+" Need to figure out how to get termguicolors to play well with lightline
 " True color
-set termguicolors
+" set termguicolors
 
 " base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
   source ~/.vimrc_background
 endif
 
@@ -449,14 +451,14 @@ nmap <leader>p <Plug>(ale_fix)
 "let g:ale_echo_msg_format = '%linter% says %s'
 
 let g:ale_linters = {
-\   'javascript': ['prettier', 'flow'],
+\   'javascript': ['eslint', 'flow'],
 \   'html': ['htmlhint', 'tidy'],
 \   'json': ['jsonlint'],
 \ }
 
 let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'javascript.jsx': ['prettier']
+\   'javascript': ['prettier','eslint'],
+\   'javascript.jsx': ['prettier', 'eslint']
 \ }
 
 let g:ale_completion_enabled = 1
