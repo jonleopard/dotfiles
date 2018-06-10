@@ -499,6 +499,12 @@ let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es6'
 
 " ----------------------------------------------------------------------------
+" indent-lines
+" ----------------------------------------------------------------------------
+"let g:indentLine_setColors = 0
+let g:indentLine_char = '|'
+
+" ----------------------------------------------------------------------------
 " auto-pairs
 " ----------------------------------------------------------------------------
 "let g:AutoPairsShortcutBackInsert = '<M-b>'
