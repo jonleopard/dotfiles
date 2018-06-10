@@ -7,3 +7,5 @@ HOMEBREW_NO_ANALYTICS=1
 # Tell git not to use my GitHub account (Keychain) for public repositories - it's a privacy issue
 HOMEBREW_NO_GITHUB_API=1
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
