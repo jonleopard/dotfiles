@@ -1,0 +1,10 @@
+sandbox_init_nvm(){
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+}
+sandbox_init_nvm_comp(){
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+
+sandbox_hook nvm node
+sandbox_hook nvm npm
+sandbox_hook nvm pm2
