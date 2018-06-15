@@ -131,6 +131,7 @@ colors:
     white:   '0xdddddd'
 
 
+
 # Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once

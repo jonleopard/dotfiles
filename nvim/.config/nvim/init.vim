@@ -15,8 +15,13 @@ augroup vimrc
     augroup END
 augroup END
 
+
+if !exists("g:syntax_on")
+    syntax enable
+endif
+
 set nu
-syntax enable
+syntax on
 set autoindent
 set smartindent
 set lazyredraw
@@ -174,7 +179,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
 autocmd! User indentLine doautocmd indentLine Syntax
 
-Plug 'chriskempson/base16-vim'
+
+"Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
@@ -254,10 +260,12 @@ Plug 'tpope/vim-obsession'
 Plug 'mbbill/undotree'
 Plug 'roman/golden-ratio'
 
+
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'itchyny/lightline.vim'
 "Plug 'daviesjamie/vim-base16-lightline'
-Plug 'jonleopard/vim-base16-lightline'
-Plug 'mark-westerhof/vim-lightline-base16'
+"Plug 'jonleopard/vim-base16-lightline'
+"Plug 'mark-westerhof/vim-lightline-base16'
 Plug 'maximbaz/lightline-ale'
 Plug 'maximbaz/lightline-trailing-whitespace'
 Plug 'mgee/lightline-bufferline'
@@ -277,21 +285,25 @@ call plug#end()
 " COLOR SETTINGS {{{
 " ============================================================================
 
-" if has('termguicolors')
-"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-"   set termguicolors
-" endif
+if has('termguicolors')
+   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+   set termguicolors
+ endif
+
+set background=light
+colorscheme PaperColor
+
 
 " Need to figure out how to get termguicolors to play well with lightline
 " True color
-" set termguicolors
+"set termguicolors
 
-" base16-vim will match whatever you have set your shell color scheme as
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
+" " base16-vim will match whatever you have set your shell color scheme as
+" if filereadable(expand("~/.vimrc_background"))
+"   let base16colorspace=256
+"   source ~/.vimrc_background
+" endif
 
 " }}}
 " ============================================================================
@@ -358,7 +370,7 @@ autocmd FileType netrw setl bufhidden=delete
 " ----------------------------------------------------------------------------
 
 let g:lightline = {
-      \   'colorscheme': 'base16',
+      \   'colorscheme': 'PaperColor',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
       \     'right': [ [ 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
