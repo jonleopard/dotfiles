@@ -53,7 +53,7 @@ zplug "knu/z", use:z.sh, defer:3
 # zplug 'zsh-users/zsh-syntax-highlighting', defer:3
 
 # zsh-fast-syntax-highlighting
-# zplug 'zdharma/fast-syntax-highlighting', defer:3
+zplug 'zdharma/fast-syntax-highlighting', defer:3
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
