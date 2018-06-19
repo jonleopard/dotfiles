@@ -213,10 +213,6 @@ Plug 'Shougo/neosnippet'
 Plug 'SirVer/ultisnips'
 Plug 'epilande/vim-react-snippets'
 Plug 'Shougo/neco-vim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'zsh install.sh',
-    \ }
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -305,40 +301,6 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
-
-" ----------------------------------------------------------------------------
-" LSP
-" ----------------------------------------------------------------------------
-
-"let g:LanguageClient_changeThrottle = 0.5
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ }
-
-autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-
-augroup LanguageClientConfig
-  autocmd!
-  " <leader>ld to go to definition
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>ld :call LanguageClient_textDocument_definition()<cr>
-  " <leader>lf to autoformat document
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lf :call LanguageClient_textDocument_formatting()<cr>
-  " <leader>lh for type info under cursor
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lh :call LanguageClient_textDocument_hover()<cr>
-  " <leader>lr to rename variable under cursor
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<cr>
-  " <leader>lc to switch omnifunc to LanguageClient
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lc :setlocal omnifunc=LanguageClient#complete<cr>
-  " <leader>ls to fuzzy find the symbols in the current document
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>ls :call LanguageClient_textDocument_documentSymbol()<cr>
-
-  " Use as omnifunc by default
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason setlocal omnifunc=LanguageClient#complete
-augroup END
-
-
-
 
 " ----------------------------------------------------------------------------
 " startify
