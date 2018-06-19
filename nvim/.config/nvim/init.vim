@@ -210,6 +210,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
+Plug 'SirVer/ultisnips'
+Plug 'epilande/vim-react-snippets'
 Plug 'Shougo/neco-vim'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -314,6 +316,7 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ }
 
+autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
 
 augroup LanguageClientConfig
   autocmd!
@@ -333,6 +336,9 @@ augroup LanguageClientConfig
   " Use as omnifunc by default
   autocmd FileType javascript,python,typescript,json,css,less,html,reason setlocal omnifunc=LanguageClient#complete
 augroup END
+
+
+
 
 " ----------------------------------------------------------------------------
 " startify
