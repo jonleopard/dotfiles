@@ -2,9 +2,6 @@
 # Load ZSH Config Files
 for config (~/.zsh/*.zsh) source $config
 
-# Speed up shell loading times:
-source ~/.sandboxd
-
 # No GAnalytics Logging in homebrew
 HOMEBREW_NO_ANALYTICS=1
 
@@ -12,3 +9,4 @@ HOMEBREW_NO_ANALYTICS=1
 HOMEBREW_NO_GITHUB_API=1
 
 #zprof
+
