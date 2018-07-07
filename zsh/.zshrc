@@ -10,3 +10,5 @@ HOMEBREW_NO_GITHUB_API=1
 
 #zprof
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
