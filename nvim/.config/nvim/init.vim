@@ -176,7 +176,7 @@ call s:tmux_map('<leader>t.', '.bottom-right')
 
 call plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------
-" Colorscheme & Syntax Highlighting
+" Colorscheme & Syntax Highlighting & Linting
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
 autocmd! User indentLine doautocmd indentLine Syntax
@@ -187,12 +187,13 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
+Plug 'w0rp/ale'
+"Plug 'jonleopard/ale'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
-" ----------------------------------------------------------------------------
-" Linting
-" ----------------------------------------------------------------------------
-"Plug 'w0rp/ale'
-Plug 'jonleopard/ale'
 
 " ----------------------------------------------------------------------------
 " Git
@@ -213,10 +214,6 @@ Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neco-vim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 
 " ----------------------------------------------------------------------------
 " Editing
