@@ -260,8 +260,8 @@ Plug 'mbbill/undotree'
 Plug 'roman/golden-ratio'
 
 Plug 'itchyny/lightline.vim'
-"Plug 'daviesjamie/vim-base16-lightline'
-Plug 'jonleopard/vim-base16-lightline'
+Plug 'daviesjamie/vim-base16-lightline'
+"Plug 'jonleopard/vim-base16-lightline'
 Plug 'mark-westerhof/vim-lightline-base16'
 Plug 'maximbaz/lightline-ale'
 Plug 'maximbaz/lightline-trailing-whitespace'
@@ -288,9 +288,6 @@ call plug#end()
 "   set termguicolors
 " endif
 
-" Need to figure out how to get termguicolors to play well with lightline
-" True color
-" set termguicolors
 
 " base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
@@ -308,11 +305,26 @@ endif
 " LSP
 " ----------------------------------------------------------------------------
 let g:LanguageClient_autoStart = 1
+let flowreadable = filereadable('./.flowconfig')
+
+" let g:LanguageClient_serverCommands = {
+"     \ 'javascript': ['javascript-typescript-stdio'],
+"     \ 'javascript.jsx': ['javascript-typescript-stdio'],
+"     \ }
 
 let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ }
+      \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+      \ 'javascript': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', '--stdio'],
+      \ 'javascript.jsx': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', '--stdio'],
+      \ 'typescript': ['typescript-language-server', '--stdio'],
+      \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
+      \ 'python': ['pyls'],
+      \ 'reason': ['ocaml-language-server', '--stdio'],
+      \ 'ocaml': ['ocaml-language-server', '--stdio'],
+      \ 'elixir': ['elixir-ls'],
+      \ }
+
+
 
 autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
 
@@ -512,6 +524,17 @@ let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_prettier_use_global = 1
 let g:ale_javascript_prettier_executable = 'prettier_d'
+
+let g:ale_sign_error = "◉"
+let g:ale_sign_warning = "◉"
+
+hi link ALEErrorSign Red
+hi link ALEWarningSign BrightYellow
+
+highlight ALEErrorSign ctermfg=9 ctermbg=18 guifg=#C30500 guibg=#F5F5F5
+highlight ALEWarningSign ctermfg=11 ctermbg=18 guifg=#ED6237 guibg=#F5F5F5
+" let g:ale_warn_about_trailing_whitespace = 0
+
 " ----------------------------------------------------------------------------
 " indent-lines
 " ----------------------------------------------------------------------------
@@ -528,6 +551,9 @@ let g:indentLine_char = '|'
 " ----------------------------------------------------------------------------
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case  = 1
+let g:deoplete#sources = {}
+"let g:deoplete#keyword_patterns = {}
+let g:neosnippet#scope_aliases = {}
 
 if !exists('g:deoplete#omni#input_patterns')
 	let g:deoplete#omni#input_patterns = {}
@@ -551,25 +577,12 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 
-" set sources
-let g:deoplete#sources = {}
-let g:deoplete#sources.javascript = ['LanguageClient']
-let g:deoplete#sources.cpp = ['LanguageClient']
-let g:deoplete#sources.python = ['LanguageClient']
-let g:deoplete#sources.python3 = ['LanguageClient']
-let g:deoplete#sources.rust = ['LanguageClient']
-let g:deoplete#sources.c = ['LanguageClient']
-let g:deoplete#sources.vim = ['vim']
-
 "set completeopt-=preview
 set omnifunc=syntaxcomplete#Complete
 set completeopt=longest,menuone,preview
 
-
-
-" Neosnippet Settings
-
-" Plugin key-mappings.
+" Plugin key-mappings
+" Control k to expand snippet
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
