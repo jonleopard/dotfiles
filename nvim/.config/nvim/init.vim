@@ -533,12 +533,10 @@ hi link ALEWarningSign BrightYellow
 
 highlight ALEErrorSign ctermfg=9 ctermbg=18 guifg=#C30500 guibg=#F5F5F5
 highlight ALEWarningSign ctermfg=11 ctermbg=18 guifg=#ED6237 guibg=#F5F5F5
-" let g:ale_warn_about_trailing_whitespace = 0
 
 " ----------------------------------------------------------------------------
 " indent-lines
 " ----------------------------------------------------------------------------
-"let g:indentLine_setColors = 0
 let g:indentLine_char = '|'
 
 " ----------------------------------------------------------------------------
@@ -743,11 +741,6 @@ omap <leader><tab> <plug>(fzf-maps-o)
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
-
-
-
-
 
 " }}}
 " ============================================================================
