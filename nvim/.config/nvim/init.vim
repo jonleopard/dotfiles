@@ -187,6 +187,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
+Plug 'elzr/vim-json'
 Plug 'w0rp/ale'
 "Plug 'jonleopard/ale'
 Plug 'autozimu/LanguageClient-neovim', {
