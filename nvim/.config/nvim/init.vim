@@ -314,15 +314,8 @@ let flowreadable = filereadable('./.flowconfig')
 "     \ }
 
 let g:LanguageClient_serverCommands = {
-      \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-      \ 'javascript': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', '--stdio'],
-      \ 'javascript.jsx': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', '--stdio'],
-      \ 'typescript': ['typescript-language-server', '--stdio'],
-      \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
-      \ 'python': ['pyls'],
-      \ 'reason': ['ocaml-language-server', '--stdio'],
-      \ 'ocaml': ['ocaml-language-server', '--stdio'],
-      \ 'elixir': ['elixir-ls'],
+      \ 'javascript': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
+      \ 'javascript.jsx': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
       \ }
 
 
