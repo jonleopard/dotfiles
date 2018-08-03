@@ -365,6 +365,10 @@ let g:startify_fortune_use_unicode = 1
 let g:netrw_banner=0
 let g:netrw_liststyle = 3
 let g:netrw_sort_options = 'i'
+
+" Per default, netrw leaves unmodified buffers open. This autocommand
+" deletes netrw's buffer once it's hidden (using ':q', for example)
+" See https://github.com/tpope/vim-vinegar/issues/13
 autocmd FileType netrw setl bufhidden=delete
 
 " ----------------------------------------------------------------------------
@@ -521,8 +525,6 @@ let g:ale_javascript_prettier_executable = 'prettier_d'
 let g:ale_sign_error = "◉"
 let g:ale_sign_warning = "◉"
 
-hi link ALEErrorSign Red
-hi link ALEWarningSign BrightYellow
 let g:ale_set_highlights=0
 
 highlight ALEErrorSign ctermfg=9 ctermbg=18 guifg=#C30500 guibg=#F5F5F5
