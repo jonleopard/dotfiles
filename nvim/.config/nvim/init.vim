@@ -189,7 +189,6 @@ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
 Plug 'elzr/vim-json'
 Plug 'w0rp/ale'
-"Plug 'jonleopard/ale'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -524,6 +523,7 @@ let g:ale_sign_warning = "◉"
 
 hi link ALEErrorSign Red
 hi link ALEWarningSign BrightYellow
+let g:ale_set_highlights=0
 
 highlight ALEErrorSign ctermfg=9 ctermbg=18 guifg=#C30500 guibg=#F5F5F5
 highlight ALEWarningSign ctermfg=11 ctermbg=18 guifg=#ED6237 guibg=#F5F5F5
