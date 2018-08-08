@@ -260,7 +260,8 @@ Plug 'mbbill/undotree'
 Plug 'roman/golden-ratio'
 
 Plug 'itchyny/lightline.vim'
-Plug 'daviesjamie/vim-base16-lightline'
+"Plug 'daviesjamie/vim-base16-lightline'
+Plug 'mike-hearn/base16-vim-lightline'
 "Plug 'jonleopard/vim-base16-lightline'
 Plug 'mark-westerhof/vim-lightline-base16'
 Plug 'maximbaz/lightline-ale'
@@ -282,16 +283,15 @@ call plug#end()
 " COLOR SETTINGS {{{
 " ============================================================================
 
-" if has('termguicolors')
-"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-"   set termguicolors
-" endif
+if has('termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 
 " base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
   source ~/.vimrc_background
 endif
 
@@ -376,7 +376,7 @@ autocmd FileType netrw setl bufhidden=delete
 " ----------------------------------------------------------------------------
 
 let g:lightline = {
-      \   'colorscheme': 'base16',
+      \   'colorscheme': 'base16_nord',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
       \     'right': [ [ 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
