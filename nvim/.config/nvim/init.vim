@@ -525,7 +525,7 @@ let g:ale_javascript_prettier_executable = 'prettier_d'
 let g:ale_sign_error = "◉"
 let g:ale_sign_warning = "◉"
 
-let g:ale_set_highlights=0
+"let g:ale_set_highlights=1
 
 highlight ALEErrorSign ctermfg=9 ctermbg=18 guifg=#C30500 guibg=#F5F5F5
 highlight ALEWarningSign ctermfg=11 ctermbg=18 guifg=#ED6237 guibg=#F5F5F5
