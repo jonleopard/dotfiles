@@ -42,18 +42,23 @@ fzf-down() {
   fzf --height 50% "$@"
 }
 
-# z
-# Navigate your most used directories based on frequency.
-# https://github.com/rupa/z
-zplug "knu/z", use:z.sh, defer:3
 
-# zsh-syntax-highlighting
-# Syntax highlighing for the command line.
-# https://github.com/zsh-users/zsh-syntax-highlighting
 # zplug 'zsh-users/zsh-syntax-highlighting', defer:3
 
-# zsh-fast-syntax-highlighting
-zplug 'zdharma/fast-syntax-highlighting', defer:3
+# Plugins to be loaded after compinit was run.
+zplug 'hlissner/zsh-autopair', \
+      defer:2
+
+zplug 'knu/z', \
+      use:'z.sh', \
+      defer:2
+
+zplug 'zdharma/fast-syntax-highlighting', \
+      defer:2, \
+hook-load:'FAST_HIGHLIGHT=()'
+
+zplug "knu/z", \
+  use:z.sh, defer:3
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
