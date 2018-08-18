@@ -20,7 +20,6 @@ if !exists("g:syntax_on")
   syntax enable
 endif
 
-
 set nu
 syntax on
 set autoindent
@@ -282,7 +281,6 @@ call plug#end()
 " ============================================================================
 " COLOR SETTINGS {{{
 " ============================================================================
-
 if has('termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -294,6 +292,12 @@ endif
 if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
+
+
+" Change cursor shape based on mode
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 " }}}
 " ============================================================================
@@ -522,17 +526,20 @@ let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_javascript_prettier_use_global = 1
 let g:ale_javascript_prettier_executable = 'prettier_d'
 
-let g:ale_sign_error = "◉"
-let g:ale_sign_warning = "◉"
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
 
-"let g:ale_set_highlights=1
+" See https://github.com/w0rp/ale/issues/249
+" for more info on customising the colors.
 
-highlight ALEErrorSign ctermfg=9 ctermbg=18 guifg=#C30500 guibg=#F5F5F5
-highlight ALEWarningSign ctermfg=11 ctermbg=18 guifg=#ED6237 guibg=#F5F5F5
+"highlight ALEErrorSign ctermfg=9 ctermbg=15 guifg=#C30500 guibg=#F5F5F5
+"highlight ALEWarningSign ctermfg=11 ctermbg=15 guifg=#ED6237 guibg=#F5F5F5
 
 " ----------------------------------------------------------------------------
 " indent-lines
 " ----------------------------------------------------------------------------
+let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#616161'
 let g:indentLine_char = '|'
 
 " ----------------------------------------------------------------------------
