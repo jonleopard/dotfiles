@@ -188,6 +188,7 @@ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
 Plug 'elzr/vim-json'
 Plug 'w0rp/ale'
+Plug 'RRethy/vim-illuminate'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -205,6 +206,8 @@ Plug 'airblade/vim-gitgutter'
 " Tmux
 " ----------------------------------------------------------------------------
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 "----------------------------------------------------------------------------
 " Autocompletion & Snippets
@@ -252,6 +255,7 @@ Plug 'tpope/vim-vinegar'
 " ----------------------------------------------------------------------------
 " Utils
 " ----------------------------------------------------------------------------
+Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
@@ -308,7 +312,11 @@ let &t_EI = "\<Esc>[2 q"
 " ----------------------------------------------------------------------------
 " LSP
 " ----------------------------------------------------------------------------
+
 let g:LanguageClient_autoStart = 1
+let g:LanguageClient_waitOutputTimeout = 30
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_hoverPreview = 'Always' 
 let flowreadable = filereadable('./.flowconfig')
 
 " let g:LanguageClient_serverCommands = {
