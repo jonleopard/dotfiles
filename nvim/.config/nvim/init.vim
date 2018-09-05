@@ -243,7 +243,7 @@ Plug 'alexlafroscia/deoplete-flow',   { 'branch': 'pass-filename-to-autocomplete
 " ----------------------------------------------------------------------------
 " Go
 " ----------------------------------------------------------------------------
-Plug 'fatih/vim-go',                  {'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go',                  {'do': ':GoUpdateBinaries' }
 
 " ----------------------------------------------------------------------------
 " Searching/Navigation
@@ -327,6 +327,7 @@ let flowreadable = filereadable('./.flowconfig')
 let g:LanguageClient_serverCommands = {
       \ 'javascript': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
       \ 'javascript.jsx': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
+      \  'go': ['go-langserver'],
       \ }
 
 
@@ -521,11 +522,13 @@ let g:ale_linters = {
 \   'javascript': ['eslint', 'flow'],
 \   'html': ['htmlhint', 'tidy'],
 \   'json': ['jsonlint'],
+\   'go': ['gometalinter', 'gofmt'],
 \ }
 
 let g:ale_fixers = {
 \   'javascript': ['prettier','eslint'],
-\   'javascript.jsx': ['prettier', 'eslint']
+\   'javascript.jsx': ['prettier', 'eslint'],
+\   'go': ['gofmt'],
 \ }
 
 let g:ale_javascript_prettier_use_local_config = 1
