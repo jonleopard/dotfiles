@@ -16,6 +16,13 @@ eval "$(rbenv init -)"
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# Go
+export GOPATH="$HOME/go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+
+
+
 # Look into improving NVM loading times
 # https://github.com/creationix/nvm/issues/1277
 

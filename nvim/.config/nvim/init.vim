@@ -12,7 +12,6 @@ let maplocalleader = ' '
 
 augroup vimrc
     autocmd!
-    augroup END
 augroup END
 
 
@@ -23,10 +22,12 @@ endif
 set nu
 syntax on
 set autoindent
+set autowrite
 set smartindent
 set lazyredraw
 set laststatus=2
 set showcmd
+set noshowmode
 set visualbell
 set backspace=indent,eol,start
 set timeoutlen=500
@@ -216,7 +217,7 @@ Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neco-vim'
-
+Plug 'Shougo/echodoc.vim'
 " ----------------------------------------------------------------------------
 " Editing
 " ----------------------------------------------------------------------------
@@ -244,7 +245,7 @@ Plug 'alexlafroscia/deoplete-flow',   { 'branch': 'pass-filename-to-autocomplete
 " Go
 " ----------------------------------------------------------------------------
 Plug 'fatih/vim-go',                  {'do': ':GoUpdateBinaries' }
-
+Plug 'zchee/deoplete-go',             { 'do': 'make'}
 " ----------------------------------------------------------------------------
 " Searching/Navigation
 " ----------------------------------------------------------------------------
@@ -279,7 +280,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
 
 
-
 call plug#end()
 " }}}
 " ============================================================================
@@ -307,6 +307,24 @@ let &t_EI = "\<Esc>[2 q"
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
+
+" ----------------------------------------------------------------------------
+" AutoSave
+" ----------------------------------------------------------------------------
+function! s:autosave(enable)
+  augroup autosave
+    autocmd!
+    if a:enable
+      autocmd TextChanged,InsertLeave <buffer>
+            \  if empty(&buftype) && !empty(bufname(''))
+            \|   silent! update
+            \| endif
+    endif
+  augroup END
+endfunction
+
+command! -bang AutoSave call s:autosave(<bang>1)
+
 
 
 " ----------------------------------------------------------------------------
@@ -354,7 +372,20 @@ augroup LanguageClientConfig
 augroup END
 
 
+" ----------------------------------------------------------------------------
+" vim-go
+" ----------------------------------------------------------------------------
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+let g:go_fmt_options = {
+  \ 'goimports': '-local do/',
+  \ }
 
+augroup go
+  autocmd!
+    autocmd FileType go nmap <leader>b  <Plug>(go-build)
+    autocmd FileType go nmap <leader>r  <Plug>(go-run)
+augroup END
 " ----------------------------------------------------------------------------
 " startify
 " ----------------------------------------------------------------------------
@@ -589,9 +620,8 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 
-"set completeopt-=preview
 set omnifunc=syntaxcomplete#Complete
-set completeopt=longest,menuone,preview
+set completeopt-=menuone,preview
 
 " Plugin key-mappings
 " Control k to expand snippet
