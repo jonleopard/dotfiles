@@ -244,7 +244,7 @@ Plug 'alexlafroscia/deoplete-flow',   { 'branch': 'pass-filename-to-autocomplete
 " ----------------------------------------------------------------------------
 " Go
 " ----------------------------------------------------------------------------
-Plug 'fatih/vim-go',                  {'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
 Plug 'zchee/deoplete-go',             { 'do': 'make'}
 " ----------------------------------------------------------------------------
 " Searching/Navigation
@@ -264,10 +264,7 @@ Plug 'mbbill/undotree'
 Plug 'roman/golden-ratio'
 
 Plug 'itchyny/lightline.vim'
-"Plug 'daviesjamie/vim-base16-lightline'
-Plug 'mike-hearn/base16-vim-lightline'
-"Plug 'jonleopard/vim-base16-lightline'
-Plug 'mark-westerhof/vim-lightline-base16'
+Plug 'jonleopard/base16-vim-lightline'
 Plug 'maximbaz/lightline-ale'
 Plug 'maximbaz/lightline-trailing-whitespace'
 Plug 'mgee/lightline-bufferline'
@@ -296,12 +293,6 @@ endif
 if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
-
-
-" Change cursor shape based on mode
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
 
 " }}}
 " ============================================================================
@@ -420,7 +411,7 @@ autocmd FileType netrw setl bufhidden=delete
 " ----------------------------------------------------------------------------
 
 let g:lightline = {
-      \   'colorscheme': 'base16_nord',
+      \   'colorscheme': 'base16_snazzy',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
       \     'right': [ [ 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
