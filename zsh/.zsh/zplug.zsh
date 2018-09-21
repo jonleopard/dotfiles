@@ -18,7 +18,7 @@ zplug "mafredri/zsh-async, from:github"
 zplug "sindresorhus/pure, use:pure.zsh, from:github, as:theme"
 zplug "felixr/docker-zsh-completion"
 zplug "bobthecow/git-flow-completion"
-zplug "lukechilds/zsh-nvm"
+# zplug "lukechilds/zsh-nvm"
 zplug "zsh-users/zsh-completions", defer:0
 zplug "zsh-users/zsh-autosuggestions", defer:2, on:"zsh-users/zsh-completions"
 zplug "peco/peco", \

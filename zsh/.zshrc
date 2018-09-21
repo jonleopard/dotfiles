@@ -1,3 +1,9 @@
+if [[ -n $ZSH_PROF ]]; then
+  zmodload zsh/zprof
+fi
+
+
+
 # Load ZSH Config Files
 for config (~/.zsh/*.zsh) source $config
 
@@ -9,4 +15,5 @@ HOMEBREW_NO_GITHUB_API=1
 
 # Configure brew to avoid protocol downgrades from HTTPS to HTTP via redirect
 HOMEBREW_NO_INSECURE_REDIRECT=1
+
 
