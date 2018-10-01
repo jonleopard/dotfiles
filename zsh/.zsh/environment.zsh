@@ -1,10 +1,11 @@
 # Environment Paths
 
 # Homebrew
-export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
 
 # Vault
-export VAULT_ADDR='http://127.0.0.1:8200'
+export VAULT_ADDR="http://127.0.0.1:8200"
 
 # Curl
 export PATH="/usr/local/opt/curl/bin:$PATH"
@@ -20,7 +21,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export GOPATH="$HOME/go"
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
-
 
 
 # Look into improving NVM loading times
