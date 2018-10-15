@@ -1,0 +1,16 @@
+caarlos0/ports kind:path
+mafredri/zsh-async
+rupa/z
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+hlissner/zsh-autopair
+junegunn/fzf
+felixr/docker-zsh-completion
+peco/peco
+
+
+
+# these should be at last!
+sindresorhus/pure
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-history-substring-search

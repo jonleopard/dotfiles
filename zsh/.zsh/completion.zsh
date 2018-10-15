@@ -1,2 +1,2 @@
-plugins=(… zsh-completions)
-autoload -U compinit && compinit
+#!/bin/zsh
+autoload -Uz compinit
