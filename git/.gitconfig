@@ -105,11 +105,13 @@
 	date = relative
 	
 [commit]
-	gpgSign = true
+	gpgsign = true
 	# https://help.github.com/articles/about-gpg/
 	# https://git-scm.com/docs/git-config#git-config-commitgpgSign
 	# https://help.github.com/articles/signing-commits-using-gpg/
 [gpg]
-	program = gpg2
+	program = /usr/local/bin/gpg
 	
 
+[user]
+	signingkey = jontron2000@gmail.com

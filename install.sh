@@ -142,8 +142,23 @@ prompt_shell "Would you like to swith to zsh?" || exit 0
 
 # Color Scheme
 echo "Setting up base16 colors"
-stow colors && base16_dracula
+stow colors && base16_snazzy
 
+
+#Antibody (ZSH Plugin setup)
+prompt_antibody() {
+if [ "$SHELL" = '/usr/local/bin/zsh' ]; then
+  while true; do
+    read -p "${1:-Continue?} [y/n]: " REPLY
+    case $REPLY in
+      [yY]) cd zsh/.zsh/install.sh && ./install.sh ; return 0 ;;
+      [nN]) echo ; return 0 ;;
+      *) printf " \033[31m %s \n\033[0m" "invalid option"
+    esac
+  done
+fi
+}
+prompt_antibody "Would you like to install ZSH Plugins with Antigen?" || exit 0
 
 # Neovim
 prompt_vim() {

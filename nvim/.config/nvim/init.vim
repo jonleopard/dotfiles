@@ -554,10 +554,10 @@ let g:ale_fixers = {
 \ }
 
 let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_javascript_prettier_use_global = 1
-let g:ale_javascript_prettier_executable = 'prettier_d'
+"let g:ale_javascript_eslint_use_global = 1
+let g:ale_javascript_eslint_executable = 'eslint'
+"let g:ale_javascript_prettier_use_global = 1
+let g:ale_javascript_prettier_executable = 'prettier'
 
 let g:ale_sign_error = '•'
 let g:ale_sign_warning = '•'
