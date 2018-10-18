@@ -68,6 +68,8 @@ if exists('&colorcolumn')
   set colorcolumn=80
 endif
 
+set synmaxcol=1000
+
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
@@ -307,6 +309,10 @@ endif
 let g:undotree_WindowLayout = 2
 nnoremap U :UndotreeToggle<CR>
 
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
 
 
 
