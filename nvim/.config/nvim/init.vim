@@ -21,6 +21,7 @@ endif
 
 set nu
 syntax on
+set undofile
 set autoindent
 set autowrite
 set smartindent
@@ -96,9 +97,6 @@ endif
 " ----------------------------------------------------------------------------
 " Basic mappings
 " ----------------------------------------------------------------------------
-
-"noremap <C-F> <C-D>
-"noremap <C-B> <C-U>
 
 " qq to record, Q to replay
 nnoremap Q @q
@@ -310,7 +308,7 @@ let g:undotree_WindowLayout = 2
 nnoremap U :UndotreeToggle<CR>
 
 if has("persistent_undo")
-    set undodir=~/.undodir/
+    set undodir=~/.config/nvim/undodir
     set undofile
 endif
 
