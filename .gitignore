@@ -9,7 +9,7 @@ nvim/.config/nvim/plugged/*
 nvim/.config/autoload
 nvim/.config/nvim/autoload/plug.vim.old
 nvim/.config/nvim/.netrwhist
-nvim/.config/nvim/undodir/*%
+nvim/.config/nvim/undodir/*
 tmux/.tmux/plugins
 
 # Folder view configuration files
