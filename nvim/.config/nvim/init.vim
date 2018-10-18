@@ -260,7 +260,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
-Plug 'mbbill/undotree'
+Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
 Plug 'roman/golden-ratio'
 
 Plug 'itchyny/lightline.vim'
@@ -298,6 +298,17 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
+
+
+
+" ----------------------------------------------------------------------------
+" undotree
+" ----------------------------------------------------------------------------
+let g:undotree_WindowLayout = 2
+nnoremap U :UndotreeToggle<CR>
+
+
+
 
 " ----------------------------------------------------------------------------
 " AutoSave
