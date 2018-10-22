@@ -275,7 +275,7 @@ Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
-
+Plug 'iamcco/markdown-preview.vim'
 
 call plug#end()
 " }}}
