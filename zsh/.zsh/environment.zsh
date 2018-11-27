@@ -3,7 +3,6 @@
 # Homebrew
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
-
 # Vault
 export VAULT_ADDR="http://127.0.0.1:8200"
 
@@ -22,6 +21,7 @@ export GOPATH="$HOME/go"
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
+# Python
 
 # Look into improving NVM loading times
 # https://github.com/creationix/nvm/issues/1277
