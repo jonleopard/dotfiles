@@ -299,6 +299,10 @@ endif
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
+
+
+
+
 " ----------------------------------------------------------------------------
 " undotree
 " ----------------------------------------------------------------------------
@@ -384,6 +388,11 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_options = {
   \ 'goimports': '-local do/',
   \ }
+
+
+if exists('g:loaded_polyglot')
+    let g:polyglot_disabled = ['go']
+endif
 
 augroup go
   autocmd!
@@ -689,66 +698,13 @@ nmap gaa ga
 " FZF {{{
 " ============================================================================
 
-" FZF + Ripgrep
-
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
-" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-
-" if has('nvim') || has('gui_running')
-"   let $FZF_DEFAULT_OPTS .= ' --inline-info'
-" endif
-
-" nmap <C-p> :Files<cr>
-"   imap <c-x><c-l> <plug>(fzf-complete-line)
-
-"   let g:fzf_action = {
-"     \ 'ctrl-t': 'tab split',
-"     \ 'ctrl-i': 'split',
-"     \ 'ctrl-s': 'vsplit' }
-"   let g:fzf_layout = { 'down': '~20%' }
-
-" " In Neovim, you can set up fzf window using a Vim command
-" let g:fzf_layout = { 'window': 'enew' }
-" let g:fzf_layout = { 'window': '-tabnew' }
-" let g:fzf_layout = { 'window': '10split enew' }
-
-" " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-" command! -bang -nargs=* Rg
-"   \ call fzf#vim#grep(
-"   \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-"   \   <bang>0 ? fzf#vim#with_preview('up:60%')
-"   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-"   \   <bang>0)
-
-" Likewise, Files command with preview window
-"command! -bang -nargs=? -complete=dir Files
-"  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" let g:rg_command = '
-"   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-"   \ -g "*.{js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst}"
-"   \ -g "!{.config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist}/*" '
-
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 
-nnoremap <silent> <Leader>C        :Colors<CR>
-nnoremap <silent> <Leader><Enter>  :Buffers<CR>
-nnoremap <silent> <Leader>l        :Lines<CR>
-nnoremap <silent> <Leader>ag       :Rg <C-R><C-W><CR>
-nnoremap <silent> <Leader>AG       :Rg <C-R><C-A><CR>
-xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
-nnoremap <silent> <Leader>`        :Marks<CR>
-nnoremap <silent> <Leader>f        :Files<CR>
+" Hide statusline of terminal buffer
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -765,8 +721,18 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header': ['fg', 'Comment'] }
 
+
 command! -bang -nargs=? -complete=dir Files
 \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+nnoremap <silent> <Leader>C        :Colors<CR>
+nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+nnoremap <silent> <Leader>l        :Lines<CR>
+nnoremap <silent> <Leader>ag       :Rg <C-R><C-W><CR>
+nnoremap <silent> <Leader>AG       :Rg <C-R><C-A><CR>
+xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
+nnoremap <silent> <Leader>`        :Marks<CR>
+nnoremap <silent> <Leader>f        :Files<CR>
 
 inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -779,10 +745,24 @@ nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
-" Hide statusline of terminal buffer
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+function! s:plug_help_sink(line)
+  let dir = g:plugs[a:line].dir
+  for pat in ['doc/*.txt', 'README.md']
+    let match = get(split(globpath(dir, pat), "\n"), 0, '')
+    if len(match)
+      execute 'tabedit' match
+      return
+    endif
+  endfor
+  tabnew
+  execute 'Explore' dir
+endfunction
+
+command! PlugHelp call fzf#run(fzf#wrap({
+  \ 'source': sort(keys(g:plugs)),
+  \ 'sink': function('s:plug_help_sink')}))
+
+
 
 " }}}
 " ============================================================================
