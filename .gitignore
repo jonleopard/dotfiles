@@ -11,7 +11,7 @@ nvim/.config/nvim/autoload/plug.vim.old
 nvim/.config/nvim/.netrwhist
 nvim/.config/nvim/undodir/*
 tmux/.tmux/plugins
-
+tmux/.tmux/resurrect
 # Folder view configuration files
 .DS_Store
 Desktop.ini
