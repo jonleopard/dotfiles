@@ -218,7 +218,8 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/echodoc.vim'
-" Plug 'epilande/vim-react-snippets' , { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'epilande/vim-react-snippets' , { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'SirVer/ultisnips'
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -300,7 +301,6 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
-
 
 " ----------------------------------------------------------------------------
 " undotree
