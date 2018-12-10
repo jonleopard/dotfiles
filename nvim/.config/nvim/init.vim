@@ -175,6 +175,25 @@ call s:tmux_map('<leader>t.', '.bottom-right')
 " ============================================================================
 
 call plug#begin('~/.config/nvim/plugged')
+
+" ----------------------------------------------------------------------------
+" Javascript
+" ----------------------------------------------------------------------------
+Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'digitaltoad/vim-pug'
+Plug 'elzr/vim-json'
+Plug 'alexlafroscia/deoplete-flow',   { 'branch': 'pass-filename-to-autocomplete' }
+
+
+" ----------------------------------------------------------------------------
+" Go
+" ----------------------------------------------------------------------------
+Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
+Plug 'zchee/deoplete-go',             { 'do': 'make'}
+
+
+
+
 " ----------------------------------------------------------------------------
 " Colorscheme & Syntax Highlighting & Linting
 " ----------------------------------------------------------------------------
@@ -218,8 +237,6 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/echodoc.vim'
-Plug 'epilande/vim-react-snippets' , { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'SirVer/ultisnips'
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -235,20 +252,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'mattn/emmet-vim'
 
-" ----------------------------------------------------------------------------
-" Javascript
-" ----------------------------------------------------------------------------
-Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'digitaltoad/vim-pug'
-Plug 'elzr/vim-json'
-Plug 'alexlafroscia/deoplete-flow',   { 'branch': 'pass-filename-to-autocomplete' }
-
-
-" ----------------------------------------------------------------------------
-" Go
-" ----------------------------------------------------------------------------
-Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
-Plug 'zchee/deoplete-go',             { 'do': 'make'}
 " ----------------------------------------------------------------------------
 " Searching/Navigation
 " ----------------------------------------------------------------------------
