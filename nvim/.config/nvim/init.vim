@@ -56,6 +56,7 @@ set clipboard=unnamed
 set foldlevelstart=99
 set grepformat=%f:%l:%c:%m,%f:%l:%m
 set completeopt=menuone,preview
+set omnifunc=syntaxcomplete#Complete
 set nocursorline
 set nrformats=hex
 set title
@@ -191,8 +192,11 @@ Plug 'alexlafroscia/deoplete-flow',   { 'branch': 'pass-filename-to-autocomplete
 Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
 Plug 'zchee/deoplete-go',             { 'do': 'make'}
 
-
-
+" ----------------------------------------------------------------------------
+" Rust
+" ----------------------------------------------------------------------------
+Plug 'racer-rust/vim-racer'
+Plug 'sebastianmarkow/deoplete-rust'
 
 " ----------------------------------------------------------------------------
 " Colorscheme & Syntax Highlighting & Linting
@@ -257,7 +261,7 @@ Plug 'mattn/emmet-vim'
 " ----------------------------------------------------------------------------
 Plug 'junegunn/fzf',                  { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-vinegar'
+Plug 'justinmk/vim-dirvish'
 
 " ----------------------------------------------------------------------------
 " Utils
@@ -273,7 +277,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'jonleopard/base16-vim-lightline'
 Plug 'maximbaz/lightline-ale'
 Plug 'maximbaz/lightline-trailing-whitespace'
-Plug 'mgee/lightline-bufferline'
+Plug 'mengelbrecht/lightline-bufferline'
 
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -312,8 +316,8 @@ let g:undotree_WindowLayout = 2
 nnoremap U :UndotreeToggle<CR>
 
 if has("persistent_undo")
-    set undodir=~/.config/nvim/undodir
-    set undofile
+  set undodir=~/.config/nvim/undodir
+  set undofile
 endif
 
 
@@ -343,7 +347,6 @@ command! -bang AutoSave call s:autosave(<bang>1)
 
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_waitOutputTimeout = 30
-let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_hoverPreview = 'Always' 
 let flowreadable = filereadable('./.flowconfig')
 
@@ -353,6 +356,7 @@ let flowreadable = filereadable('./.flowconfig')
 "     \ }
 
 let g:LanguageClient_serverCommands = {
+      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
       \ 'javascript': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
       \ 'javascript.jsx': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
       \  'go': ['go-langserver'],
@@ -380,6 +384,9 @@ augroup LanguageClientConfig
   " Use as omnifunc by default
   autocmd FileType javascript,python,typescript,json,css,less,html,reason setlocal omnifunc=LanguageClient#complete
 augroup END
+
+
+
 
 
 " ----------------------------------------------------------------------------
@@ -416,19 +423,15 @@ let g:startify_custom_header       = 'map(startify#fortune#boxed(), "\"   \".v:v
 let g:startify_fortune_use_unicode = 1
 
 
-" ----------------------------------------------------------------------------
-" netrw (file explorer)
-" ----------------------------------------------------------------------------
 
-" Dont show the banner
-let g:netrw_banner=0
-let g:netrw_liststyle = 3
-let g:netrw_sort_options = 'i'
 
-" Per default, netrw leaves unmodified buffers open. This autocommand
-" deletes netrw's buffer once it's hidden (using ':q', for example)
-" See https://github.com/tpope/vim-vinegar/issues/13
-autocmd FileType netrw setl bufhidden=delete
+
+" ----------------------------------------------------------------------------
+" vim-dirvish (file explorer)
+" ----------------------------------------------------------------------------
+" Relative line numbers in a Dirvish buffer
+autocmd! FileType dirvish setlocal relativenumber
+
 
 " ----------------------------------------------------------------------------
 " Lightline (statusbar)
@@ -504,21 +507,24 @@ function! LightlineWorkingDirectory()
   return &ft =~ 'help\|qf' ? '' : fnamemodify(getcwd(), ":~:.")
 endfunction
 
+function! s:get_buffer_name(i)
+  let l:name = fnamemodify(bufname(a:i), s:filename_modifier)
+  if
+endfunction
+
 
 
 " Lightline ALE (https://github.com/maximbaz/lightline-ale)
 let g:lightline#ale#indicator_warnings = ' '
 let g:lightline#ale#indicator_errors = ' '
 let g:lightline#ale#indicator_checking = ' '
+let g:lightline#ale#indicator_ok = "✓"
 
-" Nerd Fonts in lightline
-" let g:lightline#ale#indicator_checking = "\uf110"
-" let g:lightline#ale#indicator_warnings = "\uf071"
-" let g:lightline#ale#indicator_errors = "\uf05e"
-" let g:lightline#ale#indicator_ok = "\uf00c"
 
 "lightline-bufferline
 
+" Show devicons
+let g:lightline#bufferline#enable_devicons = 1
 " Show filename relative to current directory
 let g:lightline#bufferline#filename_modifier = ':~:.'
 " Use fancy unicode symbols for various indicators
@@ -526,9 +532,22 @@ let g:lightline#bufferline#unicode_symbols = 1
 " Default name when no buffer is opened
 let g:lightline#bufferline#unnamed = '[No Name]'
 " Don't compress ~/my/folder/name to ~/m/f/n
-let g:lightline#bufferline#shorten_path = 0
+let g:lightline#bufferline#shorten_path = 1
 "Lightline trailing whitespace
 let g:lightline#trailing_whitespace#indicator = '•'
+
+let g:lightline#bufferline#show_number = 2
+
+nmap <Leader>1 <Plug>lightline#bufferline#go(1)
+nmap <Leader>2 <Plug>lightline#bufferline#go(2)
+nmap <Leader>3 <Plug>lightline#bufferline#go(3)
+nmap <Leader>4 <Plug>lightline#bufferline#go(4)
+nmap <Leader>5 <Plug>lightline#bufferline#go(5)
+nmap <Leader>6 <Plug>lightline#bufferline#go(6)
+nmap <Leader>7 <Plug>lightline#bufferline#go(7)
+nmap <Leader>8 <Plug>lightline#bufferline#go(8)
+nmap <Leader>9 <Plug>lightline#bufferline#go(9)
+nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
 
 " remap arrow keys
@@ -586,8 +605,16 @@ let g:ale_javascript_prettier_executable = 'prettier'
 let g:ale_sign_error = '•'
 let g:ale_sign_warning = '•'
 
+hi link ALEErrorSign    Error
+hi link ALEWarningSign  Warning
+hi Error   cterm=bold gui=bold
+hi Warning cterm=bold gui=bold
+
 " See https://github.com/w0rp/ale/issues/249
 " for more info on customising the colors.
+
+
+
 
 "highlight ALEErrorSign ctermfg=9 ctermbg=15 guifg=#C30500 guibg=#F5F5F5
 "highlight ALEWarningSign ctermfg=11 ctermbg=15 guifg=#ED6237 guibg=#F5F5F5
@@ -608,35 +635,22 @@ let g:indentLine_char = '|'
 " Deoplete
 " ----------------------------------------------------------------------------
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case  = 1
+let g:deoplete#enable_smart_case = 1
 let g:deoplete#sources = {}
-"let g:deoplete#keyword_patterns = {}
-let g:neosnippet#scope_aliases = {}
 
-if !exists('g:deoplete#omni#input_patterns')
-	let g:deoplete#omni#input_patterns = {}
-endif
+"<TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-
-" <TAB>: completion.
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort 
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-" <S-TAB>: completion back.
+"<S-TAB>: completion back.
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" <C-h>, <BS>: close popup and delete backword char.
+"<C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 
-set omnifunc=syntaxcomplete#Complete
-set completeopt-=menuone,preview
+" Close preview menu when finished
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Plugin key-mappings
 " Control k to expand snippet
@@ -645,16 +659,13 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" Deoplete Rust
+let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='$HOME/rust_test/rust/src'
 
 
+let g:deoplete#sources#rust#show_duplicates=1
 
 " ----------------------------------------------------------------------------
 " <Enter> | vim-easy-align
