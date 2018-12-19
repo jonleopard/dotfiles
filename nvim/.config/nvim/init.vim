@@ -61,7 +61,7 @@ set nocursorline
 set nrformats=hex
 set title
 set showtabline=2
-
+set cmdheight=2
 silent! set cryptmethod=blowfish2
 
 " 80 chars/line
@@ -202,8 +202,6 @@ Plug 'sebastianmarkow/deoplete-rust'
 " Colorscheme & Syntax Highlighting & Linting
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
-autocmd! User indentLine doautocmd indentLine Syntax
-
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'hail2u/vim-css3-syntax'
@@ -262,6 +260,8 @@ Plug 'mattn/emmet-vim'
 Plug 'junegunn/fzf',                  { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
+Plug 'majutsushi/tagbar',             { 'on': 'TagbarToggle' }
+Plug 'justinmk/vim-gtfo'
 
 " ----------------------------------------------------------------------------
 " Utils
@@ -284,7 +284,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'sgur/vim-editorconfig'
 Plug 'iamcco/markdown-preview.vim'
 
 call plug#end()
@@ -308,6 +308,19 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
+
+
+" ----------------------------------------------------------------------------
+" Tagbar
+" ----------------------------------------------------------------------------
+let g:tagbar_sort = 0
+
+" Tags
+nnoremap <C-]> g<C-]>
+nnoremap g[ :pop<cr>
+
+" ctags
+set tags=./tags;/
 
 " ----------------------------------------------------------------------------
 " undotree
@@ -345,6 +358,7 @@ command! -bang AutoSave call s:autosave(<bang>1)
 " LSP
 " ----------------------------------------------------------------------------
 
+let g:LanguageClient_windowLogMessageLevel = 'Error'
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_waitOutputTimeout = 30
 let g:LanguageClient_hoverPreview = 'Always' 
@@ -421,8 +435,6 @@ let g:startify_lists = [
 
 let g:startify_custom_header       = 'map(startify#fortune#boxed(), "\"   \".v:val")'
 let g:startify_fortune_use_unicode = 1
-
-
 
 
 
@@ -597,10 +609,10 @@ let g:ale_fixers = {
 \ }
 
 let g:ale_javascript_prettier_use_local_config = 1
-"let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_eslint_executable = 'eslint'
-"let g:ale_javascript_prettier_use_global = 1
-let g:ale_javascript_prettier_executable = 'prettier'
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_javascript_eslint_executable = 'eslint_d'
+let g:ale_javascript_prettier_use_global = 1
+let g:ale_javascript_prettier_executable = 'prettier_d'
 
 let g:ale_sign_error = '•'
 let g:ale_sign_warning = '•'
@@ -620,11 +632,12 @@ hi Warning cterm=bold gui=bold
 "highlight ALEWarningSign ctermfg=11 ctermbg=15 guifg=#ED6237 guibg=#F5F5F5
 
 " ----------------------------------------------------------------------------
-" indent-lines
+" ygg indent-lines
 " ----------------------------------------------------------------------------
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#616161'
 let g:indentLine_char = '|'
+autocmd! User indentLine doautocmd indentLine Syntax
 
 " ----------------------------------------------------------------------------
 " auto-pairs
