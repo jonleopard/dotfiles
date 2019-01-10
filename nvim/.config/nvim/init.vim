@@ -62,6 +62,7 @@ set nrformats=hex
 set title
 set showtabline=2
 set cmdheight=2
+set updatetime=100
 silent! set cryptmethod=blowfish2
 
 " 80 chars/line
