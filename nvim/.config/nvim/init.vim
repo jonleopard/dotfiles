@@ -24,6 +24,7 @@ syntax on
 set undofile
 set autoindent
 set autowrite
+set autoread
 set smartindent
 set lazyredraw
 set laststatus=2
@@ -33,7 +34,6 @@ set visualbell
 set backspace=indent,eol,start
 set timeoutlen=500
 set whichwrap=b,s
-set shortmess=aIT
 set hlsearch " CTRL-L / CTRL-R W
 set incsearch
 set hidden
@@ -58,12 +58,15 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 set completeopt=menuone,preview
 set omnifunc=syntaxcomplete#Complete
 set nocursorline
+set nocursorcolumn
 set nrformats=hex
 set title
 set showtabline=2
-set cmdheight=2
+set shortmess=aIT
+set cmdheight=1
 set updatetime=100
-silent! set cryptmethod=blowfish2
+set noswapfile
+set nobackup
 
 " 80 chars/line
 set textwidth=0
@@ -287,6 +290,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sgur/vim-editorconfig'
 Plug 'iamcco/markdown-preview.vim'
+"Plug 'TaDaa/vimade'
 
 call plug#end()
 " }}}
@@ -330,8 +334,8 @@ let g:undotree_WindowLayout = 2
 nnoremap U :UndotreeToggle<CR>
 
 if has("persistent_undo")
-  set undodir=~/.config/nvim/undodir
   set undofile
+  set undodir=~/.config/nvim/undodir
 endif
 
 
