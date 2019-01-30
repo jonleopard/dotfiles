@@ -128,7 +128,3 @@ colorMoved = zebra
 	# https://github.com/pstadler/keybase-gpg-github
 [gpg]
 	program = gpg2
-	
-
-[user]
-	signingkey = jontron2000@gmail.com

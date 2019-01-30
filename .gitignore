@@ -1,10 +1,6 @@
 # Sensitive or unnecessary files don't need to be uploaded
 gnupg/*
-ssh/.ssh/known_hosts
-ssh/.ssh/.known_hosts
-ssh/.ssh/known_hosts.save
-ssh/.ssh/id_rsa
-ssh/.ssh/id_rsa.pub
+ssh/.ssh/*
 nvim/.config/nvim/plugged/*
 nvim/.config/autoload
 nvim/.config/nvim/autoload/plug.vim.old
@@ -13,6 +9,7 @@ nvim/.config/nvim/undodir/*
 nvim/.config/nvim/Session.vim
 tmux/.tmux/plugins
 tmux/.tmux/resurrect
+
 # Folder view configuration files
 .DS_Store
 Desktop.ini
