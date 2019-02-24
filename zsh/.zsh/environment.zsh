@@ -21,6 +21,11 @@ export GOPATH="$HOME/go"
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
+
+# PHP/Laravel
+export PATH="$PATH:$HOME/.composer/vendor/bin"
+
+
 # Python
 
 # Look into improving NVM loading times
