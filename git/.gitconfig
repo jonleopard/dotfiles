@@ -111,8 +111,11 @@ untracked = cyan
     # https://blog.github.com/2018-04-05-git-217-released/
 colorMoved = zebra
 
-[remote "origin"]
-	fetch = +refs/heads/*:refs/remotes/origin/*
+# This config param seems to break in git v2.21.0. Need to find out why
+# https://stackoverflow.com/questions/54922704/git-cloning-error-fatal-multiple-updates-for-ref-not-allowed/54925834#54925834
+
+; [remote "origin"]
+; 	fetch = +refs/heads/*:refs/remotes/origin/*
 
 [stash]
 	showPatch = true
