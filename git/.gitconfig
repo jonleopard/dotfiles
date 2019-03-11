@@ -42,8 +42,8 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
-    newMoved = cyan
-    oldMoved = blue
+        newMoved = cyan
+        oldMoved = blue
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = "red bold 52"
@@ -116,6 +116,9 @@ colorMoved = zebra
 
 ; [remote "origin"]
 ; 	fetch = +refs/heads/*:refs/remotes/origin/*
+
+
+
 
 [stash]
 	showPatch = true
