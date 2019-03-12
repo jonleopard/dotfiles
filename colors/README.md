@@ -12,10 +12,13 @@ So, base16 is being used for:
 
 
 
-# Install base16-shell
+### Install base16-shell
 
 I use my own forks since I am constantly pulling in and building the new themes
-that get added to the base16 repos. TODO - Add this to the setup script...
+that get added to the base16 repos.
+
+
+TODO - Add this to the setup script...
 
 ```
 git clone https://github.com/jonleopard/base16-shell.git ~/.config/base16-shell
