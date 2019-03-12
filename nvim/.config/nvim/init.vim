@@ -45,7 +45,6 @@ set tabstop=2
 set shiftwidth=2
 set expandtab smarttab
 set scrolloff=5
-set encoding=utf-8
 set list
 set listchars=tab:\|\ ,
 set virtualedit=block
@@ -179,6 +178,15 @@ call s:tmux_map('<leader>t.', '.bottom-right')
 " VIM-PLUG BLOCK {{{
 " ============================================================================
 
+"Make sure vim-plug is installed first
+" if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+"   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" endif
+
+
+
 call plug#begin('~/.config/nvim/plugged')
 
 " ----------------------------------------------------------------------------
@@ -203,10 +211,17 @@ Plug 'racer-rust/vim-racer'
 Plug 'sebastianmarkow/deoplete-rust'
 
 " ----------------------------------------------------------------------------
+" php
+" ----------------------------------------------------------------------------
+Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
+Plug 'kristijanhusak/deoplete-phpactor'
+
+" ----------------------------------------------------------------------------
 " Colorscheme & Syntax Highlighting & Linting
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
-Plug 'chriskempson/base16-vim'
+Plug 'jonleopard/base16-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
@@ -275,7 +290,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
 Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
-Plug 'roman/golden-ratio'
+"Plug 'roman/golden-ratio'
 
 Plug 'itchyny/lightline.vim'
 Plug 'jonleopard/base16-vim-lightline'
@@ -291,6 +306,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'sgur/vim-editorconfig'
 Plug 'iamcco/markdown-preview.vim'
 "Plug 'TaDaa/vimade'
+Plug 'janko-m/vim-test'
 
 call plug#end()
 " }}}
@@ -314,6 +330,21 @@ endif
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
+" ----------------------------------------------------------------------------
+" vim-test
+" ----------------------------------------------------------------------------
+nnoremap <silent> <Leader>tN       :TestNearest<CR>
+nnoremap <silent> <Leader>tF       :TestFile<CR>
+nnoremap <silent> <Leader>tS       :TestSuite<CR>
+nnoremap <silent> <Leader>tL       :TestLast<CR>
+nnoremap <silent> <Leader>tG       :TestVisit<CR>
+
+" make test commands execute using dispatch.vim
+" let test#strategy = {
+"   \ 'nearest': 'neovim',
+"   \ 'suite':   'basic',
+" \}
+let test#php#phpunit#executable = '../../vendor/bin/phpunit --configuration /Users/jon/projects/php-learning/myproject/phpunit.xml'
 
 " ----------------------------------------------------------------------------
 " Tagbar
@@ -379,6 +410,7 @@ let g:LanguageClient_serverCommands = {
       \ 'javascript': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
       \ 'javascript.jsx': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
       \  'go': ['go-langserver'],
+      \  'php': ['php-langserver'],
       \ }
 
 
@@ -388,20 +420,20 @@ autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
 augroup LanguageClientConfig
   autocmd!
   " <leader>ld to go to definition
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>ld :call LanguageClient_textDocument_definition()<cr>
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>ld :call LanguageClient_textDocument_definition()<cr>
   " <leader>lf to autoformat document
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lf :call LanguageClient_textDocument_formatting()<cr>
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>lf :call LanguageClient_textDocument_formatting()<cr>
   " <leader>lh for type info under cursor
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lh :call LanguageClient_textDocument_hover()<cr>
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>lh :call LanguageClient_textDocument_hover()<cr>
   " <leader>lr to rename variable under cursor
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<cr>
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<cr>
   " <leader>lc to switch omnifunc to LanguageClient
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>lc :setlocal omnifunc=LanguageClient#complete<cr>
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>lc :setlocal omnifunc=LanguageClient#complete<cr>
   " <leader>ls to fuzzy find the symbols in the current document
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason nnoremap <buffer> <leader>ls :call LanguageClient_textDocument_documentSymbol()<cr>
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>ls :call LanguageClient_textDocument_documentSymbol()<cr>
 
   " Use as omnifunc by default
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason setlocal omnifunc=LanguageClient#complete
+  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php setlocal omnifunc=LanguageClient#complete
 augroup END
 
 
@@ -427,6 +459,7 @@ augroup go
     autocmd FileType go nmap <leader>b  <Plug>(go-build)
     autocmd FileType go nmap <leader>r  <Plug>(go-run)
 augroup END
+
 " ----------------------------------------------------------------------------
 " startify
 " ----------------------------------------------------------------------------
@@ -453,6 +486,7 @@ autocmd! FileType dirvish setlocal relativenumber
 " ----------------------------------------------------------------------------
 " Lightline (statusbar)
 " ----------------------------------------------------------------------------
+
 
 let g:lightline = {
       \   'colorscheme': 'base16_snazzy',
@@ -553,7 +587,7 @@ let g:lightline#bufferline#shorten_path = 1
 "Lightline trailing whitespace
 let g:lightline#trailing_whitespace#indicator = '•'
 
-let g:lightline#bufferline#show_number = 2
+"let g:lightline#bufferline#show_number = 2
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
@@ -603,21 +637,32 @@ nmap <leader>p <Plug>(ale_fix)
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow'],
 \   'html': ['htmlhint', 'tidy'],
-\   'json': ['jsonlint'],
+\   'json': ['prettier'],
 \   'go': ['gometalinter', 'gofmt'],
+\   'php': ['langserver'],
 \ }
 
 let g:ale_fixers = {
 \   'javascript': ['prettier','eslint'],
+\   'json': ['prettier'],
 \   'javascript.jsx': ['prettier', 'eslint'],
 \   'go': ['gofmt'],
+\   'php': ['php_cs_fixer'],
 \ }
 
+
 let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_eslint_executable = 'eslint_d'
-let g:ale_javascript_prettier_use_global = 1
-let g:ale_javascript_prettier_executable = 'prettier_d'
+" let g:ale_javascript_eslint_use_global = 1
+" let g:ale_javascript_eslint_executable = 'eslint_d'
+" let g:ale_javascript_prettier_use_global = 1
+" let g:ale_javascript_prettier_executable = 'prettier_d'
+
+let g:ale_php_langserver_use_global = 1
+let g:ale_php_cs_fixer_use_global = 1
+
+let g:ale_php_phpcbf_standard='PSR2'
+let g:ale_php_phpcs_standard='phpcs.xml.dist'
+let g:ale_php_phpmd_ruleset='phpmd.xml'
 
 let g:ale_sign_error = '•'
 let g:ale_sign_warning = '•'
@@ -629,9 +674,6 @@ hi Warning cterm=bold gui=bold
 
 " See https://github.com/w0rp/ale/issues/249
 " for more info on customising the colors.
-
-
-
 
 "highlight ALEErrorSign ctermfg=9 ctermbg=15 guifg=#C30500 guibg=#F5F5F5
 "highlight ALEWarningSign ctermfg=11 ctermbg=15 guifg=#ED6237 guibg=#F5F5F5
@@ -678,11 +720,13 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 
+
+" Deoplete PHP
+let g:deoplete#sources.php = ['omni', 'phpactor', 'buffer']
+
 " Deoplete Rust
 let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path='$HOME/rust_test/rust/src'
-
-
 let g:deoplete#sources#rust#show_duplicates=1
 
 " ----------------------------------------------------------------------------
@@ -737,6 +781,7 @@ autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
+" Customize fzf colors to match your color scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -750,20 +795,35 @@ let g:fzf_colors =
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
-  \ 'header': ['fg', 'Comment'] }
+  \ 'header':  ['fg', 'Comment'] }
 
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 command! -bang -nargs=? -complete=dir Files
-\ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
+" nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
 nnoremap <silent> <Leader>l        :Lines<CR>
-nnoremap <silent> <Leader>ag       :Rg <C-R><C-W><CR>
-nnoremap <silent> <Leader>AG       :Rg <C-R><C-A><CR>
-xnoremap <silent> <Leader>ag       y:Ag <C-R>"<CR>
+nnoremap <silent> <Leader>rg       :Rg <C-R><C-W><CR>
+nnoremap <silent> <Leader>RG       :Rg <C-R><C-A><CR>
+xnoremap <silent> <Leader>rg       y:Ag <C-R>"<CR>
 nnoremap <silent> <Leader>`        :Marks<CR>
 nnoremap <silent> <Leader>f        :Files<CR>
+nnoremap <silent> <Leader>b        :Buffers<CR>
+nnoremap <silent> <Leader>gf       :Gfiles<CR>
+nnoremap <silent> <Leader>gc       :Commits<CR>
+nnoremap <silent> <Leader>cc       :Commands<CR>
+nnoremap <silent> <Leader>mm       :Maps<CR>
+nnoremap <silent> <Leader>h        :History<CR>
+
 
 inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -804,6 +864,19 @@ command! PlugHelp call fzf#run(fzf#wrap({
 " https://github.com/zchee/deoplete-jedi/wiki/Setting-up-Python-for-Neovim#using-virtual-environments
 let g:python_host_prog  = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
+
 " }}}
 " ============================================================================
+" AUTOCMD {{{
+" ============================================================================
 
+augroup vimrc 
+" Automatic rename of tmux window
+  if exists('$TMUX') && !exists('$NORENAME')
+    au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+    au VimLeave * call system('tmux set-window automatic-rename on')
+  endif
+augroup END
+
+" }}}
+" ============================================================================
