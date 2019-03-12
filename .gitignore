@@ -9,6 +9,7 @@ nvim/.config/nvim/undodir/*
 nvim/.config/nvim/Session.vim
 tmux/.tmux/plugins
 tmux/.tmux/resurrect
+colors/.config/*
 
 # Folder view configuration files
 .DS_Store
