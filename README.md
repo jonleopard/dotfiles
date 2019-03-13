@@ -1,8 +1,12 @@
-# Jon's Dotfiles
+# Dotfiles
 
 > Dotfiles for MacOS
 
 <img src="screenshot.png" width="888">
+
+                           |  
+:-------------------------:|:-------------------------:
+!<img src="screenshot.png" width="444">  |  !<img src="screenshot-2.png" width="444">
 
 ## How to use these dotfiles
 
@@ -21,7 +25,7 @@
 
 ## Introduction
 
-Recently I've discovered the world of [dotfiles](https://dotfiles.github.io/) thanks to [mathias bynens](https://github.com/mathiasbynens/dotfiles/) and [xero](https://github.com/xero/dotfiles). Dotfiles allow you to backup, restore, and sync your dev environment. This is great, especially if you have more than one workstation or are migrating to a new machine. After much research and observation of how other people manage their dotfiles, what you see in this repo is a reflection of their efforts as well as my own.
+Welcome, this is my development environment that I use everyday. Dotfiles allow you to backup, restore, and sync your dev environment. This is great, especially if you have more than one workstation or are migrating to a new machine. After much research and observation of how other people manage their dotfiles, what you see in this repo is a reflection of their efforts as well as my own.
 
 I initially started this repo to help myself learn more about the tools available out there for customizing my dev environment. I also wanted to make sure that all my customizations were backed up and could be installed on any machine. As I continued learning, adding, and breaking things, I thought it would be a good idea to document as much as I could to not only learn, but help others in setting up their dotfiles as well. I hope this repo can help newcomers understand their own environment and aid them in their own creation of a dotfile repo. Be aware that I am still learning, so proceed with caution. If you are uncertain about anything, I highly advise you read the source before executing any of these scripts.
 
@@ -33,7 +37,7 @@ If you have any improvements or suggestions, please feel free to submit it [here
 
 ## Installation
 
-At the moment, this will only work in MacOS. Adding a Linux fork is in my todo. Feel free to help!
+At the moment, this will only work in MacOS. I'd love for this to work on linux distros too, feel free to submit a PR!
 
 **Disclaimer:** If you decide to use these dotfiles, please fork this repo and review the source code before executing! Proceed at your own risk!
 
@@ -68,14 +72,14 @@ cd curl -#L https://github.com/jonleopard/dotfiles/tarball/master | tar -xzv
 If you prefer, you can skip the install.sh script and run stow manually. Just tell stow which dotfiles you want to symlink:
 
 ```
-`stow` [folder]
+stow example_folder
 ```
 
 I talk a bit more about stow below in the dotfile management section. Be sure to also check out the links in the resources section.
 
 ## Management Overview
 
-[GNU Stow](https://www.gnu.org/software/stow/) handles all my dotfiles. I'm using that in unison with [Git](https://git-scm.com/) for backups/versioning. [Homebrew](http://brew.sh/) handles all my packages and will also install all of my Mac App Store apps as well. ZSH plugins are managed with [zplug](https://github.com/zplug/zplug). I work a bit with Node, so [NVM](https://github.com/creationix/nvm) was chosen as my Node version manager. Lastly, [Vim-Plug](https://github.com/junegunn/vim-plug) handles all of my neomvim plugins.
+[GNU Stow](https://www.gnu.org/software/stow/) handles all my dotfiles. I'm using that in unison with [Git](https://git-scm.com/) for backups/versioning. [Homebrew](http://brew.sh/) handles all my packages and will also install all of my Mac App Store apps as well. ZSH plugins are managed with [anitbody](http://getantibody.github.io/). I work a bit with Node, so [NVM](https://github.com/creationix/nvm) was chosen as my Node version manager. Lastly, [vim-plug](https://github.com/junegunn/vim-plug) handles all of my neomvim plugins.
 
 ## Dotfile Management
 
@@ -87,17 +91,21 @@ All my dotfiles are managed with the extremely light weight [GNU Stow](https://w
 
 Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). My Brewfile with generated with [Homebrew-Bundle](https://github.com/Homebrew/homebrew-bundle). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called Brewfile.
 
+## Node Version Management
+
+[NVM](https://github.com/creationix/nvm) Allows me to switch between different node versions on the fly. Avoid installing NVM through Homebrew. Instead, use either the cURL or Wget script. I've installed yarn globally (with homebrew, using the --without-node flag) in order to handle all global node packages.
+
 ## ZSH Plugin Management
 
-I've tried OMZ(Oh my ZSH), Prezto, and other ZSH frameworks. Since I'd rather know exactly what's going on in my .zshrc file and add only what I need, I chose to go with [zplug](https://github.com/zplug/zplug).
+[antibody](http://getantibody.github.io/)
 
-## Node Management
+## Tmux Plugin Management
 
-[NVM](https://github.com/creationix/nvm) Allows me to switch between different node versions on the fly. Avoid installing NVM through Homebrew, just use either the cURL or Wget script. Since I'm using ZSH, I added [zsh-nvm](https://github.com/lukechilds/zsh-nvm) to my zplugins.
+[TPM](https://github.com/tmux-plugins/tpm)
 
 ## Vim Plugin Management
 
-My vim plugins are managed with [Vim-Plug](https://github.com/junegunn/vim-plug). Vim-Plug also ties in nicely with [Neovim](https://github.com/junegunn/vim-plug#neovim). You'll notice that my vim environment is pretty slim at the moment. I'm am still learning how to use vim as my main text editor. So far so good!
+My vim plugins are managed with [Vim-Plug](https://github.com/junegunn/vim-plug). Vim-Plug also ties in nicely with [Neovim](https://github.com/junegunn/vim-plug#neovim).
 
 ## Dev Fonts
 
@@ -110,9 +118,9 @@ Below is a list of some of my favourite dev fonts that go great in your terminal
 
 If you need a [Powerline](https://github.com/powerline/powerline) font, a list of those can be found here: [Powerline Fonts](https://github.com/powerline/fonts)
 
-## iTerm 2 + ZSH
+## Alacritty + ZSH
 
-As you could have guessed by now, I am using [ZSH](http://www.zsh.org/) instead of BASH as my unix shell. I am using [iTerm 2](https://www.iterm2.com/) as my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) as my ZSH prompt.
+As you could have guessed by now, I am using [ZSH](http://www.zsh.org/) instead of BASH as my unix shell. I am using [Alacritty](https://github.com/jwilm/alacritty) as my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) as my shell prompt.
 
 ## Resources
 
