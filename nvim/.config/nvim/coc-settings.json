@@ -1,0 +1,9 @@
+{
+    "languageserver": {
+        "intelephense": {
+            "command": "node",
+            "args": ["/usr/local/bin/intelephense", "--stdio"],
+            "filetypes": ["php"]
+        }
+    }
+}
