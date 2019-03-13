@@ -4,9 +4,7 @@
 
 <img src="screenshot.png" width="888">
 
-                           |  
-:-------------------------:|:-------------------------:
-!<img src="screenshot.png" width="444">  |  !<img src="screenshot-2.png" width="444">
+<img src="screenshot-2.png" width="888">
 
 ## How to use these dotfiles
 
