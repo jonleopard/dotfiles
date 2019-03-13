@@ -10,4 +10,3 @@ HOMEBREW_NO_GITHUB_API=1
 # Configure brew to avoid protocol downgrades from HTTPS to HTTP via redirect
 HOMEBREW_NO_INSECURE_REDIRECT=1
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
