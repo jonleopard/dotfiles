@@ -146,6 +146,9 @@ inoremap <C-^> <C-o><C-^>
 map <D-S-{> :tabprevious
 map <D-S-}> :tabprevious
 
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+vmap <leader>p  <Plug>(coc-format-selected)
+nmap <leader>p  <Plug>(coc-format-selected)
 " ----------------------------------------------------------------------------
 " tmux
 " ----------------------------------------------------------------------------
@@ -195,27 +198,17 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'digitaltoad/vim-pug'
 Plug 'elzr/vim-json'
-Plug 'alexlafroscia/deoplete-flow',   { 'branch': 'pass-filename-to-autocomplete' }
 
 
 " ----------------------------------------------------------------------------
 " Go
 " ----------------------------------------------------------------------------
 Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
-Plug 'zchee/deoplete-go',             { 'do': 'make'}
 
 " ----------------------------------------------------------------------------
 " Rust
 " ----------------------------------------------------------------------------
 Plug 'racer-rust/vim-racer'
-Plug 'sebastianmarkow/deoplete-rust'
-
-" ----------------------------------------------------------------------------
-" php
-" ----------------------------------------------------------------------------
-Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install'}
-Plug 'kristijanhusak/deoplete-phpactor'
 
 " ----------------------------------------------------------------------------
 " Colorscheme & Syntax Highlighting & Linting
@@ -228,12 +221,7 @@ Plug 'ap/vim-css-color'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
 Plug 'elzr/vim-json'
-Plug 'w0rp/ale'
 Plug 'RRethy/vim-illuminate'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 
 
 " ----------------------------------------------------------------------------
@@ -253,11 +241,8 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 "----------------------------------------------------------------------------
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
-Plug 'Shougo/deoplete.nvim',         { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neco-vim'
 Plug 'Shougo/echodoc.vim'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -294,7 +279,6 @@ Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
 
 Plug 'itchyny/lightline.vim'
 Plug 'jonleopard/base16-vim-lightline'
-Plug 'maximbaz/lightline-ale'
 Plug 'maximbaz/lightline-trailing-whitespace'
 Plug 'mengelbrecht/lightline-bufferline'
 
@@ -313,11 +297,11 @@ call plug#end()
 " ============================================================================
 " COLOR SETTINGS {{{
 " ============================================================================
-if has('termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
 
 
 " base16-vim will match whatever you have set your shell color scheme as
@@ -330,6 +314,16 @@ endif
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
+
+" ----------------------------------------------------------------------------
+" coc
+" ----------------------------------------------------------------------------
+" TODO: Need to get bas16 to work with these
+
+highlight link CocErrorSign GitGutterDelete
+highlight link CocWarningSign GitGutterChangeDelete
+highlight link CocInfoSign GitGutterChange
+highlight link CocHintSign GitGutterAdd
 " ----------------------------------------------------------------------------
 " vim-test
 " ----------------------------------------------------------------------------
@@ -391,56 +385,6 @@ command! -bang AutoSave call s:autosave(<bang>1)
 
 
 " ----------------------------------------------------------------------------
-" LSP
-" ----------------------------------------------------------------------------
-
-let g:LanguageClient_windowLogMessageLevel = 'Error'
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_waitOutputTimeout = 30
-let g:LanguageClient_hoverPreview = 'Always' 
-let flowreadable = filereadable('./.flowconfig')
-
-" let g:LanguageClient_serverCommands = {
-"     \ 'javascript': ['javascript-typescript-stdio'],
-"     \ 'javascript.jsx': ['javascript-typescript-stdio'],
-"     \ }
-
-let g:LanguageClient_serverCommands = {
-      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-      \ 'javascript': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
-      \ 'javascript.jsx': flowreadable ? ['flow-language-server', '--stdio', '--try-flow-bin'] : ['javascript-typescript-stdio', ],
-      \  'go': ['go-langserver'],
-      \  'php': ['php-langserver'],
-      \ }
-
-
-
-autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-
-augroup LanguageClientConfig
-  autocmd!
-  " <leader>ld to go to definition
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>ld :call LanguageClient_textDocument_definition()<cr>
-  " <leader>lf to autoformat document
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>lf :call LanguageClient_textDocument_formatting()<cr>
-  " <leader>lh for type info under cursor
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>lh :call LanguageClient_textDocument_hover()<cr>
-  " <leader>lr to rename variable under cursor
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>lr :call LanguageClient_textDocument_rename()<cr>
-  " <leader>lc to switch omnifunc to LanguageClient
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>lc :setlocal omnifunc=LanguageClient#complete<cr>
-  " <leader>ls to fuzzy find the symbols in the current document
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php nnoremap <buffer> <leader>ls :call LanguageClient_textDocument_documentSymbol()<cr>
-
-  " Use as omnifunc by default
-  autocmd FileType javascript,python,typescript,json,css,less,html,reason,php setlocal omnifunc=LanguageClient#complete
-augroup END
-
-
-
-
-
-" ----------------------------------------------------------------------------
 " vim-go
 " ----------------------------------------------------------------------------
 let g:go_fmt_fail_silently = 1
@@ -492,7 +436,7 @@ let g:lightline = {
       \   'colorscheme': 'base16_snazzy',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
-      \     'right': [ [ 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
+      \     'right': [ [ 'cocstatus', 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
       \   },
       \   'inactive': {
       \     'left': [ [ 'pwd' ], [ 'gitbranch' ] ],
@@ -523,15 +467,12 @@ let g:lightline = {
       \   'component_expand': {
       \     'buffers': 'lightline#bufferline#buffers',
       \     'trailing': 'lightline#trailing_whitespace#component',
-      \     'linter_ok': 'lightline#ale#ok',
-      \     'linter_checking': 'lightline#ale#checking',
-      \     'linter_warnings': 'lightline#ale#warnings',
-      \     'linter_errors': 'lightline#ale#errors',
       \   },
       \   'component_function': {
       \     'pwd': 'LightlineWorkingDirectory',
       \     'fileinfo': 'LightlineFileinfo',
       \     'gitbranch': 'fugitive#head',
+      \     'cocstatus': 'coc#status',
       \   },
       \   'component_type': {
       \     'buffers': 'tabsel',
@@ -564,12 +505,10 @@ function! s:get_buffer_name(i)
 endfunction
 
 
-
-" Lightline ALE (https://github.com/maximbaz/lightline-ale)
-let g:lightline#ale#indicator_warnings = ' '
-let g:lightline#ale#indicator_errors = ' '
-let g:lightline#ale#indicator_checking = ' '
-let g:lightline#ale#indicator_ok = "✓"
+let g:cocstatus#indicator_warnings = ' '
+let g:cocstatus#indicator_errors = ' '
+let g:cocstatus#indicator_checking = ' '
+let g:cocstatus#indicator_ok = "✓"
 
 
 "lightline-bufferline
@@ -628,56 +567,6 @@ nnoremap <Leader>d :Gdiff<CR>
 map  gc  <Plug>Commentary
 nmap gcc <Plug>CommentaryLine
 
-
-" ----------------------------------------------------------------------------
-" ale
-" ----------------------------------------------------------------------------
-nmap <leader>p <Plug>(ale_fix)
-
-let g:ale_linters = {
-\   'javascript': ['eslint', 'flow'],
-\   'html': ['htmlhint', 'tidy'],
-\   'json': ['prettier'],
-\   'go': ['gometalinter', 'gofmt'],
-\   'php': ['langserver'],
-\ }
-
-let g:ale_fixers = {
-\   'javascript': ['prettier','eslint'],
-\   'json': ['prettier'],
-\   'javascript.jsx': ['prettier', 'eslint'],
-\   'go': ['gofmt'],
-\   'php': ['php_cs_fixer'],
-\ }
-
-
-let g:ale_javascript_prettier_use_local_config = 1
-" let g:ale_javascript_eslint_use_global = 1
-" let g:ale_javascript_eslint_executable = 'eslint_d'
-" let g:ale_javascript_prettier_use_global = 1
-" let g:ale_javascript_prettier_executable = 'prettier_d'
-
-let g:ale_php_langserver_use_global = 1
-let g:ale_php_cs_fixer_use_global = 1
-
-let g:ale_php_phpcbf_standard='PSR2'
-let g:ale_php_phpcs_standard='phpcs.xml.dist'
-let g:ale_php_phpmd_ruleset='phpmd.xml'
-
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
-
-hi link ALEErrorSign    Error
-hi link ALEWarningSign  Warning
-hi Error   cterm=bold gui=bold
-hi Warning cterm=bold gui=bold
-
-" See https://github.com/w0rp/ale/issues/249
-" for more info on customising the colors.
-
-"highlight ALEErrorSign ctermfg=9 ctermbg=15 guifg=#C30500 guibg=#F5F5F5
-"highlight ALEWarningSign ctermfg=11 ctermbg=15 guifg=#ED6237 guibg=#F5F5F5
-
 " ----------------------------------------------------------------------------
 " ygg indent-lines
 " ----------------------------------------------------------------------------
@@ -691,43 +580,6 @@ autocmd! User indentLine doautocmd indentLine Syntax
 " ----------------------------------------------------------------------------
 "let g:AutoPairsShortcutBackInsert = '<M-b>'
 
-" ----------------------------------------------------------------------------
-" Deoplete
-" ----------------------------------------------------------------------------
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#sources = {}
-
-"<TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-"<S-TAB>: completion back.
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-"<C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
-
-" Close preview menu when finished
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-" Plugin key-mappings
-" Control k to expand snippet
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-
-
-" Deoplete PHP
-let g:deoplete#sources.php = ['omni', 'phpactor', 'buffer']
-
-" Deoplete Rust
-let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path='$HOME/rust_test/rust/src'
-let g:deoplete#sources#rust#show_duplicates=1
 
 " ----------------------------------------------------------------------------
 " <Enter> | vim-easy-align
