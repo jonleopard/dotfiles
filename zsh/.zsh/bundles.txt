@@ -2,7 +2,6 @@ caarlos0/ports kind:path
 so-fancy/diff-so-fancy kind:path
 mafredri/zsh-async
 rupa/z
-hlissner/zsh-autopair
 junegunn/fzf
 felixr/docker-zsh-completion
 zsh-users/zsh-completions

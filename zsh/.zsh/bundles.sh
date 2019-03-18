@@ -4,9 +4,6 @@ source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-S
 fpath+=( /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-mafredri-SLASH-zsh-async )
 source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-rupa-SLASH-z/z.sh
 fpath+=( /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-rupa-SLASH-z )
-source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair/autopair.plugin.zsh
-source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair/zsh-autopair.plugin.zsh
-fpath+=( /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-hlissner-SLASH-zsh-autopair )
 
 source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-felixr-SLASH-docker-zsh-completion/docker-zsh-completion.plugin.zsh
 fpath+=( /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-felixr-SLASH-docker-zsh-completion )
