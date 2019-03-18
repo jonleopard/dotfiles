@@ -1,5 +1,3 @@
-source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-lukechilds-SLASH-zsh-nvm/zsh-nvm.plugin.zsh
-fpath+=( /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-lukechilds-SLASH-zsh-nvm )
 export PATH="/Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-caarlos0-SLASH-ports:$PATH"
 export PATH="/Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-so-fancy-SLASH-diff-so-fancy:$PATH"
 source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-mafredri-SLASH-zsh-async/async.plugin.zsh

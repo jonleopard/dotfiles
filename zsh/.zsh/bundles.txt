@@ -1,4 +1,3 @@
-lukechilds/zsh-nvm
 caarlos0/ports kind:path
 so-fancy/diff-so-fancy kind:path
 mafredri/zsh-async
