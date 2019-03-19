@@ -1,9 +1,10 @@
 {
-    "languageserver": {
-        "intelephense": {
-            "command": "node",
-            "args": ["/usr/local/bin/intelephense", "--stdio"],
-            "filetypes": ["php"]
-        }
-    }
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "html.enable": true, 
+  "coc.preferences.formatOnSaveFiletypes": [
+    "html"
+  ],
+  "html.filetypes": ["blade"],
+  "html.format.enable": true
 }

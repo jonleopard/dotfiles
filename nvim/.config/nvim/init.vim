@@ -62,7 +62,8 @@ set nrformats=hex
 set title
 set showtabline=2
 set shortmess=aIT
-set cmdheight=1
+set signcolumn=yes
+set cmdheight=2
 set updatetime=100
 set noswapfile
 set nobackup
@@ -146,9 +147,6 @@ inoremap <C-^> <C-o><C-^>
 map <D-S-{> :tabprevious
 map <D-S-}> :tabprevious
 
-command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
-vmap <leader>p  <Plug>(coc-format-selected)
-nmap <leader>p  <Plug>(coc-format-selected)
 " ----------------------------------------------------------------------------
 " tmux
 " ----------------------------------------------------------------------------
@@ -197,7 +195,6 @@ call plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------
 Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'digitaltoad/vim-pug'
-Plug 'elzr/vim-json'
 
 
 " ----------------------------------------------------------------------------
@@ -264,6 +261,7 @@ Plug 'mattn/emmet-vim'
 Plug 'junegunn/fzf',                  { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
+Plug 'kristijanhusak/vim-dirvish-git'
 Plug 'majutsushi/tagbar',             { 'on': 'TagbarToggle' }
 Plug 'justinmk/vim-gtfo'
 
@@ -303,6 +301,9 @@ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
+if !has('gui_running')
+  set t_Co=256
+endif
 
 " base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
@@ -324,6 +325,71 @@ highlight link CocErrorSign GitGutterDelete
 highlight link CocWarningSign GitGutterChangeDelete
 highlight link CocInfoSign GitGutterChange
 highlight link CocHintSign GitGutterAdd
+
+" use <tab> for trigger completion and navigate to next complete item
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+vmap <leader>p  <Plug>(coc-format-selected)
+nmap <leader>p  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json,php,html setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+let g:coc_filetype_map = {
+  \ 'blade': 'html',
+  \ }
+
+
 " ----------------------------------------------------------------------------
 " vim-test
 " ----------------------------------------------------------------------------
@@ -436,7 +502,7 @@ let g:lightline = {
       \   'colorscheme': 'base16_snazzy',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
-      \     'right': [ [ 'cocstatus', 'linter_ok', 'linter_checking', 'linter_errors', 'linter_warnings', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
+      \     'right': [ [ 'cocstatus', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
       \   },
       \   'inactive': {
       \     'left': [ [ 'pwd' ], [ 'gitbranch' ] ],
@@ -477,10 +543,6 @@ let g:lightline = {
       \   'component_type': {
       \     'buffers': 'tabsel',
       \     'trailing': 'error',
-      \     'linter_ok': 'left',
-      \     'linter_checking': 'left',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
       \   },
       \ }
 
@@ -499,11 +561,8 @@ function! LightlineWorkingDirectory()
   return &ft =~ 'help\|qf' ? '' : fnamemodify(getcwd(), ":~:.")
 endfunction
 
-function! s:get_buffer_name(i)
-  let l:name = fnamemodify(bufname(a:i), s:filename_modifier)
-  if
-endfunction
-
+"Lightline trailing whitespace
+let g:lightline#trailing_whitespace#indicator = '•'
 
 let g:cocstatus#indicator_warnings = ' '
 let g:cocstatus#indicator_errors = ' '
@@ -523,8 +582,6 @@ let g:lightline#bufferline#unicode_symbols = 1
 let g:lightline#bufferline#unnamed = '[No Name]'
 " Don't compress ~/my/folder/name to ~/m/f/n
 let g:lightline#bufferline#shorten_path = 1
-"Lightline trailing whitespace
-let g:lightline#trailing_whitespace#indicator = '•'
 
 "let g:lightline#bufferline#show_number = 2
 
