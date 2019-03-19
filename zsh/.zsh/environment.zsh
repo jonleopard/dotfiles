@@ -1,7 +1,7 @@
 # Environment Paths
 
-# Homebrew
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+# # Homebrew
+# export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Vault
 export VAULT_ADDR="http://127.0.0.1:8200"
