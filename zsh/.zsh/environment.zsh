@@ -1,7 +1,7 @@
 # Environment Paths
 
-# # Homebrew
-# export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+# homebrew
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Vault
 export VAULT_ADDR="http://127.0.0.1:8200"
@@ -12,10 +12,9 @@ export PATH="/usr/local/opt/curl/bin:$PATH"
 # Node (n)
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
-# Ruby (rbenv)
-#export PATH="$HOME/.rbenv/bin:$PATH"
-#eval "$(rbenv init -)"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+# Ruby (chruby)
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"

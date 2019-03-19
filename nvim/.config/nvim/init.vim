@@ -194,13 +194,11 @@ call plug#begin('~/.config/nvim/plugged')
 " Javascript
 " ----------------------------------------------------------------------------
 Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'digitaltoad/vim-pug'
-
 
 " ----------------------------------------------------------------------------
 " Go
 " ----------------------------------------------------------------------------
-Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go',                  { 'do': 'silent :GoUpdateBinaries' }
 
 " ----------------------------------------------------------------------------
 " Rust
@@ -217,7 +215,6 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
-Plug 'elzr/vim-json'
 Plug 'RRethy/vim-illuminate'
 
 
@@ -226,7 +223,7 @@ Plug 'RRethy/vim-illuminate'
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 
 " ----------------------------------------------------------------------------
 " Tmux
@@ -238,7 +235,6 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 "----------------------------------------------------------------------------
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
-Plug 'Shougo/echodoc.vim'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 " ----------------------------------------------------------------------------
@@ -252,7 +248,6 @@ Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'plasticboy/vim-markdown'
 Plug 'jiangmiao/auto-pairs'
-Plug 'alvan/vim-closetag'
 Plug 'mattn/emmet-vim'
 
 " ----------------------------------------------------------------------------
@@ -268,16 +263,13 @@ Plug 'justinmk/vim-gtfo'
 " ----------------------------------------------------------------------------
 " Utils
 " ----------------------------------------------------------------------------
-Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
 Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
-"Plug 'roman/golden-ratio'
 
 Plug 'itchyny/lightline.vim'
 Plug 'jonleopard/base16-vim-lightline'
-Plug 'maximbaz/lightline-trailing-whitespace'
 Plug 'mengelbrecht/lightline-bufferline'
 
 Plug 'mhinz/vim-startify'
@@ -286,8 +278,7 @@ Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sgur/vim-editorconfig'
-Plug 'iamcco/markdown-preview.vim'
-"Plug 'TaDaa/vimade'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'janko-m/vim-test'
 
 call plug#end()
@@ -314,6 +305,11 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
+
+" ----------------------------------------------------------------------------
+" vim-signify
+" ----------------------------------------------------------------------------
+let g:signify_vcs_list = ['git']
 
 
 " ----------------------------------------------------------------------------
@@ -485,7 +481,6 @@ let g:startify_custom_header       = 'map(startify#fortune#boxed(), "\"   \".v:v
 let g:startify_fortune_use_unicode = 1
 
 
-
 " ----------------------------------------------------------------------------
 " vim-dirvish (file explorer)
 " ----------------------------------------------------------------------------
@@ -625,7 +620,7 @@ map  gc  <Plug>Commentary
 nmap gcc <Plug>CommentaryLine
 
 " ----------------------------------------------------------------------------
-" ygg indent-lines
+" indent-lines
 " ----------------------------------------------------------------------------
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#616161'
