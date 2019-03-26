@@ -129,8 +129,7 @@ As you could have guessed by now, I am using [ZSH](http://www.zsh.org/) instead 
 
 
 ## Wallpapers
-If you are interested in my wallpaper collection, you can grab the bundle [here]
-(https://www.dropbox.com/sh/phhmo009i52wp0r/AAAOhBkQrMM3a3Iy9e3n_aKAa?dl=0). 
+If you are interested in my wallpaper collection, you can grab the bundle [here](https://www.dropbox.com/sh/phhmo009i52wp0r/AAAOhBkQrMM3a3Iy9e3n_aKAa?dl=0). 
 
 ## Resources
 
