@@ -29,9 +29,16 @@ I initially started this repo to help myself learn more about the tools availabl
 
 If you have any improvements or suggestions, please feel free to submit it [here](https://github.com/jonleopard/dotfiles/issues) or [contact me](https://twitter.com/jonlprd)
 
-### Todo
+Lastly, I have created a minimal dotfile repo for to help new users get started on their own dotfile journey. You can check out the project here: https://github.com/jonleopard/dotfile-starter.
+
+
+
+
+
+#### Todo
 
 [View the todo board here](https://github.com/jonleopard/dotfiles/projects/1)
+
 
 ## Installation
 
@@ -119,6 +126,11 @@ If you need a [Powerline](https://github.com/powerline/powerline) font, a list o
 ## Alacritty + ZSH
 
 As you could have guessed by now, I am using [ZSH](http://www.zsh.org/) instead of BASH as my unix shell. I am using [Alacritty](https://github.com/jwilm/alacritty) as my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) as my shell prompt.
+
+
+## Wallpapers
+If you are interested in my wallpaper collection, you can grab the bundle [here]
+(https://www.dropbox.com/sh/phhmo009i52wp0r/AAAOhBkQrMM3a3Iy9e3n_aKAa?dl=0). 
 
 ## Resources
 
