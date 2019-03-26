@@ -1,4 +1,4 @@
-# Welcome to the ssh folder!
+# ssh
 
 What can we do with an SSH config file?
 https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client
