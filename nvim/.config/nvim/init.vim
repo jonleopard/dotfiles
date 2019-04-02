@@ -198,7 +198,7 @@ Plug 'othree/jspc.vim',               { 'for': ['javascript', 'javascript.jsx'] 
 " ----------------------------------------------------------------------------
 " Go
 " ----------------------------------------------------------------------------
-Plug 'fatih/vim-go',                  { 'do': 'silent :GoUpdateBinaries' }
+Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
 
 " ----------------------------------------------------------------------------
 " Rust
@@ -236,6 +236,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'honza/vim-snippets'
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -249,6 +250,7 @@ Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] 
 Plug 'plasticboy/vim-markdown'
 Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
+Plug 'valloric/MatchTagAlways'
 
 " ----------------------------------------------------------------------------
 " Searching/Navigation
@@ -334,12 +336,16 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 
 " Use <c-space> for trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
+" Use <C-l> to trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
 
 " Use `[c` and `]c` for navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -369,17 +375,18 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 vmap <leader>p  <Plug>(coc-format-selected)
 nmap <leader>p  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json,php,html setl formatexpr=CocAction('formatSelected')
+  autocmd FileType typescript,json,php,html,blade setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
 let g:coc_filetype_map = {
   \ 'blade': 'html',

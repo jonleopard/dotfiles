@@ -1,10 +1,7 @@
 {
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
-  "html.enable": true, 
   "coc.preferences.formatOnSaveFiletypes": [
     "html"
-  ],
-  "html.filetypes": ["blade"],
-  "html.format.enable": true
+  ]
 }
