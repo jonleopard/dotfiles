@@ -258,9 +258,8 @@ Plug 'valloric/MatchTagAlways'
 Plug 'junegunn/fzf',                  { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
-Plug 'kristijanhusak/vim-dirvish-git'
-Plug 'majutsushi/tagbar',             { 'on': 'TagbarToggle' }
 Plug 'justinmk/vim-gtfo'
+Plug 'majutsushi/tagbar',             { 'on': 'TagbarToggle' }
 
 " ----------------------------------------------------------------------------
 " Utils
@@ -786,13 +785,13 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 " AUTOCMD {{{
 " ============================================================================
 
-augroup vimrc 
-" Automatic rename of tmux window
-  if exists('$TMUX') && !exists('$NORENAME')
-    au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
-    au VimLeave * call system('tmux set-window automatic-rename on')
-  endif
-augroup END
+" augroup vimrc 
+" " Automatic rename of tmux window
+"   if exists('$TMUX') && !exists('$NORENAME')
+"     au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+"     au VimLeave * call system('tmux set-window automatic-rename on')
+"   endif
+" augroup END
 
 " }}}
 " ============================================================================

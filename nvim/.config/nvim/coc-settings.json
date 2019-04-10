@@ -17,18 +17,6 @@
       "filetypes": [
         "go"
       ]
-    },
-    "intelephense": {
-      "command": "intelephense",
-      "args": [
-        "--stdio"
-      ],
-      "filetypes": [
-        "php"
-      ],
-      "initializationOptions": {
-        "storagePath": "/tmp/intelephense"
-      }
     }
   }
 }
