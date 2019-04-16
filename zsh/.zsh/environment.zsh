@@ -1,5 +1,10 @@
 # Environment Paths
 
+
+# Node (n)
+# Note that this needs to be before homebrew
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
 # homebrew
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
@@ -8,9 +13,6 @@ export VAULT_ADDR="http://127.0.0.1:8200"
 
 # Curl
 export PATH="/usr/local/opt/curl/bin:$PATH"
-
-# Node (n)
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
 # Ruby (chruby)
 source /usr/local/opt/chruby/share/chruby/chruby.sh
