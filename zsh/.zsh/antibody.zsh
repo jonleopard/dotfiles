@@ -1,9 +1,9 @@
-# Uncomment 2-3 when adding new plugins.
+# Uncomment 2-3 when adding new plugins, and comment 7-8.
 # source <(antibody init)
 # antibody bundle < ~/.zsh/bundles.txt
 
 
-# After installing new plugins, comment lines 1-2 and uncomment 7-8
+# After installing new plugins, comment lines 2-3 and uncomment 7-8
 source ~/.zsh/bundles.sh
 antibody bundle < ~/.zsh/bundles.txt > ~/.zsh/bundles.sh
 
