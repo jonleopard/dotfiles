@@ -467,9 +467,9 @@ if exists('g:loaded_polyglot')
     let g:polyglot_disabled = ['go']
 endif
 
-map <C-n> :cnext<CR>
-map <C-m> :cprevious<CR>
-nnoremap <leader>a :cclose<CR>
+" map <C-n> :cnext<CR>
+" map <C-m> :cprevious<CR>
+" nnoremap <leader>a :cclose<CR>
 
 augroup go
   autocmd!
