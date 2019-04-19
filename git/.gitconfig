@@ -35,6 +35,7 @@
 # so much color
 [color]
 	ui = auto
+
 [color "diff"]
 	meta = yellow bold
 	commit = green bold
@@ -60,8 +61,11 @@ untracked = cyan
 
 # git mergetool
 [merge]
-	tool = opendiff
 	renameLimit = 0
+	conflictstyle = diff3
+
+[mergetool "nvim"]
+	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
 
 # rewrites of repo paths
 [url "git@github.com:"]
@@ -134,3 +138,4 @@ colorMoved = zebra
 	# https://github.com/pstadler/keybase-gpg-github
 [gpg]
 	program = gpg2
+
