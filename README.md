@@ -1,6 +1,6 @@
 # dotfiles
 
-> Dotfiles for my MacOS environment
+> 🏠 dotfiles for my macOS environment
 
 # ![dotfiles][logo]
 # ![dotfiles][logo2]
