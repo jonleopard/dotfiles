@@ -134,7 +134,7 @@ If you are interested in my wallpaper collection, you can grab the bundle [here]
 ## Resources
 
 * GNU Stow
-  * [Manage Your Dotfile with GNU Stow](https://jonleopard.com/dotfile-management-with-gnu-stow/)
+  * [Manage Your Dotfile with GNU Stow](https://jonleopard.com/blog/dotfile-management-with-gnu-stow/)
   * [Getting started with dotfiles](https://medium.com/@webprolific/getting-started-with-dotfiles-43c3602fd789#.6u2xwvbpv)
   * [Using gnu stow to manage your dotfiles](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html)
   * [Managing dotfiles with gnu snow](https://alexpearce.me/2016/02/managing-dotfiles-with-stow/)
