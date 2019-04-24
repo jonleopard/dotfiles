@@ -1,10 +1,9 @@
-# Dotfiles
+# dotfiles
 
-> Dotfiles for MacOS
+> Dotfiles for my MacOS environment
 
-<img src="screenshot.png" width="888">
-
-<img src="screenshot-2.png" width="888">
+# ![dotfiles][logo]
+# ![dotfiles][logo2]
 
 ## How to use these dotfiles
 
@@ -149,3 +148,6 @@ If you are interested in my wallpaper collection, you can grab the bundle [here]
   * [Top 10 Programming Fonts](http://hivelogic.com/articles/top-10-programming-fonts/)
   * [What are the best programming fonts?](https://www.slant.co/topics/67/~programming-fonts)
   * [Programming Fonts](http://programmingfonts.org/)
+
+[logo]: .github/screenshot.png
+[logo2]: .github/screenshot-2.png
