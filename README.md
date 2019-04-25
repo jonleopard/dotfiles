@@ -97,7 +97,7 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 
 ## Node Version Management
 
-[NVM](https://github.com/creationix/nvm) Allows me to switch between different node versions on the fly. Avoid installing NVM through Homebrew. Instead, use either the cURL or Wget script. I've installed yarn globally (with homebrew, using the --without-node flag) in order to handle all global node packages.
+[n](https://github.com/tj/n) Allows me to switch between different node versions on the fly. I've installed `n` [n-install](https://github.com/mklement0/n-install). Also, on the topic of node, I've installed `yarn` globally via `brew install yarn --ignore-dependencies` (allows for yarn to plug into your node binary that `n` installed). 
 
 ## ZSH Plugin Management
 
