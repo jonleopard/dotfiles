@@ -22,7 +22,7 @@
 
 ## Introduction
 
-Welcome, this is my development environment that I use everyday. Dotfiles allow you to backup, restore, and sync your dev environment. This is great, especially if you have more than one workstation or are migrating to a new machine. After much research and observation of how other people manage their dotfiles, what you see in this repo is a reflection of their efforts as well as my own.
+This is my development environment that I use everyday. Dotfiles allow you to backup, restore, and sync your dev environment. This is great, especially if you have more than one workstation or are migrating to a new machine. After much research and observation of how other people manage their dotfiles, what you see in this repo is a reflection of their efforts as well as my own.
 
 I initially started this repo to help myself learn more about the tools available out there for customizing my dev environment. I also wanted to make sure that all my customizations were backed up and could be installed on any machine. As I continued learning, adding, and breaking things, I thought it would be a good idea to document as much as I could to not only learn, but help others in setting up their dotfiles as well. I hope this repo can help newcomers understand their own environment and aid them in their own creation of a dotfile repo. Be aware that I am still learning, so proceed with caution. If you are uncertain about anything, I highly advise you read the source before executing any of these scripts.
 
@@ -53,7 +53,7 @@ At the moment, this will only work in MacOS. I'd love for this to work on linux 
 2.  Run scripts <--Currently working on these!
 
 * Automatic: ./install.sh
-* Manual: stow [folder]
+* Manually: stow [folder]
 
 3.  Done!
 
