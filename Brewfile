@@ -1,5 +1,6 @@
 tap "bramstein/webfonttools"
 tap "getantibody/tap"
+tap "heroku/brew"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
@@ -7,12 +8,10 @@ tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "neovim/neovim"
-tap "prisma/prisma"
 tap "ravenac95/sudolikeaboss"
 tap "tavianator/tap"
 tap "universal-ctags/universal-ctags"
 tap "wagoodman/dive"
-cask "java8"
 cask "xquartz"
 brew "openssl"
 brew "pcre"
@@ -20,7 +19,8 @@ brew "readline"
 brew "sqlite"
 brew "aircrack-ng"
 brew "icu4c"
-brew "boost"
+brew "boost", link: false
+brew "gdbm"
 brew "lua"
 brew "xz"
 brew "python"
@@ -30,12 +30,15 @@ brew "atk"
 brew "autoconf"
 brew "automake"
 brew "awscli"
+brew "bench"
 brew "binutils", link: true
+brew "bison"
 brew "brew-php-switcher"
 brew "libpng"
 brew "freetype"
 brew "fontconfig"
 brew "pixman"
+brew "chruby"
 brew "cifer"
 brew "cmake"
 brew "composer"
@@ -105,6 +108,8 @@ brew "htop"
 brew "httpie"
 brew "hub"
 brew "hydra"
+brew "hyperfine"
+brew "shared-mime-info"
 brew "imagemagick"
 brew "iperf"
 brew "ipfs"
@@ -124,6 +129,7 @@ brew "libxml2"
 brew "libxslt"
 brew "libyaml"
 brew "luajit"
+brew "luarocks"
 brew "lynx"
 brew "mas"
 brew "mhash"
@@ -136,7 +142,7 @@ brew "mycli"
 brew "mysql@5.7", restart_service: true, link: true
 brew "neo4j", restart_service: true
 brew "neofetch"
-brew "neovim"
+brew "neovim", args: ["HEAD"]
 brew "netpbm"
 brew "nginx", restart_service: true
 brew "nmap"
@@ -157,11 +163,10 @@ brew "rename"
 brew "rethinkdb"
 brew "rhino"
 brew "ripgrep"
-brew "ruby"
 brew "ruby-build"
+brew "ruby-install"
 brew "s3cmd"
 brew "screenfetch"
-brew "shared-mime-info"
 brew "socat"
 brew "spark"
 brew "speedtest-cli"
@@ -184,7 +189,6 @@ brew "watchman"
 brew "webkit2png"
 brew "weechat"
 brew "wget"
-brew "wp-cli"
 brew "xhyve", args: ["HEAD"]
 brew "yarn"
 brew "you-get"
@@ -201,6 +205,7 @@ brew "bramstein/webfonttools/sfnt2woff"
 brew "bramstein/webfonttools/sfnt2woff-zopfli"
 brew "bramstein/webfonttools/woff2"
 brew "getantibody/tap/antibody"
+brew "heroku/brew/heroku"
 brew "ravenac95/sudolikeaboss/sudolikeaboss"
 brew "tavianator/tap/bfs"
 brew "wagoodman/dive/dive"
@@ -209,6 +214,7 @@ cask "1password-cli"
 cask "alacritty"
 cask "alfred"
 cask "amethyst"
+cask "anki"
 cask "appcleaner"
 cask "battle-net"
 cask "beamer"
@@ -231,6 +237,7 @@ cask "insomnia"
 cask "istat-menus"
 cask "iterm2"
 cask "java"
+cask "java8"
 cask "kap"
 cask "karabiner-elements"
 cask "keepingyouawake"
@@ -243,6 +250,7 @@ cask "lumen"
 cask "mono-mdk"
 cask "monodraw"
 cask "numi"
+cask "omnidisksweeper"
 cask "postico"
 cask "postman"
 cask "sabnzbd"
@@ -259,23 +267,25 @@ cask "twitch"
 cask "vagrant"
 cask "virtualbox"
 cask "visual-studio-code"
+cask "vlc"
 cask "wireshark"
 cask "xld"
-mas "Battery Health", id: 490192174
-mas "BitdefenderVirusScanner", id: 500154009
-mas "DaisyDisk", id: 411643860
-mas "Gemini", id: 463541543
-mas "iA Writer", id: 775737590
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
-mas "Monosnap", id: 540348655
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "Reeder", id: 880001334
-mas "Rocket.Chat", id: 1086818840
-mas "RunCat", id: 1429033973
-mas "Slack", id: 803453959
-mas "Transmit", id: 403388562
-mas "Trello", id: 1278508951
-mas "Xcode", id: 497799835
-mas "xScope", id: 889428659
+mas "chat.rocket", id: 1086818840
+mas "com.apple.dt.Xcode", id: 497799835
+mas "com.apple.iMovieApp", id: 408981434
+mas "com.apple.iWork.Keynote", id: 409183694
+mas "com.apple.iWork.Numbers", id: 409203825
+mas "com.apple.iWork.Pages", id: 409201541
+mas "com.atlassian.trello", id: 1278508951
+mas "com.bitdefender.BitdefenderVirusScanner", id: 500154009
+mas "com.daisydiskapp.DaisyDisk", id: 411643860
+mas "com.fiplab.batteryhealth", id: 490192174
+mas "com.iconfactory.mac.xScope", id: 889428659
+mas "com.kyome.RunCat", id: 1429033973
+mas "com.macpaw.Gemini", id: 463541543
+mas "com.monosnap.monosnap", id: 540348655
+mas "com.panic.Transmit", id: 403388562
+mas "com.reederapp.rkit2.mac", id: 880001334
+mas "com.tinyspeck.slackmacgap", id: 803453959
+mas "net.shinyfrog.bear", id: 1091189122
+mas "pro.writer.mac", id: 775737590
