@@ -215,7 +215,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
-Plug 'RRethy/vim-illuminate'
+"Plug 'RRethy/vim-illuminate'
 
 
 " ----------------------------------------------------------------------------
@@ -347,8 +347,9 @@ inoremap <silent><expr> <c-space> coc#refresh()
 imap <C-l> <Plug>(coc-snippets-expand)
 
 " Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+" TODO, Find another mapping (This steps on vim-fugitive's feet)
+" nmap <silent> [c <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 
 " Remap keys for gotos
@@ -387,9 +388,9 @@ augroup end
 
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
-let g:coc_filetype_map = {
-  \ 'blade': 'html',
-  \ }
+" let g:coc_filetype_map = {
+"   \ 'blade': 'html',
+"   \ }
 
 
 " ----------------------------------------------------------------------------
@@ -621,8 +622,18 @@ endfunction
 " ----------------------------------------------------------------------------
 " vim-fugitive
 " ----------------------------------------------------------------------------
-nmap     <Leader>g :Gstatus<CR>gg<c-n>
-nnoremap <Leader>d :Gdiff<CR>
+" nmap     <Leader>g :Gstatus<CR>gg<c-n>
+" nnoremap <Leader>d :Gdiff<CR>
+
+nmap <Leader>gb :Gblame<cr>
+nmap <Leader>gs :Gstatus<cr>
+nmap <Leader>gc :Gcommit -v<cr>
+nmap <Leader>ga :Git add -p<cr>
+nmap <Leader>gm :Gcommit --amend<cr>
+nmap <Leader>gp :Gpush<cr>
+nmap <Leader>gd :Gdiff<cr>
+nmap <Leader>gw :Gwrite<cr>
+
 
 " ----------------------------------------------------------------------------
 " vim-commentary
