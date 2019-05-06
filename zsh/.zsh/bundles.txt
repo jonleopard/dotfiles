@@ -6,6 +6,7 @@ junegunn/fzf
 felixr/docker-zsh-completion
 zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
+andrewferrier/fzf-z
 
 
 # these should be at last!

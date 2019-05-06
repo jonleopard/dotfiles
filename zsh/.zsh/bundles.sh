@@ -11,6 +11,8 @@ source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-S
 fpath+=( /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-completions )
 source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 fpath+=( /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-autosuggestions )
+source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-andrewferrier-SLASH-fzf-z/fzf-z.plugin.zsh
+fpath+=( /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-andrewferrier-SLASH-fzf-z )
 source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-sindresorhus-SLASH-pure/pure.plugin.zsh
 fpath+=( /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-sindresorhus-SLASH-pure )
 source /Users/jon/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zdharma-SLASH-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh

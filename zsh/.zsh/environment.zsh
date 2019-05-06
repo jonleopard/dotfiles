@@ -29,6 +29,8 @@ export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 # PHP/Laravel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
+# Fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh 
 
 # Python
 
