@@ -1,4 +1,5 @@
 {
+  "eslint.autoFixOnSave": true,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.formatOnSaveFiletypes": [

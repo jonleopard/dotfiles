@@ -230,7 +230,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 "----------------------------------------------------------------------------
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 Plug 'honza/vim-snippets'
 
 " ----------------------------------------------------------------------------
