@@ -3,7 +3,7 @@
 # antibody bundle < ~/.zsh/bundles.txt
 
 
-# # After installing new plugins, comment lines 2-3 and uncomment 7-8
+# After installing new plugins, comment lines 2-3 and uncomment 7-8
 source ~/.zsh/bundles.sh
 antibody bundle < ~/.zsh/bundles.txt > ~/.zsh/bundles.sh
 

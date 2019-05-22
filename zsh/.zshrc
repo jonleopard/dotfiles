@@ -2,6 +2,9 @@
 # Load ZSH config files
 for config (~/.zsh/*.zsh) source $config
 
+# Force brew to use brewed CURL
+HOMEBREW_FORCE_BREWED_CURL=1
+
 # No GAnalytics Logging in homebrew
 HOMEBREW_NO_ANALYTICS=1
 
