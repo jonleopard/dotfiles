@@ -204,7 +204,8 @@ Plug 'racer-rust/vim-racer'
 " Colorscheme & Syntax Highlighting & Linting
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
-Plug 'jonleopard/base16-vim'
+"Plug 'jonleopard/base16-vim'
+Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
@@ -237,7 +238,7 @@ Plug 'honza/vim-snippets'
 " Editing
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-endwise'
+"Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
@@ -330,16 +331,14 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+let g:coc_snippet_next = '<tab>'
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-
-" Use <c-space> for trigger completion.
+" Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <C-l> to trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[c` and `]c` for navigate diagnostics
 " TODO, Find another mapping (This steps on vim-fugitive's feet)
@@ -459,9 +458,9 @@ let g:go_fmt_options = {
   \ }
 
 
-if exists('g:loaded_polyglot')
-    let g:polyglot_disabled = ['go']
-endif
+" if exists('g:loaded_polyglot')
+"     let g:polyglot_disabled = ['go']
+" endif
 
 " map <C-n> :cnext<CR>
 " map <C-m> :cprevious<CR>
@@ -647,7 +646,11 @@ autocmd! User indentLine doautocmd indentLine Syntax
 " ----------------------------------------------------------------------------
 " auto-pairs
 " ----------------------------------------------------------------------------
-"let g:AutoPairsShortcutBackInsert = '<M-b>'
+" auto-pairs and vim-endwise key maps dont play nicely, this fixes it.
+" More info: https://github.com/jiangmiao/auto-pairs/issues/7
+" let g:AutoPairsMapCR = 0
+" imap <silent> <CR> <C-R>=AutoPairsReturn()<CR>
+" let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 
 " ----------------------------------------------------------------------------
@@ -694,13 +697,19 @@ nmap gaa ga
 " FZF {{{
 " ============================================================================
 
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
-
-
 " Hide statusline of terminal buffer
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10new' }
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -726,6 +735,8 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
+
+" Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
@@ -774,7 +785,9 @@ command! PlugHelp call fzf#run(fzf#wrap({
   \ 'source': sort(keys(g:plugs)),
   \ 'sink': function('s:plug_help_sink')}))
 
-
+let g:fzf_commits_log_options = '--graph --color=always
+  \ --format="%C(yellow)%h%C(red)%d%C(reset)
+  \ - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
 
 " }}}
 " ============================================================================

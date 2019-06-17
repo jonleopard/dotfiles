@@ -1,5 +1,6 @@
 {
   "eslint.autoFixOnSave": true,
+  "suggest.noselect": false,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.formatOnSaveFiletypes": [
@@ -9,15 +10,9 @@
     "golang": {
       "command": "gopls",
       "args": [],
-      "rootPatterns": [
-        "go.mod",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": [
-        "go"
-      ]
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
     }
   }
+
 }
