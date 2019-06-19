@@ -94,6 +94,7 @@ if has("clipboard")
     set clipboard+=unnamedplus
   endif
 endif
+
 " }}}
 " ============================================================================
 " MAPPINGS {{{
@@ -298,6 +299,17 @@ if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
 
+
+
+" }}}
+" ============================================================================
+" FILETYPES {{{
+" ============================================================================
+augroup filetypedetect
+    au BufRead,BufNewFile *.gohtml setfiletype html
+    au BufRead,BufNewFile *.blade.php setfiletype html
+augroup END
+
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS{{{
@@ -451,12 +463,33 @@ command! -bang AutoSave call s:autosave(<bang>1)
 " vim-go
 " ----------------------------------------------------------------------------
 let g:go_fmt_fail_silently = 1
-let g:go_list_type = "quickfix"
 let g:go_fmt_command = "goimports"
-let g:go_fmt_options = {
-  \ 'goimports': '-local do/',
-  \ }
 
+let g:go_list_type = "quickfix"
+let g:go_auto_type_info = 0
+let g:go_auto_sameids = 0
+
+let g:go_null_module_warning = 0
+let g:go_echo_command_info = 1
+
+let g:go_autodetect_gopath = 1
+
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_extra_types = 0
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 0
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_format_strings = 0
+let g:go_highlight_function_calls = 0
+let g:go_gocode_propose_source = 1
+
+
+let g:go_modifytags_transform = 'camelcase'
+let g:go_fold_enable = []
 
 " if exists('g:loaded_polyglot')
 "     let g:polyglot_disabled = ['go']
@@ -727,13 +760,13 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+
+" fzf+ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
 
 
 " Likewise, Files command with preview window
