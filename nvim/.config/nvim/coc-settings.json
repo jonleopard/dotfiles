@@ -1,18 +1,27 @@
 {
-  "eslint.autoFixOnSave": true,
-  "suggest.noselect": false,
+  "html.format.enable": true,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
+  "tsserver.npm": "/Users/jon/n/bin/node",
   "coc.preferences.formatOnSaveFiletypes": [
-    "html"
+    "html",
+    "javascript",
+    "javascriptreact",
+    "php"
   ],
   "languageserver": {
     "golang": {
       "command": "gopls",
       "args": [],
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
+      "rootPatterns": [
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": [
+        "go"
+      ]
     }
   }
-
 }

@@ -232,8 +232,11 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 "----------------------------------------------------------------------------
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
-Plug 'honza/vim-snippets'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'honza/vim-snippets'
+
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -308,6 +311,7 @@ endif
 augroup filetypedetect
     au BufRead,BufNewFile *.gohtml setfiletype html
     au BufRead,BufNewFile *.blade.php setfiletype html
+    au BufRead,BufNewFile *.vue setfiletype html
 augroup END
 
 " }}}
@@ -325,6 +329,7 @@ let g:signify_vcs_list = ['git']
 " coc
 " ----------------------------------------------------------------------------
 " TODO: Need to get bas16 to work with these
+
 
 highlight link CocErrorSign GitGutterDelete
 highlight link CocWarningSign GitGutterChangeDelete
@@ -344,6 +349,25 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NEOSNIPPET + COC CONFIG
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <TAB>     <Plug>(neosnippet_expand_or_jump)
+smap <TAB>     <Plug>(neosnippet_expand_or_jump)
+xmap <TAB>     <Plug>(neosnippet_expand_target)
+
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -366,6 +390,8 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+
 
 function! s:show_documentation()
   if &filetype == 'vim'
@@ -394,9 +420,10 @@ augroup end
 
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
-" let g:coc_filetype_map = {
-"   \ 'blade': 'html',
-"   \ }
+let g:coc_filetype_map = {
+  \ 'blade': 'html',
+  \ 'vue': 'html',
+  \ }
 
 
 " ----------------------------------------------------------------------------
