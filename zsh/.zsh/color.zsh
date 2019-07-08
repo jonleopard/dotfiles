@@ -1,6 +1,8 @@
 # makes color constants available
 autoload -U colors
 
+export BAT_THEME="base16"
+
 # enable colored output from ls, etc. on FreeBSD-based systems
 export CLICOLOR=1
 
