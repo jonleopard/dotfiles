@@ -114,13 +114,14 @@ My vim plugins are managed with [Vim-Plug](https://github.com/junegunn/vim-plug)
 ## Dev Fonts
 
 Below is a list of some of my favourite dev fonts that go great in your terminal, IDE, Text Editor, etc...
-
+* [Hack Font](https://sourcefoundry.org/hack/)
+* [mononoki](https://madmalik.github.io/mononoki/)
+* [Tamsyn Font](http://www.fial.com/~scott/tamsyn-font/)
 * [Consolas](https://www.typewolf.com/site-of-the-day/fonts/consolas)
-* [Hack](https://sourcefoundry.org/hack/)
 * [Adobe Source Code Pro](https://github.com/adobe-fonts/source-code-pro)
 * [Pragmata Pro](http://www.fsd.it/shop/fonts/pragmatapro/)
 
-If you need a [Powerline](https://github.com/powerline/powerline) font, a list of those can be found here: [Powerline Fonts](https://github.com/powerline/fonts)
+If you need a [Powerline](https://github.com/powerline/powerline) font, a list of those can be found here: [Powerline Fonts](https://github.com/powerline/fonts). You could also check out the [Nerd Fonts](https://nerdfonts.com/) repo for a list of patched fonts and install them via homebrew. This is what I currently use.
 
 ## Alacritty + ZSH
 As you could have guessed by now, I am using [ZSH](http://www.zsh.org/) instead of BASH as my unix shell. [Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) as my shell prompt.
@@ -147,11 +148,8 @@ If you are interested in my wallpaper collection, you can grab the bundle [here]
   * [Top 10 Programming Fonts](http://hivelogic.com/articles/top-10-programming-fonts/)
   * [What are the best programming fonts?](https://www.slant.co/topics/67/~programming-fonts)
   * [Programming Fonts](http://programmingfonts.org/)
-  * [Nerd Fonts](https://nerdfonts.com/)
   * [Font Compare](http://s9w.io/font_compare/)
-  * [Hack Font](https://sourcefoundry.org/hack/)
-  * [mononoki](https://madmalik.github.io/mononoki/)
-  * [Tamsyn Font](http://www.fial.com/~scott/tamsyn-font/)
+
  
 
 [logo]: .github/screenshot.png
