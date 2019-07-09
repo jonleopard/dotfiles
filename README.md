@@ -142,11 +142,17 @@ If you are interested in my wallpaper collection, you can grab the bundle [here]
   * [paulirish](https://github.com/paulirish/dotfiles)
   * [thoughtbot dotfiles](https://github.com/thoughtbot/dotfiles)
   * [thoughtbot laptop](https://github.com/thoughtbot/laptop)
-* Typography
+* Fonts
   * [Font rasterization](https://en.wikipedia.org/wiki/Font_rasterization)
   * [Top 10 Programming Fonts](http://hivelogic.com/articles/top-10-programming-fonts/)
   * [What are the best programming fonts?](https://www.slant.co/topics/67/~programming-fonts)
   * [Programming Fonts](http://programmingfonts.org/)
+  * [Nerd Fonts](https://nerdfonts.com/)
+  * [Font Compare](http://s9w.io/font_compare/)
+  * [Hack Font](https://sourcefoundry.org/hack/)
+  * [mononoki](https://madmalik.github.io/mononoki/)
+  * [Tamsyn Font](http://www.fial.com/~scott/tamsyn-font/)
+ 
 
 [logo]: .github/screenshot.png
 [logo2]: .github/screenshot-2.png
