@@ -1,7 +1,7 @@
 # Sensitive or unnecessary files don't need to be uploaded
 gnupg/*
 ssh/.ssh/*
-git/.gitconfig.local
+git/.gitconfig_local
 nvim/.config/nvim/plugged/*
 nvim/.config/autoload
 nvim/.config/nvim/autoload/plug.vim.old
