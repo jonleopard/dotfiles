@@ -14,7 +14,6 @@ augroup vimrc
     autocmd!
 augroup END
 
-
 if !exists("g:syntax_on")
   syntax enable
 endif
@@ -53,7 +52,6 @@ set diffopt=filler,vertical
 set autoread
 set clipboard=unnamed
 set foldlevelstart=99
-set grepformat=%f:%l:%c:%m,%f:%l:%m
 set completeopt=menuone,preview
 set omnifunc=syntaxcomplete#Complete
 set nocursorline
@@ -67,12 +65,13 @@ set cmdheight=2
 set updatetime=100
 set noswapfile
 set nobackup
+set modelines=2
 
 " 80 chars/line
-set textwidth=0
-if exists('&colorcolumn')
-  set colorcolumn=80
-endif
+set textwidth=80
+" if exists('&colorcolumn')
+"   set colorcolumn=80
+" endif
 
 set synmaxcol=1000
 
@@ -182,7 +181,6 @@ Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'ap/vim-css-color'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'jparise/vim-graphql'
 "Plug 'RRethy/vim-illuminate'
@@ -242,7 +240,8 @@ Plug 'tpope/vim-obsession'
 Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
 
 Plug 'itchyny/lightline.vim'
-Plug 'jonleopard/base16-vim-lightline'
+"Plug 'jonleopard/base16-vim-lightline'
+Plug 'mike-hearn/base16-vim-lightline'
 Plug 'mengelbrecht/lightline-bufferline'
 
 Plug 'mhinz/vim-startify'
@@ -261,19 +260,16 @@ call plug#end()
 " ============================================================================
 
 
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
-
-if !has('gui_running')
-  set t_Co=256
+if has('termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
 
 " base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
-
 
 
 " }}}
@@ -322,8 +318,11 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 
 " NEOSNIPPET + COC CONFIG
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <TAB>     <Plug>(neosnippet_expand_or_jump)
@@ -339,6 +338,7 @@ imap <expr><TAB>
  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use <c-space> to trigger completion.
@@ -532,7 +532,7 @@ autocmd! FileType dirvish setlocal relativenumber
 
 
 let g:lightline = {
-      \   'colorscheme': 'base16_snazzy',
+      \   'colorscheme': 'base16_one_light',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
       \     'right': [ [ 'cocstatus', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
