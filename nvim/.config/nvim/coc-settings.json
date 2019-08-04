@@ -7,21 +7,7 @@
     "html",
     "javascript",
     "javascriptreact",
-    "php"
-  ],
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "args": [],
-      "rootPatterns": [
-        "go.mod",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": [
-        "go"
-      ]
-    }
-  }
+    "php",
+    "vue"
+  ]
 }
