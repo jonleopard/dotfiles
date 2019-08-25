@@ -532,7 +532,7 @@ autocmd! FileType dirvish setlocal relativenumber
 
 
 let g:lightline = {
-      \   'colorscheme': 'base16_one_light',
+      \   'colorscheme': 'base16_snazzy',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
       \     'right': [ [ 'cocstatus', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],

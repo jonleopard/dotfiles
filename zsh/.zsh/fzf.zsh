@@ -51,9 +51,9 @@ fs() {
   tmux switch-client -t "$session"
 }
 
-
 # Base16 Snazzy
 # Author: Chawye Hsu (https://github.com/h404bi) based on Hyper Snazzy Theme (https://github.com/sindresorhus/hyper-snazzy)
+# Get more colors from https://github.com/nicodebo/base16-fzf
 
 _gen_fzf_default_opts() {
 
@@ -83,3 +83,4 @@ export FZF_DEFAULT_OPTS="
 }
 
 _gen_fzf_default_opts
+
