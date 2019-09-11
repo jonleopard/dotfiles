@@ -5,6 +5,12 @@
 # Note that this needs to be before homebrew
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
+# Yarn
+# Homebrew installed yarn is a pain in the ass.
+# https://github.com/yarnpkg/website/issues/913
+# Installing it manually until I find a better solution.
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
 # homebrew
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
