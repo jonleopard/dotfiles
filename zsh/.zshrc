@@ -24,3 +24,5 @@ else
 fi
 
 #zprof
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
