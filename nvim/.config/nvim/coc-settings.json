@@ -5,8 +5,6 @@
   "tsserver.npm": "/Users/jon/n/bin/node",
   "coc.preferences.formatOnSaveFiletypes": [
     "html",
-    "javascript",
-    "javascriptreact",
     "php",
     "vue"
   ]
