@@ -1,10 +1,14 @@
 {
+  "html.filetypes":["html", "handlebars", "blade"],
   "html.format.enable": true,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "tsserver.npm": "/Users/jon/n/bin/node",
   "coc.preferences.formatOnSaveFiletypes": [
+    "markdown",
+    "blade",
     "html",
+    "css",
     "php",
     "vue"
   ]
