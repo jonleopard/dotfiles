@@ -106,7 +106,7 @@ endif
 " qq to record, Q to replay
 nnoremap Q @q
 
-" Disable CTRL-A on tmux or on screen
+" Disable CTRL-A on tmux & screen
 if $TERM =~ 'screen'
   nnoremap <C-a> <nop>
   nnoremap <Leader><C-a> <C-a>
@@ -152,7 +152,7 @@ map <D-S-}> :tabprevious
 " VIM-PLUG BLOCK {{{
 " ============================================================================
 
-"Make sure vim-plug is installed first
+" Make sure vim-plug is installed first
 " if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 "   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
 "     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -388,6 +388,8 @@ augroup mygroup
   autocmd FileType typescript,json,php,html,blade setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  " remove extra $ for coc autocomplete
+  autocmd BufNewFile,BufRead *.php set iskeyword+=$
 augroup end
 
 command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
