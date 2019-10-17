@@ -18,6 +18,65 @@ command -v tree > /dev/null && export FZF_ALT_C_OPTS="--preview 'tree -C {} | he
 
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
 
+### Fancy stuff ###
+
+#https://medium.com/@calbertts/docker-and-fuzzy-finder-fzf-4c6416f5e0b5
+runc() {
+  export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
+  local image=$(docker images --format '{{.Repository}}:{{.Tag}}' | fzf-tmux --reverse --multi)
+  if [[ $image != '' ]]; then
+    echo -e "\n  \033[1mDocker image:\033[0m" $image
+    read -e -p $'  \e[1mOptions: \e[0m' -i "-it --rm" options
+
+    printf "  \033[1mChoose the command: \033[0m"
+    local cmd=$(echo -e "/bin/bash\nsh" | fzf-tmux --reverse --multi)
+    if [[ $cmd == '' ]]; then
+        read -e -p $'  \e[1mCustom command: \e[0m' cmd
+    fi
+    echo -e "  \033[1mCommand: \033[0m" $cmd
+
+    export FZF_DEFAULT_COMMAND='find ./ -type d -maxdepth 1 -exec basename {} \;'
+    printf "  \033[1mChoose the volume: \033[0m"
+    local volume=$(fzf-tmux --reverse --multi)
+    local curDir=${PWD##*/}
+    if [[ $volume == '.' ]]; then
+        echo -e "  \033[1mVolume: \033[0m" $volume
+        volume="`pwd`:/$curDir -w /$curDir"
+    else
+        echo -e "  \033[1mVolume: \033[0m" $volume
+        volume="`pwd`/$volume:/$volume -w /$volume"
+    fi
+
+    export FZF_DEFAULT_COMMAND=""
+    export FZF_DEFAULT_OPTS=""
+
+    history -s runc
+    history -s docker run $options -v $volume $image $cmd
+    echo ''
+    docker run $options -v $volume $image $cmd
+  fi
+}
+
+runinc() {
+  export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
+  local container=$(docker ps --format '{{.Names}} => {{.Image}}' | fzf-tmux --reverse --multi | awk -F '\\=>' '{print $1}')
+  if [[ $container != '' ]]; then
+    echo -e "\n  \033[1mDocker container:\033[0m" $container
+    read -e -p $'  \e[1mOptions: \e[0m' -i "-it" options
+    if [[ $@ == '' ]]; then
+				read -e -p $'  \e[1mCommand: \e[0m' cmd
+    else
+				cmd="$@"
+    fi
+    echo ''
+    history -s runinc "$@"
+    history -s docker exec $options $container $cmd
+    docker exec $options $container $cmd
+    echo ''
+  fi
+  export FZF_DEFAULT_OPTS=""
+}
+
 # Base16 Snazzy
 # Author: Chawye Hsu (https://github.com/h404bi) based on Hyper Snazzy Theme (https://github.com/sindresorhus/hyper-snazzy)
 # Get more colors from https://github.com/nicodebo/base16-fzf

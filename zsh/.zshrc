@@ -1,4 +1,5 @@
 #zmodload zsh/zprof
+
 # Load ZSH config files
 for config (~/.zsh/*.zsh) source $config
 
@@ -14,7 +15,17 @@ HOMEBREW_NO_GITHUB_API=1
 # Configure brew to avoid protocol downgrades from HTTPS to HTTP via redirect
 HOMEBREW_NO_INSECURE_REDIRECT=1
 
+
+### The nitty gritty ###
+
+# I use FZF, Z, and fd to hop around directories. This is nice to have.
 setopt auto_cd
+
+# Don't store invalid/mistyped commands in zhistory file.
+# You can still `up arrow` to modify a failed command,
+# but at least the failed version won't be stored in history
+# http://www.zsh.org/mla/users//2014/msg00715.html
+zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 
 autoload -Uz compinit
 if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
