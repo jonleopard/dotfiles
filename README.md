@@ -11,14 +11,14 @@
 * [Installation](#installation)
 * [Todo](#todo)
 * [Management Tools](#mangement-tools)
-  * [dotfiles](#dotfiles--gnu-stow)
-  * [macOS](#macos-package-management)
-  * [zsh](#zsh-plugin-management)
-  * [node](#node-version-management)
-  * [vim](#vim-plugin-management)
+  * dotfiles
+  * macOS
+  * zsh
+  * node
+  * vim
 * [The Terminal](#the-terminal)
-  * [Dev Fonts](#dev-fonts)
-  * [alacritty + zsh](#alacritty--zsh)
+  * dev fonts
+  * alacritty + zsh
 * [Resources](#resources)
 
 ## Introduction
@@ -95,7 +95,7 @@ All my dotfiles are managed with the extremely light weight [GNU Stow](https://w
 
 Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). My Brewfile with generated with [Homebrew-Bundle](https://github.com/Homebrew/homebrew-bundle). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called Brewfile.
 
-**node - N**
+**node - n**
 
 [n](https://github.com/tj/n) allows me to switch between different node versions on the fly. I've installed `n` via [n-install](https://github.com/mklement0/n-install). Also, on the topic of node, I've installed `yarn` globally via `brew install yarn --ignore-dependencies` (allows for yarn to plug into your node binary that `n` installed). 
 
@@ -103,22 +103,22 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 
 [antibody](http://getantibody.github.io/) has been my favorite zsh plugin mananger for a couple years now. The author has a great post on shell performance which I highly recommend if you are interested in speeding up your shell spawn times. It's written in go, so make sure you have go installed on your system.
 
-### tmux - tpm
+**tmux - tpm**
 
 [tpm](https://github.com/tmux-plugins/tpm) (which stands for tmux plugin manager) is a great little that has zero dependencies. Be sure to check out the [plugin](https://github.com/tmux-plugins) directory. 
 
-### neovim - vim plug
+**neovim - vim plug**
 
 [vim-plug](https://github.com/junegunn/vim-plug) manages all of my vim plugins. It pairs nicely with [Neovim](https://github.com/junegunn/vim-plug#neovim).
 
 ## The Terminal
 
 
-### alacritty + zsh
+**alacritty + zsh**
 As you could have guessed by now, I am using [zsh](http://www.zsh.org/) instead of bash as my unix shell. [Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) is the shell prompt.
 
 
-### Dev Fonts
+**Dev Fonts**
 
 Below is a list of some of my favourite dev fonts that go great in your terminal, IDE, Text Editor, etc...
 * [Hack Font](https://sourcefoundry.org/hack/)
