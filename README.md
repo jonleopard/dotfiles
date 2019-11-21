@@ -5,17 +5,16 @@
 # ![dotfiles][logo]
 # ![dotfiles][logo2]
 
-## How to use these dotfiles
+## Usage
 
 * [Introduction](#introduction)
 * [Installation](#installation-protocol)
 * [Todo](#todo)
-* [Management](#management-overview)
-  * [Dotfile Managment](#dotfile-management)
-  * [macOS Package Management](#macos-package-management)
-  * [ZSH Plugin Management](#zsh-plugin-management)
-  * [Node Management](#node-management)
-  * [Vim Plugin Management](#vim-plugin-management)
+* [Dotfile Managment](#dotfile-management)
+* [macOS Package Management](#macos-package-management)
+* [ZSH Plugin Management](#zsh-plugin-management)
+* [Node Management](#node-management)
+* [Vim Plugin Management](#vim-plugin-management)
 * [Dev Fonts](#dev-fonts)
 * [iTerm 2 + ZSH](#iterm-2--zsh)
 * [Resources](#resources)
@@ -106,6 +105,9 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 
 My vim plugins are managed with [Vim-Plug](https://github.com/junegunn/vim-plug). Vim-Plug also ties in nicely with [Neovim](https://github.com/junegunn/vim-plug#neovim).
 
+## Alacritty + ZSH
+As you could have guessed by now, I am using [ZSH](http://www.zsh.org/) instead of bash as my unix shell. [Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) is the shell prompt.
+
 ## Dev Fonts
 
 Below is a list of some of my favourite dev fonts that go great in your terminal, IDE, Text Editor, etc...
@@ -116,14 +118,11 @@ Below is a list of some of my favourite dev fonts that go great in your terminal
 * [Adobe Source Code Pro](https://github.com/adobe-fonts/source-code-pro)
 * [Pragmata Pro](http://www.fsd.it/shop/fonts/pragmatapro/)
 
-If you need a [Powerline](https://github.com/powerline/powerline) font, a list of those can be found here: [Powerline Fonts](https://github.com/powerline/fonts). You could also check out the [Nerd Fonts](https://nerdfonts.com/) repo for a list of patched fonts and install them via homebrew. This is what I currently use.
-
-## Alacritty + ZSH
-As you could have guessed by now, I am using [ZSH](http://www.zsh.org/) instead of BASH as my unix shell. [Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) as my shell prompt.
+If you need a [Powerline](https://github.com/powerline/powerline) font, a list of those can be found here: [Powerline Fonts](https://github.com/powerline/fonts). You could also check out the [Nerd Fonts](https://nerdfonts.com/) repo for a list of patched fonts and install them via homebrew.
 
 
 ## Wallpapers
-If you are interested in my wallpaper collection, you can grab the bundle [here](https://www.dropbox.com/sh/phhmo009i52wp0r/AAAOhBkQrMM3a3Iy9e3n_aKAa?dl=0). 
+I've been working a collection of my favorite wallpapers over the years. If you are interested, you can grab the bundle [here](https://www.dropbox.com/sh/phhmo009i52wp0r/AAAOhBkQrMM3a3Iy9e3n_aKAa?dl=0). 
 
 ## Resources
 
