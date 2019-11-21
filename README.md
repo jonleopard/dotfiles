@@ -115,6 +115,7 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 
 
 **alacritty + zsh**
+
 As you could have guessed by now, I am using [zsh](http://www.zsh.org/) instead of bash as my unix shell. [Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) is the shell prompt.
 
 
