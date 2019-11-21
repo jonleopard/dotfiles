@@ -95,11 +95,11 @@ All my dotfiles are managed with the extremely light weight [GNU Stow](https://w
 
 Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). My Brewfile with generated with [Homebrew-Bundle](https://github.com/Homebrew/homebrew-bundle). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called Brewfile.
 
-### node - N
+**node - N**
 
 [n](https://github.com/tj/n) allows me to switch between different node versions on the fly. I've installed `n` via [n-install](https://github.com/mklement0/n-install). Also, on the topic of node, I've installed `yarn` globally via `brew install yarn --ignore-dependencies` (allows for yarn to plug into your node binary that `n` installed). 
 
-### zsh - antibody
+**zsh - antibody**
 
 [antibody](http://getantibody.github.io/) has been my favorite zsh plugin mananger for a couple years now. The author has a great post on shell performance which I highly recommend if you are interested in speeding up your shell spawn times. It's written in go, so make sure you have go installed on your system.
 
