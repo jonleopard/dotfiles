@@ -79,11 +79,6 @@ If you prefer, you can skip the install.sh script and run stow manually. Just te
 stow example_folder
 ```
 
-I talk a bit more about stow below in the dotfile management section. Be sure to also check out the links in the resources section.
-
-## Management Overview
-
-[GNU Stow](https://www.gnu.org/software/stow/) handles all my dotfiles. I'm using that in unison with [Git](https://git-scm.com/) for backups/versioning. [Homebrew](http://brew.sh/) handles all my packages and will also install all of my Mac App Store apps as well. ZSH plugins are managed with [anitbody](http://getantibody.github.io/). I work a bit with Node, so [NVM](https://github.com/creationix/nvm) was chosen as my Node version manager. Lastly, [vim-plug](https://github.com/junegunn/vim-plug) handles all of my neomvim plugins.
 
 ## Dotfile Management
 
