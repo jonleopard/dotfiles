@@ -8,15 +8,17 @@
 ## Usage
 
 * [Introduction](#introduction)
-* [Installation](#installation-protocol)
+* [Installation](#installation)
 * [Todo](#todo)
-* [Dotfile Managment](#dotfile-management)
-* [macOS Package Management](#macos-package-management)
-* [ZSH Plugin Management](#zsh-plugin-management)
-* [Node Management](#node-management)
-* [Vim Plugin Management](#vim-plugin-management)
-* [Dev Fonts](#dev-fonts)
-* [iTerm 2 + ZSH](#iterm-2--zsh)
+* [Management Tools](#mangement-tools)
+  * [dotfiles](#dotfiles--gnu-stow)
+  * [macOS](#macos-package-management)
+  * [zsh](#zsh-plugin-management)
+  * [node](#node-version-management)
+  * [vim](#vim-plugin-management)
+* [The Terminal](#the-terminal)
+  * [Dev Fonts](#dev-fonts)
+  * [alacritty + zsh](#alacritty--zsh)
 * [Resources](#resources)
 
 ## Introduction
@@ -40,7 +42,7 @@ Lastly, I have created a minimal dotfile repo for to help new users get started 
 
 ## Installation
 
-At the moment, this will only work in MacOS. I'd love for this to work on linux distros too, feel free to submit a PR!
+At the moment, this will only work in macOS. I'd love for this to work on linux distros too, feel free to submit a PR!
 
 **Disclaimer:** If you decide to use these dotfiles, please fork this repo and review the source code before executing! Proceed at your own risk!
 
@@ -56,7 +58,7 @@ At the moment, this will only work in MacOS. I'd love for this to work on linux 
 
 3.  Done!
 
-## Download and Stage Files
+### Download and Stage Files
 
 If you are just setting up a new machine, you might not already have git installed. If this is the case, then run the cURL command in your home `$HOME` directory. If you already have git, then use git clone. It's imperative you place the dotfiles folder into your home directory. Not sure where that is? Run `echo $HOME`. Read [Dotfile Management](https://github.com/jonleopard/dotfiles#dotfile-management) for more details.
 
@@ -79,36 +81,44 @@ stow example_folder
 ```
 
 
-## Dotfile Management
+
+## Mangement Tools
+
+
+### dotfiles - gnu stow
 
 There are [so many flavors](https://www.reddit.com/r/fossworldproblems/comments/2jk4gi/there_are_too_many_solutions_for_managing_dotfiles/) when it comes to dotfile management. I wanted something lightweight and that could run in any \*nix environment with little to no dependencies.
 
-All my dotfiles are managed with the extremely light weight [GNU Stow](https://www.gnu.org/software/stow/). Basically, stow creates & manages symlinks to files that are located in the home directory. This allows me to keep everything in an organized folder called 'dotfiles'. This method makes sharing these files with other users and my other workstations really easy and avoids cluttering the home directory with VCS files.
+All my dotfiles are managed with the extremely light weight [GNU Stow](https://www.gnu.org/software/stow/). Basically, stow creates & manages symlinks to files that are located in the home directory. This allows me to keep everything in an organized folder called 'dotfiles'. If you are interested in learning more about stow, I wrote a brief post about it [here](https://jonleopard.com/blog/dotfile-management-with-gnu-stow/)
 
-## MacOS Package Management
+### macOS - Homebrew
 
 Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). My Brewfile with generated with [Homebrew-Bundle](https://github.com/Homebrew/homebrew-bundle). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called Brewfile.
 
-## Node Version Management
+### node - N
 
 [n](https://github.com/tj/n) allows me to switch between different node versions on the fly. I've installed `n` via [n-install](https://github.com/mklement0/n-install). Also, on the topic of node, I've installed `yarn` globally via `brew install yarn --ignore-dependencies` (allows for yarn to plug into your node binary that `n` installed). 
 
-## ZSH Plugin Management
+### zsh - antibody
 
-[antibody](http://getantibody.github.io/)
+[antibody](http://getantibody.github.io/) has been my favorite zsh plugin mananger for a couple years now. The author has a great post on shell performance which I highly recommend if you are interested in speeding up your shell spawn times. It's written in go, so make sure you have go installed on your system.
 
-## Tmux Plugin Management
+### tmux - tpm
 
-[TPM](https://github.com/tmux-plugins/tpm)
+[tpm](https://github.com/tmux-plugins/tpm) (which stands for tmux plugin manager) is a great little that has zero dependencies. Be sure to check out the [plugin](https://github.com/tmux-plugins) directory. 
 
-## Vim Plugin Management
+### neovim - vim plug
 
-My vim plugins are managed with [Vim-Plug](https://github.com/junegunn/vim-plug). Vim-Plug also ties in nicely with [Neovim](https://github.com/junegunn/vim-plug#neovim).
+[vim-plug](https://github.com/junegunn/vim-plug) manages all of my vim plugins. It pairs nicely with [Neovim](https://github.com/junegunn/vim-plug#neovim).
 
-## Alacritty + ZSH
-As you could have guessed by now, I am using [ZSH](http://www.zsh.org/) instead of bash as my unix shell. [Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) is the shell prompt.
+## The Terminal
 
-## Dev Fonts
+
+### alacritty + zsh
+As you could have guessed by now, I am using [zsh](http://www.zsh.org/) instead of bash as my unix shell. [Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) is the shell prompt.
+
+
+### Dev Fonts
 
 Below is a list of some of my favourite dev fonts that go great in your terminal, IDE, Text Editor, etc...
 * [Hack Font](https://sourcefoundry.org/hack/)
@@ -122,7 +132,7 @@ If you need a [Powerline](https://github.com/powerline/powerline) font, a list o
 
 
 ## Wallpapers
-I've been working a collection of my favorite wallpapers over the years. If you are interested, you can grab the bundle [here](https://www.dropbox.com/sh/phhmo009i52wp0r/AAAOhBkQrMM3a3Iy9e3n_aKAa?dl=0). 
+I've been working a collection of my favorite wallpapers over the years. If you are interested, you can grab the bundle [here](https://www.dropbox.com/sh/phhmo009i52wp0r/AAAOhBkQrMM3a3Iy9e3n_aKAa?dl=0).
 
 ## Resources
 
