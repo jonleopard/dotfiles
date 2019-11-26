@@ -4,6 +4,7 @@
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "tsserver.npm": "/Users/jon/n/bin/node",
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "markdown",
     "blade",
@@ -11,5 +12,12 @@
     "css",
     "php",
     "vue"
-  ]
+  ],
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    }
+  }
 }

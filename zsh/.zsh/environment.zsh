@@ -23,9 +23,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # Go
 export GOPATH="$HOME/go"
-#export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 export PATH="$PATH:$GOPATH/bin"
-
+export GOBIN="$GOPATH/bin"
 
 
 # PHP/Laravel

@@ -181,9 +181,6 @@ Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
 Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'jparise/vim-graphql'
-"Plug 'RRethy/vim-illuminate'
 
 
 " ----------------------------------------------------------------------------
@@ -299,10 +296,10 @@ let g:signify_vcs_list = ['git']
 " TODO: Need to get bas16 to work with these
 
 
-highlight link CocErrorSign GitGutterDelete
-highlight link CocWarningSign GitGutterChangeDelete
-highlight link CocInfoSign GitGutterChange
-highlight link CocHintSign GitGutterAdd
+ highlight link CocErrorSign GitGutterDelete
+ highlight link CocWarningSign GitGutterChangeDelete
+ highlight link CocInfoSign GitGutterChange
+ highlight link CocHintSign GitGutterAdd
 
 " use <tab> for trigger completion and navigate to next complete item
 inoremap <silent><expr> <TAB>
@@ -465,32 +462,19 @@ command! -bang AutoSave call s:autosave(<bang>1)
 " ----------------------------------------------------------------------------
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
-
 let g:go_list_type = "quickfix"
-let g:go_auto_type_info = 0
-let g:go_auto_sameids = 0
-
-let g:go_null_module_warning = 0
-let g:go_echo_command_info = 1
-
+let g:go_auto_type_info = 1
 let g:go_autodetect_gopath = 1
 
-let g:go_highlight_space_tab_error = 0
-let g:go_highlight_array_whitespace_error = 0
-let g:go_highlight_trailing_whitespace_error = 0
-let g:go_highlight_extra_types = 0
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_types = 0
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_format_strings = 0
-let g:go_highlight_function_calls = 0
-let g:go_gocode_propose_source = 1
+
+let g:go_def_mapping_enabled = 0
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 
-let g:go_modifytags_transform = 'camelcase'
-let g:go_fold_enable = []
 
 " if exists('g:loaded_polyglot')
 "     let g:polyglot_disabled = ['go']
@@ -537,7 +521,7 @@ let g:lightline = {
       \   'colorscheme': 'base16_snazzy',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
-      \     'right': [ [ 'cocstatus', 'trailing', 'lineinfo' ], [ 'fileinfo' ] ],
+      \     'right': [ [ 'cocstatus', 'currentfunction',' trailing', 'lineinfo' ], [ 'fileinfo' ] ],
       \   },
       \   'inactive': {
       \     'left': [ [ 'pwd' ], [ 'gitbranch' ] ],
@@ -574,6 +558,7 @@ let g:lightline = {
       \     'fileinfo': 'LightlineFileinfo',
       \     'gitbranch': 'fugitive#head',
       \     'cocstatus': 'coc#status',
+      \     'currentfunction': 'CocCurrentFunction'
       \   },
       \   'component_type': {
       \     'buffers': 'tabsel',
