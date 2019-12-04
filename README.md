@@ -58,7 +58,7 @@ At the moment, this will only work in macOS. I'd love for this to work on linux 
 
 3.  Done!
 
-### Download and Stage Files
+## Download and Stage Files
 
 If you are just setting up a new machine, you might not already have git installed. If this is the case, then run the cURL command in your home `$HOME` directory. If you already have git, then use git clone. It's imperative you place the dotfiles folder into your home directory. Not sure where that is? Run `echo $HOME`. Read [Dotfile Management](https://github.com/jonleopard/dotfiles#dotfile-management) for more details.
 
