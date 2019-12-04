@@ -41,10 +41,10 @@ Lastly, I have created a minimal dotfile repo for to help new users get started 
 
 
 ## Installation
+**Disclaimer:** If you decide to use these dotfiles, please fork this repo and review the source code before executing! Proceed at your own risk!
 
 At the moment, this will only work in macOS. I'd love for this to work on linux distros too, feel free to submit a PR!
 
-**Disclaimer:** If you decide to use these dotfiles, please fork this repo and review the source code before executing! Proceed at your own risk!
 
 1.  Download repo
 
@@ -62,13 +62,13 @@ At the moment, this will only work in macOS. I'd love for this to work on linux 
 
 If you are just setting up a new machine, you might not already have git installed. If this is the case, then run the cURL command in your home `$HOME` directory. If you already have git, then use git clone. It's imperative you place the dotfiles folder into your home directory. Not sure where that is? Run `echo $HOME`. Read [Dotfile Management](https://github.com/jonleopard/dotfiles#dotfile-management) for more details.
 
-### git
+**git**
 
 ```bash
 cd git clone https://github.com/jonleopard/dotfiles.git && cd dotfiles && chmod +x install.sh
 ```
 
-### curl
+**curl**
 
 ```bash
 cd curl -#L https://github.com/jonleopard/dotfiles/tarball/master | tar -xzv
