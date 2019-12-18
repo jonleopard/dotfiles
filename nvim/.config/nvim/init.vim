@@ -44,6 +44,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab smarttab
 set scrolloff=5
+set encoding=utf-8
 set list
 set listchars=tab:\|\ ,
 set virtualedit=block
@@ -53,15 +54,12 @@ set autoread
 set clipboard=unnamed
 set foldlevelstart=99
 set completeopt=menuone,preview
-set omnifunc=syntaxcomplete#Complete
 set nocursorline
-set nocursorcolumn
 set nrformats=hex
 set title
 set showtabline=2
 set shortmess=aIT
 set signcolumn=yes
-set cmdheight=2
 set updatetime=100
 set noswapfile
 set nobackup
@@ -81,6 +79,9 @@ set splitright
 
 " set complete=.,w,b,u,t
 set complete-=i
+
+" Keep the cursor on the same column
+set nostartofline
 
 " mouse
 silent! set ttymouse=xterm2
@@ -147,19 +148,23 @@ inoremap <C-^> <C-o><C-^>
 map <D-S-{> :tabprevious
 map <D-S-}> :tabprevious
 
+" ----------------------------------------------------------------------------
+" Buffers
+" ----------------------------------------------------------------------------
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
+
+" ----------------------------------------------------------------------------
+" Tabs
+" ----------------------------------------------------------------------------
+nnoremap ]t :tabn<cr>
+nnoremap [t :tabp<cr>
+
+
 " }}}
 " ============================================================================
 " VIM-PLUG BLOCK {{{
 " ============================================================================
-
-" Make sure vim-plug is installed first
-" if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-"   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-" endif
-
-
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -168,19 +173,15 @@ call plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------
 Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
 
-" ----------------------------------------------------------------------------
-" Rust
-" ----------------------------------------------------------------------------
-Plug 'racer-rust/vim-racer'
 
 " ----------------------------------------------------------------------------
 " Colorscheme & Syntax Highlighting & Linting
 " ----------------------------------------------------------------------------
-Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
+Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
 "Plug 'jonleopard/base16-vim'
 Plug 'chriskempson/base16-vim'
-Plug 'sheerun/vim-polyglot'
-Plug 'hail2u/vim-css3-syntax'
+"Plug 'sheerun/vim-polyglot'
+"Plug 'hail2u/vim-css3-syntax'
 
 
 " ----------------------------------------------------------------------------
@@ -200,7 +201,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 "----------------------------------------------------------------------------
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim',           {'branch': 'release'}
 "Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -209,14 +210,12 @@ Plug 'Shougo/neosnippet-snippets'
 " Editing
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-surround'
-"Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'plasticboy/vim-markdown'
 Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/emmet-vim'
 Plug 'valloric/MatchTagAlways'
 
 " ----------------------------------------------------------------------------
@@ -247,7 +246,7 @@ Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'sgur/vim-editorconfig'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & yarn install'  }
 Plug 'janko-m/vim-test'
 
 call plug#end()
@@ -271,16 +270,6 @@ endif
 
 " }}}
 " ============================================================================
-" FILETYPES {{{
-" ============================================================================
-augroup filetypedetect
-    au BufRead,BufNewFile *.gohtml setfiletype html
-    au BufRead,BufNewFile *.blade.php setfiletype html
-    au BufRead,BufNewFile *.vue setfiletype html
-augroup END
-
-" }}}
-" ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
@@ -293,7 +282,7 @@ let g:signify_vcs_list = ['git']
 " ----------------------------------------------------------------------------
 " coc
 " ----------------------------------------------------------------------------
-" TODO: Need to get bas16 to work with these
+" TODO: Need to get base16 to work with these
 
 
  highlight link CocErrorSign GitGutterDelete
@@ -320,82 +309,85 @@ let g:coc_snippet_next = '<tab>'
 " NEOSNIPPET + COC CONFIG
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <TAB>     <Plug>(neosnippet_expand_or_jump)
-smap <TAB>     <Plug>(neosnippet_expand_or_jump)
-xmap <TAB>     <Plug>(neosnippet_expand_target)
+if has_key(g:plugs, 'coc.nvim')
+  " Plugin key-mappings.
+  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+  imap <TAB>     <Plug>(neosnippet_expand_or_jump)
+  smap <TAB>     <Plug>(neosnippet_expand_or_jump)
+  xmap <TAB>     <Plug>(neosnippet_expand_target)
 
 
-" SuperTab like snippets behavior.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+  " SuperTab like snippets behavior.
+  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+  imap <expr><TAB>
+   \ pumvisible() ? "\<C-n>" :
+   \ neosnippet#expandable_or_jumpable() ?
+   \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+  " Use <c-space> to trigger completion.
+  inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+  " Coc only does snippet and additional edit on confirm.
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[c` and `]c` for navigate diagnostics
-" TODO, Find another mapping (This steps on vim-fugitive's feet)
-" nmap <silent> [c <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+  " Use `[c` and `]c` for navigate diagnostics
+  " TODO, Find another mapping (This steps on vim-fugitive's feet)
+  " nmap <silent> [c <Plug>(coc-diagnostic-prev)
+  " nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 
+  " Remap keys for gotos
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
 
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+  " Use K for show documentation in preview window
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
 
-vmap <leader>p  <Plug>(coc-format-selected)
-nmap <leader>p  <Plug>(coc-format-selected)
+  function! s:show_documentation()
+    if &filetype == 'vim'
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json,php,html,blade setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  " remove extra $ for coc autocomplete
-  autocmd BufNewFile,BufRead *.php set iskeyword+=$
-augroup end
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
 
-command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+  " Remap for rename current word
+  nmap <leader>rn <Plug>(coc-rename)
 
-let g:coc_filetype_map = {
-  \ 'blade': 'html',
-  \ 'vue': 'html',
-  \ }
+  vmap <leader>p  <Plug>(coc-format-selected)
+  nmap <leader>p  <Plug>(coc-format-selected)
 
+  augroup coc-config
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json,php,html,blade setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    " remove extra $ for coc autocomplete
+    autocmd BufNewFile,BufRead *.php set iskeyword+=$
+  augroup end
+
+  command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+
+  " let g:coc_filetype_map = {
+  "   \ 'blade': 'html',
+  "   \ 'vue': 'html',
+  "   \ }
+endif
 
 " ----------------------------------------------------------------------------
 " vim-test
@@ -484,7 +476,7 @@ let g:go_info_mode='gopls'
 " map <C-m> :cprevious<CR>
 " nnoremap <leader>a :cclose<CR>
 
-augroup go
+augroup vim-go
   autocmd!
     autocmd FileType go nmap <leader>b  <Plug>(go-build)
     autocmd FileType go nmap <leader>r  <Plug>(go-run)
@@ -663,16 +655,6 @@ let g:indentLine_char = '|'
 autocmd! User indentLine doautocmd indentLine Syntax
 
 " ----------------------------------------------------------------------------
-" auto-pairs
-" ----------------------------------------------------------------------------
-" auto-pairs and vim-endwise key maps dont play nicely, this fixes it.
-" More info: https://github.com/jiangmiao/auto-pairs/issues/7
-" let g:AutoPairsMapCR = 0
-" imap <silent> <CR> <C-R>=AutoPairsReturn()<CR>
-" let g:AutoPairsShortcutBackInsert = '<M-b>'
-
-
-" ----------------------------------------------------------------------------
 " <Enter> | vim-easy-align
 " ----------------------------------------------------------------------------
 let g:easy_align_delimiters = {
@@ -715,20 +697,16 @@ nmap gaa ga
 " ============================================================================
 " FZF {{{
 " ============================================================================
+if has('nvim') || has('gui_running')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+endif
 
-" Hide statusline of terminal buffer
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
-
-" In Neovim, you can set up fzf window using a Vim command
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10new' }
+" All files
+command! -nargs=? -complete=dir AF
+  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+  \ })))
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -747,22 +725,47 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 
-" fzf+ripgrep
-if executable('rg')
-  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-  set grepprg=rg\ --vimgrep
-  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+" Terminal buffer options for fzf
+autocmd! FileType fzf
+autocmd  FileType fzf set noshowmode noruler nonu
+
+if has('nvim') && exists('&winblend') && &termguicolors
+  set winblend=10
+
+  if stridx($FZF_DEFAULT_OPTS, '--border') == -1
+    let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2'
+  endif
+
+  function! FloatingFZF()
+    let width = float2nr(&columns * 0.9)
+    let height = float2nr(&lines * 0.6)
+    let opts = { 'relative': 'editor',
+               \ 'row': (&lines - height) / 2,
+               \ 'col': (&columns - width) / 2,
+               \ 'width': width,
+               \ 'height': height }
+
+    let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+  endfunction
+
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
 
-
-" Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-" nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+command! -bang ProjectFiles call fzf#vim#files('~/projects', <bang>0)
+
+
 nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
 nnoremap <silent> <Leader>l        :Lines<CR>
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
 nnoremap <silent> <Leader>rg       :Rg <C-R><C-W><CR>
 nnoremap <silent> <Leader>RG       :Rg <C-R><C-A><CR>
 xnoremap <silent> <Leader>rg       y:Ag <C-R>"<CR>
@@ -787,6 +790,7 @@ nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
+
 function! s:plug_help_sink(line)
   let dir = g:plugs[a:line].dir
   for pat in ['doc/*.txt', 'README.md']
@@ -802,7 +806,19 @@ endfunction
 
 command! PlugHelp call fzf#run(fzf#wrap({
   \ 'source': sort(keys(g:plugs)),
-  \ 'sink': function('s:plug_help_sink')}))
+  \ 'sink':   function('s:plug_help_sink')}))
+
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, options, a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RF call RipgrepFzf(<q-args>, <bang>0)
+
 
 let g:fzf_commits_log_options = '--graph --color=always
   \ --format="%C(yellow)%h%C(red)%d%C(reset)
@@ -823,13 +839,30 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 " AUTOCMD {{{
 " ============================================================================
 
-" augroup vimrc 
-" " Automatic rename of tmux window
-"   if exists('$TMUX') && !exists('$NORENAME')
-"     au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
-"     au VimLeave * call system('tmux set-window automatic-rename on')
-"   endif
-" augroup END
+augroup vimrc 
+  au BufWritePost vimrc,.vimrc nested if expand('%') !~ 'fugitive' | source % | endif
+
+  " File Types
+  au BufRead,BufNewFile *.gohtml            set filetype=html
+  au BufRead,BufNewFile *.blade.php         set filetype=html
+  "au BufRead,BufNewFile *.vue setfiletype html
+ 
+  " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+  au BufNewFile,BufRead,InsertLeave * silent! match ExtraWhitespace /\s\+$/
+  au InsertEnter * silent! match ExtraWhitespace /\s\+\%#\@<!$/
+
+  " Close preview window
+  if exists('##CompleteDone')
+    au CompleteDone * pclose
+  else
+    au InsertLeave * if !pumvisible() && (!exists('*getcmdwintype') || empty(getcmdwintype())) | pclose | endif
+  endif
+
+  " Automatic rename of tmux window
+  if exists('$TMUX') && !exists('$NORENAME')
+    au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
+    au VimLeave * call system('tmux set-window automatic-rename on')
+  endif
+augroup END
 
 " }}}
-" ============================================================================
