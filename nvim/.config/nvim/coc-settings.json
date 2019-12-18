@@ -1,12 +1,22 @@
 {
-  "html.filetypes":["html", "handlebars", "blade"],
-  "html.format.enable": true,
+  "prettier.requireConfig": true,
+  "prettier.eslintIntegration": true,
+  "prettier.formatterPriority": 2,
+  "eslint.autoFixOnSave": true,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
-  "tsserver.npm": "/Users/jon/n/bin/node",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "vetur.format.enable": false,
+  "eslint.filetypes": [
+    "vue"
+  ],
+  "tailwindCSS.htmlLanguages": [
+    "vue"
+  ],
   "coc.preferences.formatOnSaveFiletypes": [
     "markdown",
+    "javascript",
+    "javascriptreact",
     "blade",
     "html",
     "css",
