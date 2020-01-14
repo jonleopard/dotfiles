@@ -93,7 +93,7 @@ All my dotfiles are managed with the extremely light weight [GNU Stow](https://w
 
 **macOS - Homebrew**
 
-Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). My Brewfile with generated with [Homebrew-Bundle](https://github.com/Homebrew/homebrew-bundle). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called Brewfile.
+Homebrew and Macports are pretty much the only mainstream options here. I went with [Homebrew](http://brew.sh/). I'm using [Homebrew-Cask](https://github.com/Homebrew/homebrew-bundle) which will go out and install all of the applications that I tell it to. [mas](https://github.com/mas-cli/mas) will install all of your Mac App Store apps. All of this is bundled in a list called a Brewfile.
 
 **node - n**
 
