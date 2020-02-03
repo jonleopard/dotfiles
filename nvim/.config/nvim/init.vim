@@ -33,7 +33,7 @@ set visualbell
 set backspace=indent,eol,start
 set timeoutlen=500
 set whichwrap=b,s
-set hlsearch " CTRL-L / CTRL-R W
+set hlsearch
 set incsearch
 set hidden
 set ignorecase smartcase
@@ -114,13 +114,11 @@ if $TERM =~ 'screen'
 endif
 
 " Save
-inoremap <C-s>     <C-O>:update<cr>
 nnoremap <C-s>     :update<cr>
 nnoremap <leader>s :update<cr>
 nnoremap <leader>w :update<cr>
 
 " Quit
-inoremap <C-Q>     <esc>:q<cr>
 nnoremap <C-Q>     :q<cr>
 vnoremap <C-Q>     <esc>
 nnoremap <Leader>q :q<cr>
@@ -131,22 +129,12 @@ set splitbelow
 set splitright
 
 
-" Quicker window movement
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
 " Movement in insert mode
 inoremap <C-h> <C-o>h
 inoremap <C-l> <C-o>a
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-^> <C-o><C-^>
-
-" Navigating tabs easier
-map <D-S-{> :tabprevious
-map <D-S-}> :tabprevious
 
 " ----------------------------------------------------------------------------
 " Buffers
@@ -213,13 +201,14 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
+Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'plasticboy/vim-markdown'
 Plug 'jiangmiao/auto-pairs'
-Plug 'valloric/MatchTagAlways'
+Plug 'andymass/vim-matchup'
 
 " ----------------------------------------------------------------------------
-" Searching/Navigation
+" Searching/Navigating
 " ----------------------------------------------------------------------------
 Plug 'junegunn/fzf',                  { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -245,7 +234,8 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'sgur/vim-editorconfig'
+"Plug 'sgur/vim-editorconfig'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & yarn install'  }
 Plug 'janko-m/vim-test'
 
@@ -257,9 +247,9 @@ call plug#end()
 
 
 if has('termguicolors')
+  set termguicolors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
 endif
 
 " base16-vim will match whatever you have set your shell color scheme as
@@ -467,15 +457,6 @@ let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
 
-
-" if exists('g:loaded_polyglot')
-"     let g:polyglot_disabled = ['go']
-" endif
-
-" map <C-n> :cnext<CR>
-" map <C-m> :cprevious<CR>
-" nnoremap <leader>a :cclose<CR>
-
 augroup vim-go
   autocmd!
     autocmd FileType go nmap <leader>b  <Plug>(go-build)
@@ -576,6 +557,7 @@ endfunction
 "Lightline trailing whitespace
 let g:lightline#trailing_whitespace#indicator = '•'
 
+"Lightline coc-integration
 let g:cocstatus#indicator_warnings = ' '
 let g:cocstatus#indicator_errors = ' '
 let g:cocstatus#indicator_checking = ' '
@@ -586,16 +568,6 @@ let g:cocstatus#indicator_ok = "✓"
 
 " Show devicons
 let g:lightline#bufferline#enable_devicons = 1
-" Show filename relative to current directory
-let g:lightline#bufferline#filename_modifier = ':~:.'
-" Use fancy unicode symbols for various indicators
-let g:lightline#bufferline#unicode_symbols = 1
-" Default name when no buffer is opened
-let g:lightline#bufferline#unnamed = '[No Name]'
-" Don't compress ~/my/folder/name to ~/m/f/n
-let g:lightline#bufferline#shorten_path = 1
-
-"let g:lightline#bufferline#show_number = 2
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
@@ -612,16 +584,6 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " remap arrow keys
 nnoremap <Left> :bprev<CR>
 nnoremap <Right> :bnext<CR>
-
-
-" Update and show lightline but only if it's visible (e.g., not in Goyo)
-autocmd User ALELint call s:MaybeUpdateLightline()
-
-function! s:MaybeUpdateLightline()
-  if exists('#lightline')
-    call lightline#update()
-  end
-endfunction
 
 
 " ----------------------------------------------------------------------------
