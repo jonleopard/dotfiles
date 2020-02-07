@@ -170,7 +170,10 @@ Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
 Plug 'chriskempson/base16-vim'
 "Plug 'sheerun/vim-polyglot'
 "Plug 'hail2u/vim-css3-syntax'
-
+Plug 'othree/yajs.vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
+"Plug 'posva/vim-vue'
 
 " ----------------------------------------------------------------------------
 " Git
@@ -274,11 +277,31 @@ let g:signify_vcs_list = ['git']
 " ----------------------------------------------------------------------------
 " TODO: Need to get base16 to work with these
 
+let g:coc_global_extensions = [
+  \ 'coc-marketplace',
+  \ 'coc-tailwindcss',
+  \ 'coc-prettier',
+  \ 'coc-neosnippet',
+  \ 'coc-git',
+  \ 'coc-eslint',
+  \ 'coc-emmet',
+  \ 'coc-yaml',
+  \ 'coc-vimlsp',
+  \ 'coc-vetur',
+  \ 'coc-tsserver',
+  \ 'coc-rls',
+  \ 'coc-phpls',
+  \ 'coc-json',
+  \ 'coc-html',
+  \ 'coc-go',
+  \ 'coc-css',
+  \ ]
 
- highlight link CocErrorSign GitGutterDelete
- highlight link CocWarningSign GitGutterChangeDelete
- highlight link CocInfoSign GitGutterChange
- highlight link CocHintSign GitGutterAdd
+
+highlight link CocErrorSign GitGutterDelete
+highlight link CocWarningSign GitGutterChangeDelete
+highlight link CocInfoSign GitGutterChange
+highlight link CocHintSign GitGutterAdd
 
 " use <tab> for trigger completion and navigate to next complete item
 inoremap <silent><expr> <TAB>
@@ -299,6 +322,7 @@ let g:coc_snippet_next = '<tab>'
 " NEOSNIPPET + COC CONFIG
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 if has_key(g:plugs, 'coc.nvim')
   " Plugin key-mappings.
   " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
@@ -371,6 +395,9 @@ if has_key(g:plugs, 'coc.nvim')
 
   command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+  " use `:OR` for organize import of current buffer
+  command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 
   " let g:coc_filetype_map = {
@@ -808,12 +835,5 @@ augroup vimrc
   else
     au InsertLeave * if !pumvisible() && (!exists('*getcmdwintype') || empty(getcmdwintype())) | pclose | endif
   endif
-
-  " Automatic rename of tmux window
-  if exists('$TMUX') && !exists('$NORENAME')
-    au BufEnter * if empty(&buftype) | call system('tmux rename-window '.expand('%:t:S')) | endif
-    au VimLeave * call system('tmux set-window automatic-rename on')
-  endif
-augroup END
 
 " }}}

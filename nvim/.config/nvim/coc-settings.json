@@ -1,13 +1,19 @@
 {
+  "suggest.maxCompleteItemCount": 20,
+  "tsserver.npm": "$HOME/n/bin/npm",
   "prettier.requireConfig": true,
   "prettier.eslintIntegration": true,
   "prettier.formatterPriority": 2,
-  "eslint.autoFixOnSave": true,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "vetur.format.enable": false,
+  "eslint.autoFixOnSave": true,
   "eslint.filetypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "javascriptreact",
     "vue"
   ],
   "tailwindCSS.htmlLanguages": [
@@ -21,7 +27,8 @@
     "html",
     "css",
     "php",
-    "vue"
+    "vue",
+    "rust"
   ],
   "languageserver": {
     "golang": {
