@@ -168,11 +168,11 @@ Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
 Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
 "Plug 'jonleopard/base16-vim'
 Plug 'chriskempson/base16-vim'
-"Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 "Plug 'hail2u/vim-css3-syntax'
-Plug 'othree/yajs.vim'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'MaxMEllon/vim-jsx-pretty'
+"Plug 'othree/yajs.vim'
+"Plug 'HerringtonDarkholme/yats.vim'
+"Plug 'MaxMEllon/vim-jsx-pretty'
 "Plug 'posva/vim-vue'
 
 " ----------------------------------------------------------------------------
@@ -279,6 +279,7 @@ let g:signify_vcs_list = ['git']
 
 let g:coc_global_extensions = [
   \ 'coc-marketplace',
+  \ 'coc-docker',
   \ 'coc-tailwindcss',
   \ 'coc-prettier',
   \ 'coc-neosnippet',
