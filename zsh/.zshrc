@@ -15,9 +15,6 @@ HOMEBREW_NO_GITHUB_API=1
 # Configure brew to avoid protocol downgrades from HTTPS to HTTP via redirect
 HOMEBREW_NO_INSECURE_REDIRECT=1
 
-
-### The nitty gritty ###
-
 # I use FZF, Z, and fd to hop around directories. This is nice to have.
 setopt auto_cd
 
@@ -34,4 +31,7 @@ else
   compinit -C
 fi
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 #zprof
+

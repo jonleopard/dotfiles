@@ -1,6 +1,5 @@
 # Environment Paths
 
-
 # Node (n)
 # Note that this needs to be before homebrew
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
@@ -29,9 +28,6 @@ export GOBIN="$GOPATH/bin"
 
 # PHP/Laravel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
-
-# Fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh 
 
 # Python
 
