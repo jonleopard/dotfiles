@@ -65,6 +65,7 @@ set noswapfile
 set nobackup
 set modelines=2
 
+
 " 80 chars/line
 set textwidth=80
 " if exists('&colorcolumn')
@@ -168,11 +169,11 @@ Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
 Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
 "Plug 'jonleopard/base16-vim'
 Plug 'chriskempson/base16-vim'
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 "Plug 'hail2u/vim-css3-syntax'
-"Plug 'othree/yajs.vim'
-"Plug 'HerringtonDarkholme/yats.vim'
-"Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'othree/yajs.vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
 "Plug 'posva/vim-vue'
 
 " ----------------------------------------------------------------------------

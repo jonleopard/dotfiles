@@ -7,8 +7,8 @@
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "vetur.format.enable": false,
   "eslint.autoFixOnSave": true,
+  "eslint.enable": false,
   "eslint.filetypes": [
     "javascript",
     "typescript",
