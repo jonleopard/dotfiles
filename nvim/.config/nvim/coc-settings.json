@@ -8,14 +8,6 @@
   "diagnostic.warningSign": "",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "eslint.autoFixOnSave": true,
-  "eslint.enable": false,
-  "eslint.filetypes": [
-    "javascript",
-    "typescript",
-    "typescriptreact",
-    "javascriptreact",
-    "vue"
-  ],
   "tailwindCSS.htmlLanguages": [
     "vue"
   ],
