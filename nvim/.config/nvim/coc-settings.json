@@ -3,11 +3,9 @@
   "tsserver.npm": "$HOME/n/bin/npm",
   "prettier.requireConfig": true,
   "prettier.eslintIntegration": true,
-  "prettier.formatterPriority": 2,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "eslint.autoFixOnSave": true,
   "tailwindCSS.htmlLanguages": [
     "vue"
   ],
@@ -19,7 +17,6 @@
     "html",
     "css",
     "php",
-    "vue",
     "rust"
   ],
   "languageserver": {
