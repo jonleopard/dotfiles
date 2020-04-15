@@ -6,6 +6,11 @@
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "vetur.completion.useScaffoldSnippets": false,
+  "vetur.format.defaultFormatter.html": "none",
+  "snippets.extends": {
+    "vue": ["javascript", "typescript", "html", "css"]
+  },
   "tailwindCSS.htmlLanguages": [
     "vue"
   ],

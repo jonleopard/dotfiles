@@ -197,6 +197,7 @@ Plug 'neoclide/coc.nvim',           {'branch': 'release'}
 "Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'sdras/vue-vscode-snippets' 
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -280,6 +281,7 @@ let g:signify_vcs_list = ['git']
 
 let g:coc_global_extensions = [
   \ 'coc-marketplace',
+  \ 'coc-snippets',
   \ 'coc-docker',
   \ 'coc-tailwindcss',
   \ 'coc-prettier',
