@@ -3,11 +3,14 @@
   "tsserver.npm": "$HOME/n/bin/npm",
   "prettier.requireConfig": true,
   "prettier.eslintIntegration": true,
-  "prettier.formatterPriority": 2,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "eslint.autoFixOnSave": true,
+  "vetur.completion.useScaffoldSnippets": false,
+  "vetur.format.defaultFormatter.html": "none",
+  "snippets.extends": {
+    "vue": ["javascript", "typescript", "html", "css"]
+  },
   "tailwindCSS.htmlLanguages": [
     "vue"
   ],
@@ -19,7 +22,6 @@
     "html",
     "css",
     "php",
-    "vue",
     "rust"
   ],
   "languageserver": {
