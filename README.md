@@ -60,7 +60,7 @@ At the moment, this will only work in macOS. I'd love for this to work on linux 
 
 ## Download and Stage Files
 
-If you are just setting up a new machine, you might not already have git installed. If this is the case, then run the cURL command in your home `$HOME` directory. If you already have git, then use git clone. It's imperative you place the dotfiles folder into your home directory. Not sure where that is? Run `echo $HOME`. Read [Dotfile Management](https://github.com/jonleopard/dotfiles#dotfile-management) for more details.
+If you are on a new machine, then you might need to install git. You can also use the cURL command. Whatever method you chose, make sure the files get put in your `$HOME` directory. If you aren't sure where that is, run `echo $HOME`.
 
 **git**
 
@@ -68,7 +68,7 @@ If you are just setting up a new machine, you might not already have git install
 cd git clone https://github.com/jonleopard/dotfiles.git && cd dotfiles && chmod +x install.sh
 ```
 
-**curl**
+**cURL**
 
 ```bash
 cd curl -#L https://github.com/jonleopard/dotfiles/tarball/master | tar -xzv
