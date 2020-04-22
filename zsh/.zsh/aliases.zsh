@@ -2,7 +2,13 @@
 
 #alias ll="ls -lahF --color=auto"
 #alias ls="ls -hF --color=auto"
-#alias lsl="ls -lhF --color=auto"
+#alia lsl="ls -lhF --color=auto"
+alias l='exa'
+#alias ls='exa'
+alias la='exa -a'
+alias ll='exa -lah'
+alias lsd='exa -l' # only directories
+
 alias "cd.."="cd ../"
 alias up="cd ../"
 alias rmrf="rm -rf"
@@ -11,7 +17,6 @@ alias mkdir="mkdir -p"
 alias cp="cp -r"
 alias scp="scp -r"
 alias mkdir="mkdir -p"
-alias xsel="xsel -b"
 alias v="nvim"
 
 #alias git="hub"
@@ -35,7 +40,7 @@ alias dt="cd ~/Desktop"
 alias p="cd ~/projects"
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; sudo npm install npm -g; sudo npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
 
 # Google Chrome
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'

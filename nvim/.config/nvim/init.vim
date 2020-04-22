@@ -239,7 +239,6 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
-"Plug 'sgur/vim-editorconfig'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & yarn install'  }
 Plug 'janko-m/vim-test'
