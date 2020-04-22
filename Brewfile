@@ -262,7 +262,6 @@ mas "EtreCheck", id: 1423715984
 mas "iA Writer", id: 775737590
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
-mas "Monosnap", id: 540348655
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Reeder", id: 1449412482
