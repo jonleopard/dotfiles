@@ -472,19 +472,41 @@ command! -bang AutoSave call s:autosave(<bang>1)
 " ----------------------------------------------------------------------------
 " vim-go
 " ----------------------------------------------------------------------------
-let g:go_fmt_fail_silently = 1
+"let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
-let g:go_auto_type_info = 1
+let g:go_auto_type_info = 0
 let g:go_autodetect_gopath = 1
+
+" let g:go_highlight_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
 
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
 
-let g:go_def_mapping_enabled = 0
+
+" let g:go_highlight_space_tab_error = 0
+" let g:go_highlight_array_whitespace_error = 0
+" let g:go_highlight_trailing_whitespace_error = 0
+" let g:go_highlight_extra_types = 0
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_types = 0
+" let g:go_highlight_operators = 1
+" let g:go_highlight_format_strings = 0
+" let g:go_highlight_function_calls = 0
+" let g:go_gocode_propose_source = 1
+
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+let g:go_def_mapping_enabled = 0
 
 
 augroup vim-go
