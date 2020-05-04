@@ -3,10 +3,10 @@ so-fancy/diff-so-fancy kind:path
 mafredri/zsh-async
 rupa/z
 junegunn/fzf
-felixr/docker-zsh-completion
 zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions
 andrewferrier/fzf-z
+pierpo/fzf-docker
 
 
 # these should be at last!
