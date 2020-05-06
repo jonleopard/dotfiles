@@ -167,8 +167,8 @@ Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
 " Colorscheme & Syntax Highlighting & Linting
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
-"Plug 'jonleopard/base16-vim'
-Plug 'chriskempson/base16-vim'
+Plug 'jonleopard/base16-vim'
+"Plug 'chriskempson/base16-vim'
 "Plug 'sheerun/vim-polyglot'
 "Plug 'hail2u/vim-css3-syntax'
 Plug 'othree/yajs.vim'
@@ -230,8 +230,8 @@ Plug 'tpope/vim-obsession'
 Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
 
 Plug 'itchyny/lightline.vim'
-"Plug 'jonleopard/base16-vim-lightline'
-Plug 'mike-hearn/base16-vim-lightline'
+Plug 'jonleopard/base16-vim-lightline'
+"Plug 'mike-hearn/base16-vim-lightline'
 Plug 'mengelbrecht/lightline-bufferline'
 
 Plug 'mhinz/vim-startify'
@@ -543,7 +543,7 @@ autocmd! FileType dirvish setlocal relativenumber
 
 
 let g:lightline = {
-      \   'colorscheme': 'base16_snazzy',
+      \   'colorscheme': 'base16_nord',
       \   'active': {
       \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
       \     'right': [ [ 'cocstatus', 'currentfunction',' trailing', 'lineinfo' ], [ 'fileinfo' ] ],
