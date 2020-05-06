@@ -30,12 +30,33 @@ if command -v fd > /dev/null; then
   export FZF_CTRL_T_COMMAND='fd --type f --type d --hidden --follow --exclude .git'
 fi
 
+# This is for the fzf plugin
+export FZF_COMPLETION_TRIGGER=','
+
+
 command -v bat  > /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
 command -v tree > /dev/null && export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 
 
 ### Fancy stuff ###
+
+_fzf_complete_git() {
+    ARGS="$@"
+    local branches
+    branches=$(git branch -vv --all)
+    if [[ $ARGS == 'git co'* ]]; then
+        _fzf_complete --reverse --multi -- "$@" < <(
+            echo $branches
+        )
+    else
+        eval "zle ${fzf_default_completion:-expand-or-complete}"
+    fi
+}
+
+_fzf_complete_git_post() {
+    awk '{print $1}'
+}
 
 
 # zsh; needs setopt re_match_pcre. You can, of course, adapt it to your own shell easily.
@@ -172,28 +193,28 @@ function drm() {
   [ -n "$cid" ] && docker rm "$cid"
 }
 
-# Base16 Snazzy
-# Author: Chawye Hsu (https://github.com/h404bi) based on Hyper Snazzy Theme (https://github.com/sindresorhus/hyper-snazzy)
 # Get more colors from https://github.com/nicodebo/base16-fzf
+# Base16 Nord
+# Author: arcticicestudio
 
 _gen_fzf_default_opts() {
 
-local color00='#282a36'
-local color01='#34353e'
-local color02='#43454f'
-local color03='#78787e'
-local color04='#a5a5a9'
-local color05='#e2e4e5'
-local color06='#eff0eb'
-local color07='#f1f1f0'
-local color08='#ff5c57'
-local color09='#ff9f43'
-local color0A='#f3f99d'
-local color0B='#5af78e'
-local color0C='#9aedfe'
-local color0D='#57c7ff'
-local color0E='#ff6ac1'
-local color0F='#b2643c'
+local color00='#2E3440'
+local color01='#3B4252'
+local color02='#434C5E'
+local color03='#4C566A'
+local color04='#D8DEE9'
+local color05='#E5E9F0'
+local color06='#ECEFF4'
+local color07='#8FBCBB'
+local color08='#BF616A'
+local color09='#D08770'
+local color0A='#EBCB8B'
+local color0B='#A3BE8C'
+local color0C='#88C0D0'
+local color0D='#81A1C1'
+local color0E='#B48EAD'
+local color0F='#5E81AC'
 
 export FZF_DEFAULT_OPTS="
   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
@@ -204,4 +225,3 @@ export FZF_DEFAULT_OPTS="
 }
 
 _gen_fzf_default_opts
-
