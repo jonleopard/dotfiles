@@ -11,5 +11,5 @@
 # antibody purge [repo-name]
 # finally, uncomment line 13, reload shell,
 
-# After installing new plugins, recomment line 4 and reload.
+# After installing new plugins, recomment line 15 and reload.
 source ~/.zsh/bundles.sh

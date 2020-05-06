@@ -1,14 +1,11 @@
 # Environment Paths
 
 # Node (n)
-# Note that this needs to be before homebrew
+# Note that this needs to be put before homebrew
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
   
 # homebrew
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-
-# Vault
-export VAULT_ADDR="http://127.0.0.1:8200"
 
 # Curl
 export PATH="/usr/local/opt/curl/bin:$PATH"
@@ -25,11 +22,8 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
 export GOBIN="$GOPATH/bin"
 
-
 # PHP/Laravel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
-
-# Python
 
 # Tmuxp Completion
 #eval "$(_TMUXP_COMPLETE=source tmuxp)"
