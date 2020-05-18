@@ -6,8 +6,7 @@
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "vetur.completion.useScaffoldSnippets": false,
-  "vetur.format.defaultFormatter.html": "none",
+  "vetur.format.defaultFormatter.html": "prettier",
   "snippets.extends": {
     "vue": ["javascript", "typescript", "html", "css"]
   },
@@ -18,6 +17,7 @@
     "markdown",
     "javascript",
     "javascriptreact",
+    "vue",
     "blade",
     "html",
     "css",
