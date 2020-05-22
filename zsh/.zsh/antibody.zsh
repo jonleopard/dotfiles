@@ -1,15 +1,12 @@
+# http://getantibody.github.io/
+
 # Using static loading method (https://getantibody.github.io/)
 # Assuming you have your plugins defined in bundles.txt
 # in your terminal, uncomment the next line, then reload
-#antibody bundle < ~/.zsh/bundles.txt > ~/.zsh/bundles.sh
 
-# Note that this will need to be done when adding a new plugin.
+# antibody bundle < ~/.zsh/bundles.txt > ~/.zsh/bundles.sh
 
-# TODO Document how to remove a plugin
-# When removing a bundle, run:
-# uncomment line 14 then run
-# antibody purge [repo-name]
-# finally, uncomment line 13, reload shell,
+# recomment once finished. repeat when adding new plugins.
+# TODO Document how to remove a plugin.
 
-# After installing new plugins, recomment line 15 and reload.
 source ~/.zsh/bundles.sh

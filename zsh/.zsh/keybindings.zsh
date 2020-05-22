@@ -1,3 +1,4 @@
-# vi mode
+# vi mode (press esc to enter, press 'a' to leave)
 bindkey -v
-# bindkey "^F" vi-cmd-mode
+export KEYTIMEOUT=1
+
