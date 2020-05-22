@@ -1,5 +1,6 @@
 # Aliases
 
+alias gi="git-ignore"
 #alias ll="ls -lahF --color=auto"
 #alias ls="ls -hF --color=auto"
 #alia lsl="ls -lhF --color=auto"
