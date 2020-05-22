@@ -27,7 +27,7 @@
 	show = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
-  # disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
+      # disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
       # diffFilter = "diff-so-fancy"
 
 # so much color
@@ -85,15 +85,9 @@ untracked = cyan
 	prune = true
 [diff]
 	compactionHeuristic = true
-    # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
-    # https://blog.github.com/2018-04-05-git-217-released/
-colorMoved = zebra
-
-# This config param seems to break in git v2.21.0. Need to find out why
-# https://stackoverflow.com/questions/54922704/git-cloning-error-fatal-multiple-updates-for-ref-not-allowed/54925834#54925834
-
-; [remote "origin"]
-; 	fetch = +refs/heads/*:refs/remotes/origin/*
+	# Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
+	# https://blog.github.com/2018-04-05-git-217-released/
+	colorMoved = zebra
 
 [stash]
 	showPatch = true
