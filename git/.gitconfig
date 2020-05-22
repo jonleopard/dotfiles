@@ -18,9 +18,8 @@
 	git = !exec git
 
 [core]
-	excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
 	precomposeUnicode = true
+	autocrlf = false
 
 [pager]
 	# insanely beautiful diffs ==> npm install -g diff-so-fancy
