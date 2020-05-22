@@ -1,17 +1,4 @@
 # Sensitive or unnecessary files don't need to be uploaded
-gnupg/*
-ssh/.ssh/*
-git/.gitconfig_local
-nvim/.config/nvim/plugged/*
-nvim/.config/autoload
-nvim/.config/nvim/autoload/plug.vim.old
-nvim/.config/nvim/.netrwhist
-nvim/.config/nvim/undodir/*
-nvim/.config/nvim/Session.vim
-tmux/.tmux/plugins
-tmux/.tmux/resurrect
-colors/.config/*
-zsh/.zsh/api-keys.zsh
 
 # Folder view configuration files
 .DS_Store
