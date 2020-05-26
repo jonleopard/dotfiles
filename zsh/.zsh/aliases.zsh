@@ -1,5 +1,14 @@
 # Aliases
 
+# kubectl aliases
+alias k="kubectl"
+alias kgx="kubectl config get-contexts"
+
+# docker aliases
+alias d="docker"
+alias dps="docker ps"
+
+# fzf gitignore
 alias gi="git-ignore"
 #alias ll="ls -lahF --color=auto"
 #alias ls="ls -hF --color=auto"
@@ -35,7 +44,7 @@ alias gg="git graph"
 alias gco="git checkout"
 alias gpr="hub pull-request"
 
-alias d="cd ~/Documents/Dropbox"
+alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/projects"
