@@ -50,8 +50,6 @@
 	smudge = git-lfs smudge %f
 	required = true
 
-[fetch]
-	prune = true
 [diff]
 	compactionHeuristic = true
 	# Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
