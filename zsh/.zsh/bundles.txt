@@ -9,7 +9,6 @@ andrewferrier/fzf-z
 pierpo/fzf-docker
 laggardkernel/git-ignore
 
-
 # these should be at last!
 sindresorhus/pure
 zdharma/fast-syntax-highlighting

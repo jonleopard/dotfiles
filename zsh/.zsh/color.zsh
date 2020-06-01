@@ -1,6 +1,7 @@
 # makes color constants available
 autoload -U colors
 
+# For bat
 export BAT_THEME="base16"
 
 # enable colored output from ls, etc. on FreeBSD-based systems
@@ -11,7 +12,7 @@ export CLICOLOR=1
 #export LSCOLORS=ExFxCxDxBxegedabagacad
 
 
-# Use Base16 to swtich shell colors
+# Use base16-shell to swtich shell colors
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
