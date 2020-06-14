@@ -544,16 +544,16 @@ autocmd! FileType dirvish setlocal relativenumber
 let g:lightline = {
       \   'colorscheme': 'base16_nord',
       \   'active': {
-      \     'left': [ [ 'mode' ], [ 'gitbranch' ], [ 'pwd' ] ],
-      \     'right': [ [ 'cocstatus', 'currentfunction',' trailing', 'lineinfo' ], [ 'fileinfo' ] ],
+      \     'left': [ ['mode','paste'], [ 'gitbranch' ], [ 'pwd' ] ],
+      \     'right': [ [ 'cocstatus', 'readonly', 'filename' ], [ 'fileinfo' ] ]
       \   },
       \   'inactive': {
       \     'left': [ [ 'pwd' ], [ 'gitbranch' ] ],
-      \     'right': [ [ 'lineinfo' ], [ 'fileinfo' ] ],
+      \     'right': [ [ 'lineinfo' ], [ 'fileinfo' ] ]
       \   },
       \   'tabline': {
       \     'left': [ [ 'buffers' ] ],
-      \     'right': [ [ 'close' ] ],
+      \     'right': [ [] ]
       \   },
       \   'separator': { 'left': '', 'right': '' },
       \   'subseparator': { 'left': '', 'right': '' },
@@ -575,20 +575,18 @@ let g:lightline = {
       \   },
       \   'component_expand': {
       \     'buffers': 'lightline#bufferline#buffers',
-      \     'trailing': 'lightline#trailing_whitespace#component',
       \   },
       \   'component_function': {
       \     'pwd': 'LightlineWorkingDirectory',
       \     'fileinfo': 'LightlineFileinfo',
       \     'gitbranch': 'fugitive#head',
       \     'cocstatus': 'coc#status',
-      \     'currentfunction': 'CocCurrentFunction'
       \   },
       \   'component_type': {
       \     'buffers': 'tabsel',
-      \     'trailing': 'error',
       \   },
       \ }
+
 
 function! LightlineFileinfo()
   if winwidth(0) < 90
@@ -616,9 +614,11 @@ let g:cocstatus#indicator_ok = "✓"
 
 
 "lightline-bufferline
-
+let g:lightline#bufferline#unicode_symbols = 1
 " Show devicons
 let g:lightline#bufferline#enable_devicons = 1
+" Don't show path
+let g:lightline#bufferline#filename_modifier = ':t'
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
