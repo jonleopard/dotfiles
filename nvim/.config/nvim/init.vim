@@ -160,7 +160,7 @@ call plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------
 " Go
 " ----------------------------------------------------------------------------
-Plug 'fatih/vim-go',                  { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go',                  { 'do': ':GoInstallBinaries' }
 
 
 " ----------------------------------------------------------------------------
@@ -186,8 +186,8 @@ Plug 'mhinz/vim-signify'
 " ----------------------------------------------------------------------------
 " Tmux
 " ----------------------------------------------------------------------------
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 "----------------------------------------------------------------------------
@@ -219,7 +219,6 @@ Plug 'junegunn/fzf',                  { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'justinmk/vim-gtfo'
-Plug 'majutsushi/tagbar',             { 'on': 'TagbarToggle' }
 
 " ----------------------------------------------------------------------------
 " Utils
@@ -240,7 +239,7 @@ Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & npm install'  }
 Plug 'janko-m/vim-test'
 
 call plug#end()
