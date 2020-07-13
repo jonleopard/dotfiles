@@ -10,6 +10,9 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 # Curl
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
+# Make
+export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+
 # Ruby (chruby)
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh

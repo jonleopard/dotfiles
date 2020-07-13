@@ -1,5 +1,4 @@
 caarlos0/ports kind:path
-bigH/git-fuzzy
 mafredri/zsh-async
 rupa/z
 junegunn/fzf
@@ -8,6 +7,7 @@ zsh-users/zsh-autosuggestions
 andrewferrier/fzf-z
 pierpo/fzf-docker
 laggardkernel/git-ignore
+bigH/git-fuzzy
 
 # these should be at last!
 sindresorhus/pure
