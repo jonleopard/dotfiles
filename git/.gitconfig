@@ -68,8 +68,6 @@
 	# https://git-scm.com/docs/git-config#git-config-commitgpgSign
 	# https://help.github.com/articles/signing-commits-using-gpg/
 	# https://github.com/pstadler/keybase-gpg-github
-[gpg]
-	program = /usr/local/bin/gpg
 
 [include]
 	path = ~/.gitconfig_local
