@@ -175,7 +175,7 @@ Plug 'othree/yajs.vim'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 "Plug 'posva/vim-vue'
-
+"Plug 'nvim-treesitter/nvim-treesitter'
 " ----------------------------------------------------------------------------
 " Git
 " ----------------------------------------------------------------------------
@@ -232,6 +232,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'jonleopard/base16-vim-lightline'
 "Plug 'mike-hearn/base16-vim-lightline'
 Plug 'mengelbrecht/lightline-bufferline'
+"Plug 'ap/vim-buftabline'
 
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -271,6 +272,13 @@ endif
 " ----------------------------------------------------------------------------
 let g:signify_vcs_list = ['git']
 
+" omap ic <plug>(signify-motion-inner-pending)
+" xmap ic <plug>(signify-motion-inner-visual)
+" omap ac <plug>(signify-motion-outer-pending)
+" xmap ac <plug>(signify-motion-outer-visual)
+" nnoremap <silent><leader>p :SignifyHunkDiff<cr>
+" nnoremap <silent><leader>u :SignifyHunkUndo<cr>
+" autocmd User SignifyAutocmds autocmd! signify CursorHold,CursorHoldI
 
 " ----------------------------------------------------------------------------
 " coc
@@ -471,44 +479,41 @@ command! -bang AutoSave call s:autosave(<bang>1)
 " ----------------------------------------------------------------------------
 " vim-go
 " ----------------------------------------------------------------------------
-"let g:go_fmt_fail_silently = 1
+let g:go_fmt_fail_silently = 1
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 let g:go_auto_type_info = 0
 let g:go_autodetect_gopath = 1
+let g:go_null_module_warning = 0
+let g:go_echo_command_info = 1
 
-" let g:go_highlight_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_functions = 1
-
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_extra_types = 1
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_extra_types = 0
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 0
 let g:go_highlight_operators = 1
+let g:go_highlight_format_strings = 0
+let g:go_highlight_function_calls = 0
+let g:go_gocode_propose_source = 1
 
+let g:go_modifytags_transform = 'camelcase'
+let g:go_fold_enable = []
 
-" let g:go_highlight_space_tab_error = 0
-" let g:go_highlight_array_whitespace_error = 0
-" let g:go_highlight_trailing_whitespace_error = 0
-" let g:go_highlight_extra_types = 0
-" let g:go_highlight_build_constraints = 1
-" let g:go_highlight_types = 0
-" let g:go_highlight_operators = 1
-" let g:go_highlight_format_strings = 0
-" let g:go_highlight_function_calls = 0
-" let g:go_gocode_propose_source = 1
-
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
+let g:go_info_mode = 'gopls'
+let g:go_rename_command='gopls'
+let g:go_gopls_complete_unimported = 1
+let g:go_implements_mode='gopls'
+let g:go_diagnostics_enabled = 1
+let g:go_doc_popup_window = 1
 
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
 
 
-augroup vim-go
+augroup go
   autocmd!
     autocmd FileType go nmap <leader>b  <Plug>(go-build)
     autocmd FileType go nmap <leader>r  <Plug>(go-run)
@@ -519,15 +524,19 @@ augroup END
 " ----------------------------------------------------------------------------
 
 nnoremap <leader>st :Startify<cr>
+
 let g:startify_lists = [
       \ { 'header': ['   MRU'],            'type': 'files' },
       \ { 'header': ['   MRU '. getcwd()], 'type': 'dir' },
       \ { 'header': ['   Sessions'],       'type': 'sessions' },
       \ ]
 
-let g:startify_custom_header       = 'map(startify#fortune#boxed(), "\"   \".v:val")'
+let g:startify_change_to_dir       = 0
+let g:startify_custom_header       = 'startify#pad(startify#fortune#boxed())'
+let g:startify_enable_special      = 0
 let g:startify_fortune_use_unicode = 1
-
+let g:startify_update_oldfiles     = 1
+let g:startify_use_env             = 1
 
 " ----------------------------------------------------------------------------
 " vim-dirvish (file explorer)
@@ -603,9 +612,6 @@ function! LightlineWorkingDirectory()
   return &ft =~ 'help\|qf' ? '' : fnamemodify(getcwd(), ":~:.")
 endfunction
 
-"Lightline trailing whitespace
-let g:lightline#trailing_whitespace#indicator = '•'
-
 "Lightline coc-integration
 let g:cocstatus#indicator_warnings = ' '
 let g:cocstatus#indicator_errors = ' '
@@ -652,6 +658,7 @@ nmap <Leader>gp :Gpush<cr>
 nmap <Leader>gd :Gdiff<cr>
 nmap <Leader>gw :Gwrite<cr>
 
+autocmd BufReadPost fugitive:// setlocal bufhidden=delete
 
 " ----------------------------------------------------------------------------
 " vim-commentary
@@ -698,12 +705,15 @@ let g:easy_align_delimiters = {
 \   }
 \ }
 
-" Start interactive EasyAlign in visual mode
+" Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign with a Vim movement
 nmap ga <Plug>(EasyAlign)
 nmap gaa ga
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 
 " }}}
