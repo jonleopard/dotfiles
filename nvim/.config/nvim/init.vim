@@ -261,7 +261,12 @@ if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
 
-
+" shelfing until https://github.com/base16-manager/base16-manager/issues/72 is
+" fixed
+"if filereadable(expand("~/.config/nvim/colorscheme.vim"))
+"  "let base16colorspace=256
+"  source ~/.config/nvim/colorscheme.vim
+"endif
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS{{{
