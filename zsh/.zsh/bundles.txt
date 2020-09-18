@@ -7,6 +7,7 @@ zsh-users/zsh-autosuggestions
 andrewferrier/fzf-z
 pierpo/fzf-docker
 laggardkernel/git-ignore
+fnune/base16-fzf
 bigH/git-fuzzy
 
 # these should be at last!

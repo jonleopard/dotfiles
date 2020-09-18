@@ -554,9 +554,7 @@ autocmd! FileType dirvish setlocal relativenumber
 " Lightline (statusbar)
 " ----------------------------------------------------------------------------
 
-
 let g:lightline = {
-      \   'colorscheme': 'base16_nord',
       \   'active': {
       \     'left': [ ['mode','paste'], [ 'gitbranch' ], [ 'pwd' ] ],
       \     'right': [ [ 'cocstatus', 'readonly', 'filename' ], [ 'fileinfo' ] ]
@@ -601,6 +599,16 @@ let g:lightline = {
       \   },
       \ }
 
+
+let base16theme = $BASE16_THEME
+try
+    execute "colorscheme ".base16theme
+    let csunderscores = substitute(base16theme, '-', '_', 'g')
+catch
+    execute "colorscheme base16-".base16theme
+    let csunderscores = "base16_".substitute(base16theme, '-', '_', 'g')
+endtry
+let g:lightline.colorscheme = csunderscores
 
 function! LightlineFileinfo()
   if winwidth(0) < 90
