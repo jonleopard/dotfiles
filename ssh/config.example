@@ -1,0 +1,31 @@
+# copy to ~/.ssh/config
+# Fill in HostName, IdentityFile
+
+# github example
+Host github.com
+  HostName ssh.github.com
+  IdentityFile ~/.ssh/id_rsa
+  Port 443
+
+# gitlab example
+Host gitlab.com
+  HostName 
+  IdentityFile
+  port 443
+
+# Default for all connections
+Host *
+  # Always use SSH2.
+  Protocol 2
+
+  # Use a shared channel for all sessions to the same host,
+  # instead of always opening a new one. This leads to much
+  # quicker connection times.
+  ControlMaster auto
+  # Make sure you create this folder
+  ControlPath ~/.ssh/sockets/%r@%h:%p
+  ControlPersist 600
+
+  # Firewall or something else closing terminating your connection?
+  # Read here:
+  # https://unix.stackexchange.com/questions/34004/how-does-tcp-keepalive-work-in-ssh
