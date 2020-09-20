@@ -5,6 +5,7 @@ in a .gitconfig.local file. Since I'm using stow for symlinks, I've added a .sto
 
 
 Useful links:
+
 [.stow-local-ignore file](https://www.gnu.org/software/stow/manual/html_node/Types-And-Syntax-Of-Ignore-Lists.html)
 
 [Using Keybase to generate GPG Keys](https://github.com/pstadler/keybase-gpg-github)
