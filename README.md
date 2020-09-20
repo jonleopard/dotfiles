@@ -23,15 +23,11 @@
 
 ## Introduction
 
-This is my development environment that I use everyday. Dotfiles allow you to backup, restore, and sync your dev environment. This is great, especially if you have more than one workstation or are migrating to a new machine. After much research and observation of how other people manage their dotfiles, what you see in this repo is a reflection of their efforts as well as my own.
-
-I initially started this repo to help myself learn more about the tools available out there for customizing my dev environment. I also wanted to make sure that all my customizations were backed up and could be installed on any machine. As I continued learning, adding, and breaking things, I thought it would be a good idea to document as much as I could to not only learn, but help others in setting up their dotfiles as well. I hope this repo can help newcomers understand their own environment and aid them in their own creation of a dotfile repo. Be aware that I am still learning, so proceed with caution. If you are uncertain about anything, I highly advise you read the source before executing any of these scripts.
+This is my development environment that I use everyday on my MacBook Pro.
 
 If you have any improvements or suggestions, please feel free to submit it [here](https://github.com/jonleopard/dotfiles/issues) or [contact me](https://twitter.com/jonlprd)
 
 Lastly, I have created a minimal dotfile repo for to help new users get started on their own dotfile journey. You can check out the project here: https://github.com/jonleopard/dotfile-starter.
-
-
 
 
 
@@ -41,15 +37,15 @@ Lastly, I have created a minimal dotfile repo for to help new users get started 
 
 
 ## Installation
-**Disclaimer:** If you decide to use these dotfiles, please fork this repo and review the source code before executing! Proceed at your own risk!
+**Disclaimer:** If you decide to use these dotfiles, proceed at your own risk!
 
-At the moment, this will only work in macOS. I'd love for this to work on linux distros too, feel free to submit a PR!
+At the moment, this will only work in macOS.
 
 
 1.  Download repo
 
 * via git
-* via cURL
+* via curl
 
 2.  Run scripts <--Currently working on these!
 
@@ -60,24 +56,24 @@ At the moment, this will only work in macOS. I'd love for this to work on linux 
 
 ## Download and Stage Files
 
-If you are on a new machine, then you might need to install git. You can also use the cURL command. Whatever method you chose, make sure the files get put in your `$HOME` directory. If you aren't sure where that is, run `echo $HOME`.
+If you are on a new machine, then you might need to install git. You can also use `curl`. Whatever method you chose, make sure the files get put in your `$HOME` directory. If you aren't sure where that is, run `echo $HOME`.
 
 **git**
 
 ```bash
-cd git clone https://github.com/jonleopard/dotfiles.git && cd dotfiles && chmod +x install.sh
+cd && git clone https://github.com/jonleopard/dotfiles.git && cd dotfiles && chmod +x install.sh
 ```
 
 **cURL**
 
 ```bash
-cd curl -#L https://github.com/jonleopard/dotfiles/tarball/master | tar -xzv
+cd && curl -#L https://github.com/jonleopard/dotfiles/tarball/master | tar -xzv
 ```
 
-If you prefer, you can skip the install.sh script and run stow manually. Just tell stow which dotfiles you want to symlink:
+If you prefer, you can skip the install.sh script and run `stow` manually. Just tell `stow` which dotfiles you want to symlink:
 
 ```
-stow example_folder
+stow [example]
 ```
 
 
