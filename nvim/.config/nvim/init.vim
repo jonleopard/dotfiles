@@ -252,8 +252,8 @@ call plug#end()
 
 if has('termguicolors')
   set termguicolors
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  execute "set t_8f=\e[38;2;%lu;%lu;%lum"
+  execute "set t_8b=\e[48;2;%lu;%lu;%lum"
 endif
 
 " base16-vim will match whatever you have set your shell color scheme as
