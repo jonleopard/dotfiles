@@ -8,7 +8,7 @@ andrewferrier/fzf-z
 pierpo/fzf-docker
 laggardkernel/git-ignore
 fnune/base16-fzf
-bigH/git-fuzzy
+bigH/git-fuzzy path:bin kind:path
 
 # these should be at last!
 sindresorhus/pure
