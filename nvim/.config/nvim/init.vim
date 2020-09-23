@@ -168,14 +168,8 @@ Plug 'fatih/vim-go',                  { 'do': ':GoInstallBinaries' }
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
 Plug 'jonleopard/base16-vim'
-"Plug 'chriskempson/base16-vim'
-"Plug 'sheerun/vim-polyglot'
-"Plug 'hail2u/vim-css3-syntax'
-Plug 'othree/yajs.vim'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'MaxMEllon/vim-jsx-pretty'
-"Plug 'posva/vim-vue'
-"Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'sheerun/vim-polyglot'
+
 " ----------------------------------------------------------------------------
 " Git
 " ----------------------------------------------------------------------------
@@ -194,7 +188,6 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 Plug 'neoclide/coc.nvim',           {'branch': 'release'}
-"Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'sdras/vue-vscode-snippets' 
@@ -230,9 +223,7 @@ Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
 
 Plug 'itchyny/lightline.vim'
 Plug 'jonleopard/base16-vim-lightline'
-"Plug 'mike-hearn/base16-vim-lightline'
 Plug 'mengelbrecht/lightline-bufferline'
-"Plug 'ap/vim-buftabline'
 
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/rainbow_parentheses.vim'
