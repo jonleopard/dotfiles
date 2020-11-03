@@ -1,6 +1,6 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 " ============================================================================
-" Jon Leopard's .vimrc {{{
+" Jon's .vimrc {{{
 " ============================================================================
 
 " }}}
@@ -37,7 +37,6 @@ set hlsearch
 set incsearch
 set hidden
 set ignorecase smartcase
-set signcolumn=yes
 set wildmenu
 set wildmode=full
 set tabstop=2
@@ -183,9 +182,12 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 Plug 'neoclide/coc.nvim',           {'branch': 'release'}
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'sdras/vue-vscode-snippets' 
+"Plug 'antoinemadec/coc-fzf'
+Plug 'honza/vim-snippets'
+"Plug 'Shougo/deoppet.nvim'
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet-snippets'
+" Plug 'sdras/vue-vscode-snippets' 
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -274,14 +276,12 @@ let g:signify_vcs_list = ['git']
 " ----------------------------------------------------------------------------
 " coc
 " ----------------------------------------------------------------------------
-" TODO: Need to get base16 to work with these
 
 let g:coc_global_extensions = [
-  \ 'coc-snippets',
   \ 'coc-docker',
   \ 'coc-tailwindcss',
   \ 'coc-prettier',
-  \ 'coc-neosnippet',
+  \ 'coc-snippets',
   \ 'coc-git',
   \ 'coc-eslint',
   \ 'coc-emmet',
@@ -303,20 +303,6 @@ highlight link CocWarningSign GitGutterChangeDelete
 highlight link CocInfoSign GitGutterChange
 highlight link CocHintSign GitGutterAdd
 
-" use <tab> for trigger completion and navigate to next complete item
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
 " NEOSNIPPET + COC CONFIG
@@ -324,38 +310,37 @@ let g:coc_snippet_next = '<tab>'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has_key(g:plugs, 'coc.nvim')
-  " Plugin key-mappings.
-  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-  imap <TAB>     <Plug>(neosnippet_expand_or_jump)
-  smap <TAB>     <Plug>(neosnippet_expand_or_jump)
-  xmap <TAB>     <Plug>(neosnippet_expand_target)
+ 
+  " <TAB> - trigger completion, pum navigate, snippet expand and jump like VSCode
+  inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
 
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-  " SuperTab like snippets behavior.
-  " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-  imap <expr><TAB>
-   \ pumvisible() ? "\<C-n>" :
-   \ neosnippet#expandable_or_jumpable() ?
-   \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
 
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  let g:coc_snippet_next = '<tab>'
+  let g:coc_snippet_prev = '<s-tab>'
 
-  " Use <c-space> to trigger completion.
+  " <C-space> - trigger completion
   inoremap <silent><expr> <c-space> coc#refresh()
 
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-  " Coc only does snippet and additional edit on confirm.
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  " <CR> - select the first completion item and confirm the completion when no item has been selected
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-  " Use `[c` and `]c` for navigate diagnostics
-  " TODO, Find another mapping (This steps on vim-fugitive's feet)
-  " nmap <silent> [c <Plug>(coc-diagnostic-prev)
-  " nmap <silent> ]c <Plug>(coc-diagnostic-next)
+  " Use `[g` and `]g` to navigate diagnostics
+  " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+   
 
-
-  " Remap keys for gotos
+  " GoTo code navigation.
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
@@ -365,21 +350,23 @@ if has_key(g:plugs, 'coc.nvim')
   nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 
-
   function! s:show_documentation()
-    if &filetype == 'vim'
+    if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+      call CocActionAsync('doHover')
     else
-      call CocAction('doHover')
+      execute '!' . &keywordprg . " " . expand('<cword>')
     endif
   endfunction
 
-  " Highlight symbol under cursor on CursorHold
+  " Highlight the symbol and its references when holding the cursor.
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
-  " Remap for rename current word
+  " Symbol renaming.
   nmap <leader>rn <Plug>(coc-rename)
 
+  " Formatting selected code.
   vmap <leader>p  <Plug>(coc-format-selected)
   nmap <leader>p  <Plug>(coc-format-selected)
 
@@ -391,10 +378,33 @@ if has_key(g:plugs, 'coc.nvim')
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     " remove extra $ for coc autocomplete
     autocmd BufNewFile,BufRead *.php set iskeyword+=$
+    " Add missing imports on save (similar to the vim-go experience)
+    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
   augroup end
 
-  command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
-  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+  " Applying codeAction to the selected region.
+  " Example: `<leader>aap` for current paragraph
+  xmap <leader>a  <Plug>(coc-codeaction-selected)
+  nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+  " Remap keys for applying codeAction to the current buffer.
+  nmap <leader>ac  <Plug>(coc-codeaction)
+  " Apply AutoFix to problem on the current line.
+  nmap <leader>qf  <Plug>(coc-fix-current)
+
+  " Remap <C-f> and <C-b> for scroll float windows/popups.
+  " Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
+  nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+  " NeoVim-only mapping for visual mode scroll
+  " Useful on signatureHelp after jump placeholder of snippet expansion
+  if has('nvim')
+    vnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#nvim_scroll(1, 1) : "\<C-f>"
+    vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
+  endif
 
   " use `:OR` for organize import of current buffer
   command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
@@ -420,20 +430,6 @@ nnoremap <silent> <Leader>tG       :TestVisit<CR>
 "   \ 'nearest': 'neovim',
 "   \ 'suite':   'basic',
 " \}
-let test#php#phpunit#executable = '../../vendor/bin/phpunit --configuration /Users/jon/projects/php-learning/myproject/phpunit.xml'
-
-" ----------------------------------------------------------------------------
-" Tagbar
-" ----------------------------------------------------------------------------
-let g:tagbar_sort = 0
-
-" Tags
-nnoremap <C-]> g<C-]>
-nnoremap g[ :pop<cr>
-
-" ctags
-set tags=./tags;/
-
 
 " ----------------------------------------------------------------------------
 " undotree
@@ -540,6 +536,7 @@ let g:lightline = {
       \ }
 
 
+" Match base16 color
 let base16theme = $BASE16_THEME
 try
     execute "colorscheme ".base16theme
@@ -658,16 +655,14 @@ let g:easy_align_delimiters = {
 \   }
 \ }
 
-" Start interactive EasyAlign in visual mode (e.g. vipga)
+" Start interactive EasyAlign in visual mode
 xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign with a Vim movement
 nmap ga <Plug>(EasyAlign)
-nmap gaa ga
+nmap gaa ga_
 
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
+xmap <Leader>ga <Plug>(LiveEasyAlign)
 
 " }}}
 " ============================================================================
