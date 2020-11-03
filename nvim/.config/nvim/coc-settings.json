@@ -6,14 +6,23 @@
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.messageLevel": "error",
   "vetur.format.defaultFormatter.html": "prettier",
+  "emmet.includeLanguages": {
+      "vue-html": "html",
+      "javascript": "javascriptreact"
+  },
   "snippets.extends": {
     "vue": ["javascript", "typescript", "html", "css"]
   },
   "tailwindCSS.htmlLanguages": [
     "vue"
   ],
+  "go.goplsOptions": {
+    "completeUnimported": true
+  },
   "coc.preferences.formatOnSaveFiletypes": [
+    "go",
     "markdown",
     "javascript",
     "javascriptreact",
