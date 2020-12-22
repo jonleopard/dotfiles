@@ -67,9 +67,9 @@ set modelines=2
 
 " 80 chars/line
 set textwidth=80
-" if exists('&colorcolumn')
-"   set colorcolumn=80
-" endif
+if exists('&colorcolumn')
+  set colorcolumn=80
+endif
 
 set synmaxcol=1000
 
