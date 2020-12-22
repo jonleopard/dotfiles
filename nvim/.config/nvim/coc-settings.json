@@ -1,8 +1,6 @@
 {
   "suggest.maxCompleteItemCount": 20,
   "tsserver.npm": "$HOME/n/bin/npm",
-  "prettier.requireConfig": true,
-  "prettier.eslintIntegration": true,
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
@@ -26,6 +24,8 @@
     "markdown",
     "javascript",
     "javascriptreact",
+    "typescript",
+    "typescriptreact",
     "vue",
     "blade",
     "html",
