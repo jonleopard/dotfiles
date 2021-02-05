@@ -15,7 +15,10 @@
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 	reup = rebase-update # depot_tools specific
-	git = !exec git
+	git = !exec gie
+# Allows you to easily pick what to rebase
+  frbi = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
+	sw = !git checkout $(git branch -a --format '%(refname:short)' | sed 's~origin/~~' | sort | uniq | fzf)
 
 [core]
 	precomposeUnicode = true
@@ -41,7 +44,7 @@
 	prune = true
 
 [pull]
-	ff = only
+	rebase = false
       
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
