@@ -174,8 +174,7 @@ Plug 'mhinz/vim-signify'
 " ----------------------------------------------------------------------------
 " Tmux
 " ----------------------------------------------------------------------------
-Plug 'tmux-plugins/vim-tmux'
-Plug 'christoomey/vim-tmux-navigator'
+" Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 "----------------------------------------------------------------------------
@@ -201,6 +200,7 @@ Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] 
 Plug 'plasticboy/vim-markdown'
 Plug 'jiangmiao/auto-pairs'
 Plug 'andymass/vim-matchup'
+Plug 'junegunn/goyo.vim'
 
 " ----------------------------------------------------------------------------
 " Searching/Navigating
@@ -290,7 +290,6 @@ let g:coc_global_extensions = [
   \ 'coc-vimlsp',
   \ 'coc-vetur',
   \ 'coc-tsserver',
-  \ 'coc-rls',
   \ 'coc-phpls',
   \ 'coc-json',
   \ 'coc-html',
@@ -431,6 +430,7 @@ nnoremap <silent> <Leader>tG       :TestVisit<CR>
 "   \ 'suite':   'basic',
 " \}
 
+
 " ----------------------------------------------------------------------------
 " undotree
 " ----------------------------------------------------------------------------
@@ -439,26 +439,9 @@ nnoremap U :UndotreeToggle<CR>
 
 if has("persistent_undo")
   set undofile
-  set undodir=~/.config/nvim/undodir
+  set undodir=$HOME/.config/nvim/undodir
 endif
 
-
-" ----------------------------------------------------------------------------
-" AutoSave
-" ----------------------------------------------------------------------------
-function! s:autosave(enable)
-  augroup autosave
-    autocmd!
-    if a:enable
-      autocmd TextChanged,InsertLeave <buffer>
-            \  if empty(&buftype) && !empty(bufname(''))
-            \|   silent! update
-            \| endif
-    endif
-  augroup END
-endfunction
-
-command! -bang AutoSave call s:autosave(<bang>1)
 
 " ----------------------------------------------------------------------------
 " startify
@@ -792,7 +775,6 @@ nnoremap <silent> <Leader>gc       :Commits<CR>
 nnoremap <silent> <Leader>cc       :Commands<CR>
 nnoremap <silent> <Leader>mm       :Maps<CR>
 nnoremap <silent> <Leader>h        :History<CR>
-
 
 " Insert  Mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
