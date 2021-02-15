@@ -23,10 +23,15 @@
 [core]
 	precomposeUnicode = true
 	autocrlf = false
-        pager = delta --plus-color="#012800" --minus-color="#340001" 
+	pager = delta
      
 [interactive]
-      diffFilter = delta --color-only
+	diffFilter = delta --color-only
+
+[delta]
+	features = side-by-side line-numbers decorations
+	whitespace-error-style = 22 reverse
+	syntax-theme = base16-256
 
 # git mergetool
 [merge]
@@ -86,4 +91,3 @@
 	# name =
 	# email =
 	# signingkey =
-
