@@ -10,16 +10,21 @@ alias dps="docker ps"
 
 # fzf gitignore
 alias gi="git-ignore"
-#alias ll="ls -lahF --color=auto"
-#alias ls="ls -hF --color=auto"
-#alia lsl="ls -lhF --color=auto"
+
+TREE_IGNORE="cache|log|logs|node_modules|vendor"
+alias ls="exa"
 alias l='exa'
-#alias ls='exa'
+alias ls='exa'
 alias la='exa -a'
 alias ll='exa -lah'
 alias lsd='exa -l' # only directories
 
-alias "cd.."="cd ../"
+alias cat="bat"
+
+alias find="fd"
+
+alias ps="procs"
+
 alias up="cd ../"
 alias rmrf="rm -rf"
 alias psef="ps -ef"
@@ -29,8 +34,6 @@ alias scp="scp -r"
 alias mkdir="mkdir -p"
 alias v="nvim"
 
-#alias git="hub"
-#alias g="hub"
 alias ga="git add"
 alias gc="git commit -m"
 alias gs="git status"
@@ -42,7 +45,12 @@ alias gp="git push"
 alias gu="git unstage"
 alias gg="git graph"
 alias gco="git checkout"
-alias gpr="hub pull-request"
+
+# These require git-fuzzy to be installed on your system
+alias gf="git fuzzy"
+alias gfb="git fuzzy branch"
+alias gfl="git fuzzy log"
+
 
 alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
