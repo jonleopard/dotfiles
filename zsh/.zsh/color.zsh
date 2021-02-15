@@ -2,7 +2,7 @@
 autoload -U colors
 
 # For bat
-export BAT_THEME="base16"
+export BAT_THEME="base16-256"
 
 # Use base16-shell to swtich shell colors
 BASE16_SHELL="$HOME/.config/base16-shell/"
