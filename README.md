@@ -7,7 +7,7 @@
 
 ## Usage
 
-* [Introduction](#introduction)
+* [About](#about)
 * [Installation](#installation)
 * [Todo](#todo)
 * [Management Tools](#mangement-tools)
@@ -21,19 +21,13 @@
   * alacritty + zsh
 * [Resources](#resources)
 
-## Introduction
+## About
 
 This is my development environment that I use everyday on my MacBook Pro.
 
 If you have any improvements or suggestions, please feel free to submit it [here](https://github.com/jonleopard/dotfiles/issues) or [contact me](https://twitter.com/jonlprd)
 
 I have created a minimal dotfile repo for to help new users get started on their own dotfile journey. You can check out the project here: https://github.com/jonleopard/dotfile-starter.
-
-
-
-#### Todo
-
-[View the todo board here](https://github.com/jonleopard/dotfiles/projects/1)
 
 
 ## Installation
