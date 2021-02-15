@@ -248,6 +248,7 @@ endif
 " base16-vim will match whatever you have set your shell color scheme as
 if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
+  let base16colorspace=256
 endif
 
 " shelfing until https://github.com/base16-manager/base16-manager/issues/72 is
