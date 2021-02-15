@@ -13,10 +13,6 @@ export PATH="/usr/local/opt/curl/bin:$PATH"
 # Make
 export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 
-# Ruby (chruby)
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
-
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -26,9 +22,6 @@ export PATH="$PATH:$GOPATH/bin"
 
 # PHP/Laravel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
-
-# Tmuxp Completion
-#eval "$(_TMUXP_COMPLETE=source tmuxp)"
 
 # Language
 export LC_COLLATE=en_US.UTF-8
