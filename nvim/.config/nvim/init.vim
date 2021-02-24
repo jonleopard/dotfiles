@@ -159,11 +159,12 @@ call plug#begin('~/.config/nvim/plugged')
 
 
 " ----------------------------------------------------------------------------
-" Colorscheme & Syntax Highlighting & Linting
+" Colorscheme & Syntax Highlighting
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
 Plug 'jonleopard/base16-vim'
-Plug 'sheerun/vim-polyglot'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 
 " ----------------------------------------------------------------------------
 " Git
@@ -182,19 +183,13 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 Plug 'neoclide/coc.nvim',           {'branch': 'release'}
-"Plug 'antoinemadec/coc-fzf'
 Plug 'honza/vim-snippets'
-"Plug 'Shougo/deoppet.nvim'
-" Plug 'Shougo/neosnippet.vim'
-" Plug 'Shougo/neosnippet-snippets'
-" Plug 'sdras/vue-vscode-snippets' 
 
 " ----------------------------------------------------------------------------
 " Editing
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
@@ -262,6 +257,13 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
+
+" ----------------------------------------------------------------------------
+" treesitter
+" ----------------------------------------------------------------------------
+lua require('treesitter')
+
+
 
 " ----------------------------------------------------------------------------
 " vim-signify
