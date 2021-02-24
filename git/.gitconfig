@@ -91,3 +91,5 @@
 	# name =
 	# email =
 	# signingkey =
+[init]
+	defaultBranch = master
