@@ -63,6 +63,7 @@ set updatetime=100
 set noswapfile
 set nobackup
 set modelines=2
+set relativenumber
 
 
 " 80 chars/line
@@ -267,14 +268,6 @@ endif
 " ----------------------------------------------------------------------------
 let g:signify_vcs_list = ['git']
 
-" omap ic <plug>(signify-motion-inner-pending)
-" xmap ic <plug>(signify-motion-inner-visual)
-" omap ac <plug>(signify-motion-outer-pending)
-" xmap ac <plug>(signify-motion-outer-visual)
-" nnoremap <silent><leader>p :SignifyHunkDiff<cr>
-" nnoremap <silent><leader>u :SignifyHunkUndo<cr>
-" autocmd User SignifyAutocmds autocmd! signify CursorHold,CursorHoldI
-
 " ----------------------------------------------------------------------------
 " coc
 " ----------------------------------------------------------------------------
@@ -435,13 +428,25 @@ nnoremap <silent> <Leader>tG       :TestVisit<CR>
 " ----------------------------------------------------------------------------
 " undotree
 " ----------------------------------------------------------------------------
-let g:undotree_WindowLayout = 2
-nnoremap U :UndotreeToggle<CR>
+if !exists('g:undotree_WindowLayout')
+  let g:undotree_WindowLayout = 2
+endif
+
+" if set, let undotree window get focus after being opened, otherwise
+" focus will stay in current window.
+if !exists('g:undotree_SetFocusWhenToggle')
+    let g:undotree_SetFocusWhenToggle = 1
+endif
 
 if has("persistent_undo")
   set undofile
   set undodir=$HOME/.config/nvim/undodir
 endif
+
+" User commands.
+nnoremap U :UndotreeToggle<CR>
+
+
 
 
 " ----------------------------------------------------------------------------
@@ -511,7 +516,7 @@ let g:lightline = {
       \   'component_function': {
       \     'pwd': 'LightlineWorkingDirectory',
       \     'fileinfo': 'LightlineFileinfo',
-      \     'gitbranch': 'fugitive#head',
+      \     'gitbranch': 'FugitiveHead',
       \     'cocstatus': 'coc#status',
       \   },
       \   'component_type': {
@@ -585,12 +590,14 @@ nnoremap <Right> :bnext<CR>
 
 nmap <Leader>gb :Gblame<cr>
 nmap <Leader>gs :Gstatus<cr>
-nmap <Leader>gc :Gcommit -v<cr>
+nmap <Leader>gc :Git commit -v<cr>
 nmap <Leader>ga :Git add -p<cr>
-nmap <Leader>gm :Gcommit --amend<cr>
+nmap <Leader>gm :Git commit --amend<cr>
 nmap <Leader>gp :Gpush<cr>
 nmap <Leader>gd :Gdiff<cr>
 nmap <Leader>gw :Gwrite<cr>
+nmap <Leader>gj :diffget //3<CR>
+nmap <Leader>gf :diffget //2<CR>
 
 autocmd BufReadPost fugitive:// setlocal bufhidden=delete
 
