@@ -84,7 +84,7 @@ set complete-=i
 " Keep the cursor on the same column
 set nostartofline
 
-" mouse
+" mouse (for emergency situations)
 silent! set ttymouse=xterm2
 set mouse=a
 
@@ -262,8 +262,6 @@ endif
 " treesitter
 " ----------------------------------------------------------------------------
 lua require('treesitter')
-
-
 
 " ----------------------------------------------------------------------------
 " vim-signify
