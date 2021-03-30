@@ -79,9 +79,6 @@
 	# https://git-scm.com/docs/git-config#git-config-commitgpgSign
 	# https://help.github.com/articles/signing-commits-using-gpg/
 	# https://github.com/pstadler/keybase-gpg-github
-[gpg]
-	# TODO: This is mac friendly but not linux, find a way to use both.
-	program = /usr/local/MacGPG2/bin/gpg
 
 [include]
 	path = ~/.gitconfig_local
