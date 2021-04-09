@@ -33,7 +33,7 @@ set visualbell
 set backspace=indent,eol,start
 set timeoutlen=500
 set whichwrap=b,s
-set hlsearch
+set nohlsearch
 set incsearch
 set hidden
 set ignorecase smartcase
@@ -135,7 +135,6 @@ inoremap <C-h> <C-o>h
 inoremap <C-l> <C-o>a
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
-inoremap <C-^> <C-o><C-^>
 
 " ----------------------------------------------------------------------------
 " Buffers
@@ -177,7 +176,12 @@ Plug 'mhinz/vim-signify'
 " Tmux
 " ----------------------------------------------------------------------------
 " Plug 'christoomey/vim-tmux-navigator'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+
+
+" ----------------------------------------------------------------------------
+" Go
+" ----------------------------------------------------------------------------
+Plug 'fatih/vim-go'
 
 "----------------------------------------------------------------------------
 " Autocompletion & Snippets
@@ -213,6 +217,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
 Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
+Plug 'stsewd/fzf-checkout.vim'
 
 Plug 'itchyny/lightline.vim'
 Plug 'jonleopard/base16-vim-lightline'
@@ -247,12 +252,7 @@ if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
 endif
 
-" shelfing until https://github.com/base16-manager/base16-manager/issues/72 is
-" fixed
-"if filereadable(expand("~/.config/nvim/colorscheme.vim"))
-"  "let base16colorspace=256
-"  source ~/.config/nvim/colorscheme.vim
-"endif
+
 " }}}
 " ============================================================================
 " PLUGIN SETTINGS{{{
@@ -287,7 +287,6 @@ let g:coc_global_extensions = [
   \ 'coc-phpls',
   \ 'coc-json',
   \ 'coc-html',
-  \ 'coc-go',
   \ 'coc-css',
   \ ]
 
@@ -371,8 +370,7 @@ if has_key(g:plugs, 'coc.nvim')
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     " remove extra $ for coc autocomplete
     autocmd BufNewFile,BufRead *.php set iskeyword+=$
-    " Add missing imports on save (similar to the vim-go experience)
-    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+   
   augroup end
 
   " Applying codeAction to the selected region.
@@ -779,7 +777,7 @@ nnoremap <silent> <Leader>f        :Files<CR>
 nnoremap <silent> <Leader>F        :call Fzf_dev()<CR>
 nnoremap <silent> <Leader>b        :Buffers<CR>
 nnoremap <silent> <Leader>gf       :Gfiles<CR>
-nnoremap <silent> <Leader>gc       :Commits<CR>
+nnoremap <silent> <Leader>gc       :GCheckout<CR>
 nnoremap <silent> <Leader>cc       :Commands<CR>
 nnoremap <silent> <Leader>mm       :Maps<CR>
 nnoremap <silent> <Leader>h        :History<CR>

@@ -16,9 +16,6 @@
   "tailwindCSS.htmlLanguages": [
     "vue"
   ],
-  "go.goplsOptions": {
-    "completeUnimported": true
-  },
   "coc.preferences.formatOnSaveFiletypes": [
     "go",
     "markdown",
@@ -31,5 +28,15 @@
     "html",
     "css",
     "php"
-  ]
+  ],
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    }
+  }
 }

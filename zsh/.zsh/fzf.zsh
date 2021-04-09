@@ -49,24 +49,6 @@ command -v bat  > /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat -n --color
 
 ### Fancy stuff ###
 
-_fzf_complete_git() {
-    ARGS="$@"
-    local branches
-    branches=$(git branch -vv --all)
-    if [[ $ARGS == 'git co'* ]]; then
-        _fzf_complete --reverse --multi -- "$@" < <(
-            echo $branches
-        )
-    else
-        eval "zle ${fzf_default_completion:-expand-or-complete}"
-    fi
-}
-
-_fzf_complete_git_post() {
-    awk '{print $1}'
-}
-
-
 # zsh; needs setopt re_match_pcre. You can, of course, adapt it to your own shell easily.
 tmuxkillf () {
     local sessions
@@ -157,25 +139,6 @@ runc() {
   fi
 }
 
-runinc() {
-  export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
-  local container=$(docker ps --format '{{.Names}} => {{.Image}}' | fzf-tmux --reverse --multi | awk -F '\\=>' '{print $1}')
-  if [[ $container != '' ]]; then
-    echo -e "\n  \033[1mDocker container:\033[0m" $container
-    read -e -p $'  \e[1mOptions: \e[0m' -i "-it" options
-    if [[ $@ == '' ]]; then
-				read -e -p $'  \e[1mCommand: \e[0m' cmd
-    else
-				cmd="$@"
-    fi
-    echo ''
-    history -s runinc "$@"
-    history -s docker exec $options $container $cmd
-    docker exec $options $container $cmd
-    echo ''
-  fi
-  export FZF_DEFAULT_OPTS=""
-}
 
 # Select a docker container to start and attach to
 function da() {
@@ -201,3 +164,11 @@ function drm() {
   [ -n "$cid" ] && docker rm "$cid"
 }
 
+
+function delete-branches() {
+  git branch |
+    grep --invert-match '\*' |
+    cut -c 3- |
+    fzf --multi --preview="git log {}" |
+    xargs --no-run-if-empty git branch --delete --force
+}

@@ -52,7 +52,6 @@ alias gfb="git fuzzy branch"
 alias gfl="git fuzzy log"
 
 
-alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/projects"
