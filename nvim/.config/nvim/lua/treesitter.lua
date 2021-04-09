@@ -1,20 +1,11 @@
--- Syntax Highlighting
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-    custom_captures = {
-      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-      ["foo.bar"] = "Identifier",
-    },
-  },
-}
-
-
--- Intendentation
+-- Highlight/Indentation
 require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true
-  }
+  },
+  highlight = {
+    enable = true,
+  },
 }
 
 -- Playground
