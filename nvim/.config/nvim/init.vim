@@ -172,11 +172,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'mhinz/vim-signify'
 
-" ----------------------------------------------------------------------------
-" Tmux
-" ----------------------------------------------------------------------------
-" Plug 'christoomey/vim-tmux-navigator'
-
 
 " ----------------------------------------------------------------------------
 " Go
@@ -213,6 +208,7 @@ Plug 'justinmk/vim-gtfo'
 " ----------------------------------------------------------------------------
 " Utils
 " ----------------------------------------------------------------------------
+Plug 'folke/which-key.nvim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-obsession'
@@ -231,7 +227,6 @@ Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & npm install'  }
-Plug 'janko-m/vim-test'
 
 call plug#end()
 " }}}
@@ -257,6 +252,20 @@ endif
 " ============================================================================
 " PLUGIN SETTINGS{{{
 " ============================================================================
+
+
+
+" ----------------------------------------------------------------------------
+" which-key
+" ----------------------------------------------------------------------------
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
 
 " ----------------------------------------------------------------------------
 " treesitter
@@ -407,21 +416,6 @@ if has_key(g:plugs, 'coc.nvim')
   "   \ }
 endif
 
-" ----------------------------------------------------------------------------
-" vim-test
-" ----------------------------------------------------------------------------
-nnoremap <silent> <Leader>tN       :TestNearest<CR>
-nnoremap <silent> <Leader>tF       :TestFile<CR>
-nnoremap <silent> <Leader>tS       :TestSuite<CR>
-nnoremap <silent> <Leader>tL       :TestLast<CR>
-nnoremap <silent> <Leader>tG       :TestVisit<CR>
-
-" make test commands execute using dispatch.vim
-" let test#strategy = {
-"   \ 'nearest': 'neovim',
-"   \ 'suite':   'basic',
-" \}
-
 
 " ----------------------------------------------------------------------------
 " undotree
@@ -443,8 +437,6 @@ endif
 
 " User commands.
 nnoremap U :UndotreeToggle<CR>
-
-
 
 
 " ----------------------------------------------------------------------------
