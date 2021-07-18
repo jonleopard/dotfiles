@@ -115,13 +115,10 @@ if $TERM =~ 'screen'
 endif
 
 " Save
-nnoremap <C-s>     :update<cr>
 nnoremap <leader>s :update<cr>
 nnoremap <leader>w :update<cr>
 
 " Quit
-nnoremap <C-Q>     :q<cr>
-vnoremap <C-Q>     <esc>
 nnoremap <Leader>q :q<cr>
 nnoremap <Leader>Q :qa!<cr>
 
@@ -160,7 +157,7 @@ call plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------
 " Colorscheme & Syntax Highlighting
 " ----------------------------------------------------------------------------
-Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'fnune/base16-vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
@@ -171,11 +168,6 @@ Plug 'nvim-treesitter/playground'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'lewis6991/gitsigns.nvim'
-
-" ----------------------------------------------------------------------------
-" Go
-" ----------------------------------------------------------------------------
-Plug 'fatih/vim-go'
 
 "----------------------------------------------------------------------------
 " LSP, Autocompletion & Snippets
@@ -219,7 +211,6 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-obsession'
 Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
 
 Plug 'itchyny/lightline.vim'
@@ -229,7 +220,6 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'airblade/vim-rooter'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/vim-emoji'
-Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & npm install'  }
@@ -361,7 +351,7 @@ autocmd! FileType dirvish setlocal relativenumber
 let g:lightline = {
       \   'active': {
       \     'left': [ ['mode','paste'], [ 'gitbranch' ], [ 'pwd' ] ],
-      \     'right': [ [ 'cocstatus', 'readonly', 'filename' ], [ 'fileinfo' ] ]
+      \     'right': [ [ 'readonly', 'filename' ], [ 'fileinfo' ] ]
       \   },
       \   'inactive': {
       \     'left': [ [ 'pwd' ], [ 'gitbranch' ] ],
@@ -396,7 +386,6 @@ let g:lightline = {
       \     'pwd': 'LightlineWorkingDirectory',
       \     'fileinfo': 'LightlineFileinfo',
       \     'gitbranch': 'FugitiveHead',
-      \     'cocstatus': 'coc#status',
       \   },
       \   'component_type': {
       \     'buffers': 'tabsel',
@@ -430,12 +419,6 @@ function! LightlineWorkingDirectory()
   return &ft =~ 'help\|qf' ? '' : fnamemodify(getcwd(), ":~:.")
 endfunction
 
-"Lightline coc-integration
-let g:cocstatus#indicator_warnings = ' '
-let g:cocstatus#indicator_errors = ' '
-let g:cocstatus#indicator_checking = ' '
-let g:cocstatus#indicator_ok = "✓"
-
 
 "lightline-bufferline
 let g:lightline#bufferline#unicode_symbols = 1
@@ -454,11 +437,6 @@ nmap <Leader>7 <Plug>lightline#bufferline#go(7)
 nmap <Leader>8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
-
-
-" remap arrow keys
-nnoremap <Left> :bprev<CR>
-nnoremap <Right> :bnext<CR>
 
 
 " ----------------------------------------------------------------------------
@@ -485,14 +463,6 @@ autocmd BufReadPost fugitive:// setlocal bufhidden=delete
 " ----------------------------------------------------------------------------
 map  gc  <Plug>Commentary
 nmap gcc <Plug>CommentaryLine
-
-" ----------------------------------------------------------------------------
-" indent-lines
-" ----------------------------------------------------------------------------
-let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#616161'
-let g:indentLine_char = '|'
-autocmd! User indentLine doautocmd indentLine Syntax
 
 " ----------------------------------------------------------------------------
 " <Enter> | vim-easy-align
@@ -550,12 +520,5 @@ augroup vimrc
   " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
   au BufNewFile,BufRead,InsertLeave * silent! match ExtraWhitespace /\s\+$/
   au InsertEnter * silent! match ExtraWhitespace /\s\+\%#\@<!$/
-
-  " Close preview window
-  if exists('##CompleteDone')
-    au CompleteDone * pclose
-  else
-    au InsertLeave * if !pumvisible() && (!exists('*getcmdwintype') || empty(getcmdwintype())) | pclose | endif
-  endif
 
 " }}}
