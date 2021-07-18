@@ -170,8 +170,8 @@ Plug 'nvim-treesitter/playground'
 " ----------------------------------------------------------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'mhinz/vim-signify'
-
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " ----------------------------------------------------------------------------
 " Go
@@ -253,29 +253,18 @@ endif
 " PLUGIN SETTINGS{{{
 " ============================================================================
 
-
+:lua require('gitsigns').setup()
 
 " ----------------------------------------------------------------------------
 " which-key
 " ----------------------------------------------------------------------------
-lua << EOF
-  require("which-key").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-EOF
+:lua require("which-key").setup()
 
 
 " ----------------------------------------------------------------------------
 " treesitter
 " ----------------------------------------------------------------------------
 lua require('treesitter')
-
-" ----------------------------------------------------------------------------
-" vim-signify
-" ----------------------------------------------------------------------------
-let g:signify_vcs_list = ['git']
 
 " ----------------------------------------------------------------------------
 " coc
@@ -286,7 +275,6 @@ let g:coc_global_extensions = [
   \ 'coc-tailwindcss',
   \ 'coc-prettier',
   \ 'coc-snippets',
-  \ 'coc-git',
   \ 'coc-eslint',
   \ 'coc-emmet',
   \ 'coc-yaml',
