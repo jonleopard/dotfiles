@@ -52,7 +52,7 @@ set diffopt=filler,vertical
 set autoread
 set clipboard=unnamed
 set foldlevelstart=99
-set completeopt=menuone,preview
+set completeopt=menuone,noinsert,noselect
 set nocursorline
 set nrformats=hex
 set title
@@ -161,7 +161,7 @@ call plug#begin('~/.config/nvim/plugged')
 " Colorscheme & Syntax Highlighting
 " ----------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine',           { 'on': 'IndentLinesEnable' }
-Plug 'jonleopard/base16-vim'
+Plug 'fnune/base16-vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 
@@ -178,10 +178,16 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'fatih/vim-go'
 
 "----------------------------------------------------------------------------
-" Autocompletion & Snippets
+" LSP, Autocompletion & Snippets
 " ----------------------------------------------------------------------------
-Plug 'neoclide/coc.nvim',           {'branch': 'release'}
-Plug 'honza/vim-snippets'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -195,9 +201,10 @@ Plug 'plasticboy/vim-markdown'
 Plug 'jiangmiao/auto-pairs'
 Plug 'andymass/vim-matchup'
 Plug 'junegunn/goyo.vim'
+Plug 'ray-x/lsp_signature.nvim'
 
 " ----------------------------------------------------------------------------
-" Searching/Navigating
+" Navigation/FuzzySearch
 " ----------------------------------------------------------------------------
 Plug 'justinmk/vim-dirvish'
 Plug 'justinmk/vim-gtfo'
@@ -221,7 +228,6 @@ Plug 'mengelbrecht/lightline-bufferline'
 
 Plug 'airblade/vim-rooter'
 Plug 'mhinz/vim-startify'
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-emoji'
 Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -256,9 +262,10 @@ endif
 lua require('plugin-settings')
 
 " ----------------------------------------------------------------------------
-" telescope
+" mappings
 " ----------------------------------------------------------------------------
-":lua require('telescope').setup()
+
+" telescope
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
@@ -267,155 +274,36 @@ nnoremap <leader>dot <cmd>lua require('plugin-settings.telescope').search_dotfil
 nnoremap <leader>gb <cmd>lua require('telescope_builtin').git_branches()<cr>
 
 
+" lsp-config
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K     <cmd>Lspsaga hover_doc<CR>
+nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
+nnoremap <silent> <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
+nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> ga    <cmd>Lspsaga code_action<CR>
+xnoremap <silent> ga    <cmd>Lspsaga range_code_action<CR>
+nnoremap <silent> gs    <cmd>Lspsaga signature_help<CR>
 
-" ----------------------------------------------------------------------------
-" gitsigns
-" ----------------------------------------------------------------------------
 
-lua require('gitsigns').setup()
+" compe
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+
 
 " ----------------------------------------------------------------------------
 " which-key
 " ----------------------------------------------------------------------------
 lua require('which-key').setup()
-
-" ----------------------------------------------------------------------------
-" coc
-" ----------------------------------------------------------------------------
-
-let g:coc_global_extensions = [
-  \ 'coc-docker',
-  \ 'coc-tailwindcss',
-  \ 'coc-prettier',
-  \ 'coc-snippets',
-  \ 'coc-eslint',
-  \ 'coc-emmet',
-  \ 'coc-yaml',
-  \ 'coc-vimlsp',
-  \ 'coc-vetur',
-  \ 'coc-tsserver',
-  \ 'coc-phpls',
-  \ 'coc-json',
-  \ 'coc-html',
-  \ 'coc-css',
-  \ ]
-
-
-highlight link CocErrorSign GitGutterDelete
-highlight link CocWarningSign GitGutterChangeDelete
-highlight link CocInfoSign GitGutterChange
-highlight link CocHintSign GitGutterAdd
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 
-" NEOSNIPPET + COC CONFIG
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-if has_key(g:plugs, 'coc.nvim')
- 
-  " <TAB> - trigger completion, pum navigate, snippet expand and jump like VSCode
-  inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-
-  let g:coc_snippet_next = '<tab>'
-  let g:coc_snippet_prev = '<s-tab>'
-
-  " <C-space> - trigger completion
-  inoremap <silent><expr> <c-space> coc#refresh()
-
-  " <CR> - select the first completion item and confirm the completion when no item has been selected
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-  " Use `[g` and `]g` to navigate diagnostics
-  " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-  nmap <silent> [g <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]g <Plug>(coc-diagnostic-next)
-   
-
-  " GoTo code navigation.
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-
-  " Use K for show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-      call CocActionAsync('doHover')
-    else
-      execute '!' . &keywordprg . " " . expand('<cword>')
-    endif
-  endfunction
-
-  " Highlight the symbol and its references when holding the cursor.
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-
-  " Symbol renaming.
-  nmap <leader>rn <Plug>(coc-rename)
-
-  " Formatting selected code.
-  vmap <leader>p  <Plug>(coc-format-selected)
-  nmap <leader>p  <Plug>(coc-format-selected)
-
-  augroup coc-config
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json,php,html,blade setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-    " remove extra $ for coc autocomplete
-    autocmd BufNewFile,BufRead *.php set iskeyword+=$
-   
-  augroup end
-
-  " Applying codeAction to the selected region.
-  " Example: `<leader>aap` for current paragraph
-  xmap <leader>a  <Plug>(coc-codeaction-selected)
-  nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-  " Remap keys for applying codeAction to the current buffer.
-  nmap <leader>ac  <Plug>(coc-codeaction)
-  " Apply AutoFix to problem on the current line.
-  nmap <leader>qf  <Plug>(coc-fix-current)
-
-  " Remap <C-f> and <C-b> for scroll float windows/popups.
-  " Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
-  nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-
-  " NeoVim-only mapping for visual mode scroll
-  " Useful on signatureHelp after jump placeholder of snippet expansion
-  if has('nvim')
-    vnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#nvim_scroll(1, 1) : "\<C-f>"
-    vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
-  endif
-
-  " use `:OR` for organize import of current buffer
-  command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
-
-
-  " let g:coc_filetype_map = {
-  "   \ 'blade': 'html',
-  "   \ 'vue': 'html',
-  "   \ }
-endif
 
 
 " ----------------------------------------------------------------------------

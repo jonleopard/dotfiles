@@ -1,4 +1,10 @@
-require("plugin-settings.telescope")
+require('plugin-settings.telescope')
+require('plugin-settings.lspconfig')
+require('plugin-settings.compe')
+require('plugin-settings.snippets')
+require('plugin-settings.gitsigns')
+require('plugin-settings.ts')
+
 
 P = function(v)
   print(vim.inspect(v))
