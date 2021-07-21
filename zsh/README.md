@@ -7,6 +7,7 @@
 
 
 ## Useful tips
+- [A surprisingly common error users make when installing Brew](https://github.com/withfig/fig/discussions/300)
 - [Use Homebrew zsh Instead of macOS Default](https://rick.cogley.info/post/use-homebrew-zsh-instead-of-the-osx-default/)
 - [Speeding up ZSH](https://carlosbecker.com/posts/speeding-up-zsh/)
 
