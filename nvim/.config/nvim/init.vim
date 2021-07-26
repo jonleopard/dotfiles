@@ -159,6 +159,7 @@ call plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'fnune/base16-vim'
+"Plug 'wincent/base16-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 
@@ -177,9 +178,14 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
+" Typescript
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+" Go
+Plug 'ray-x/go.nvim'
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'nvim-telescope/telescope-dap.nvim'
 
 " ----------------------------------------------------------------------------
 " Editing
@@ -252,7 +258,7 @@ endif
 lua require('plugin-settings')
 
 " ----------------------------------------------------------------------------
-" mappings
+" mappings TODO: Move these into your .lua configs
 " ----------------------------------------------------------------------------
 
 " telescope
@@ -273,16 +279,12 @@ inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 
-
-" ----------------------------------------------------------------------------
-" which-key
-" ----------------------------------------------------------------------------
-lua require('which-key').setup()
-
-
 " ----------------------------------------------------------------------------
 " undotree
 " ----------------------------------------------------------------------------
+
+nnoremap U :UndotreeToggle<CR>
+
 if !exists('g:undotree_WindowLayout')
   let g:undotree_WindowLayout = 2
 endif
@@ -297,10 +299,6 @@ if has("persistent_undo")
   set undofile
   set undodir=$HOME/.config/nvim/undodir
 endif
-
-" User commands.
-nnoremap U :UndotreeToggle<CR>
-
 
 " ----------------------------------------------------------------------------
 " startify
@@ -324,6 +322,7 @@ let g:startify_use_env             = 1
 " ----------------------------------------------------------------------------
 " vim-dirvish (file explorer)
 " ----------------------------------------------------------------------------
+
 " Relative line numbers in a Dirvish buffer
 autocmd! FileType dirvish setlocal relativenumber
 
