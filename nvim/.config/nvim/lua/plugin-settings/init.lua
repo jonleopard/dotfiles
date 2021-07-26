@@ -4,6 +4,10 @@ require('plugin-settings.compe')
 require('plugin-settings.snippets')
 require('plugin-settings.gitsigns')
 require('plugin-settings.ts')
+require('plugin-settings.go')
+require('plugin-settings.treesitter')
+--require('plugin-settings.bufferline')
+require('plugin-settings.which-key')
 
 
 P = function(v)
