@@ -105,6 +105,28 @@ endif
 " Basic mappings
 " ----------------------------------------------------------------------------
 
+" Y yank rest of line
+nnoremap Y y$
+
+" Keep it centered
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
+" Undo break points
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+
+" Moving text
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+inoremap <C-j> <esc>:m .+1<CR>==
+inoremap <C-k> <esc>:m .-2<CR>==
+nnoremap <leader>k :m .-2<CR>==
+nnoremap <leader>j :m .+1<CR>==
+
 " qq to record, Q to replay
 nnoremap Q @q
 
@@ -157,7 +179,7 @@ call plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------
 " Colorscheme & Syntax Highlighting
 " ----------------------------------------------------------------------------
-Plug 'lukas-reineke/indent-blankline.nvim'
+"Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'fnune/base16-vim'
 "Plug 'wincent/base16-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -182,10 +204,10 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 " Go
-Plug 'ray-x/go.nvim'
-Plug 'mfussenegger/nvim-dap'
-Plug 'rcarriga/nvim-dap-ui'
-Plug 'nvim-telescope/telescope-dap.nvim'
+" Plug 'ray-x/go.nvim'
+" Plug 'mfussenegger/nvim-dap'
+" Plug 'rcarriga/nvim-dap-ui'
+" Plug 'nvim-telescope/telescope-dap.nvim'
 
 " ----------------------------------------------------------------------------
 " Editing
