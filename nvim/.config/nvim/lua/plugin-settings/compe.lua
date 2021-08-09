@@ -26,8 +26,8 @@ require'compe'.setup {
     calc = true;
     nvim_lsp = true;
     nvim_lua = true;
-    vsnip = false;
-    ultisnips = false;
+    vsnip = true;
+    ultisnips = true;
     luasnip = true;
   };
 }
@@ -44,7 +44,14 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 
--- Refer to snippet expansion in snippets.lua
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local check_back_space = function()
+    local col = vim.fn.col('.') - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+end
 
 -- Map tab to the above tab complete functions
 vim.api.nvim_set_keymap('i', '<Tab>', 'v:lua.tab_complete()', { expr = true })
