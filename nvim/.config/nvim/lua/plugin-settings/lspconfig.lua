@@ -72,32 +72,32 @@ end
 
 --Use a loop to conveniently call 'setup' on multiple servers and
 --map buffer local keybindings when the language server attaches
-local servers = { "gopls", "tsserver" }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
-end
+-- local servers = { "gopls", "tsserver" }
+-- for _, lsp in ipairs(servers) do
+--   nvim_lsp[lsp].setup {
+--     on_attach = on_attach,
+--     flags = {
+--       debounce_text_changes = 150,
+--     }
+--   }
+-- end
 
 
--- GOPLS {{{
 nvim_lsp.gopls.setup{
 	cmd = {'gopls'},
 	-- for postfix snippets and analyzers
 	capabilities = capabilities,
-  settings = {
-    gopls = {
-      experimentalPostfixCompletions = true,
-        analyses = {
-          unusedparams = true,
-          shadow = true,
-        },
-       staticcheck = true,
-    },
-  },
+	    settings = {
+	      gopls = {
+		      experimentalPostfixCompletions = true,
+		      analyses = {
+		        unusedparams = true,
+		        shadow = true,
+		     },
+		     staticcheck = true,
+		    },
+	    },
+	on_attach = on_attach,
 }
 
 
@@ -131,5 +131,6 @@ function goimports(timeout_ms)
   end
 end
 
-vim.api.nvim_exec([[ autocmd BufWritePre *.go lua goimports(1000) ]], false)
 vim.api.nvim_exec([[ autocmd BufWritePre *.go lua vim.lsp.buf.formatting() ]], false)
+
+vim.api.nvim_exec([[ autocmd BufWritePre *.go lua goimports(1000) ]], false)
