@@ -20,7 +20,6 @@ endif
 
 set nu
 syntax on
-set undofile
 set autoindent
 set autowrite
 set autoread
@@ -44,8 +43,6 @@ set shiftwidth=2
 set expandtab smarttab
 set scrolloff=5
 set encoding=utf-8
-set list
-set listchars=tab:\|\ ,
 set virtualedit=block
 set nojoinspaces
 set diffopt=filler,vertical
@@ -53,7 +50,6 @@ set autoread
 set clipboard=unnamed
 set foldlevelstart=99
 set completeopt=menuone,noinsert,noselect
-set nocursorline
 set nrformats=hex
 set title
 set showtabline=2
@@ -64,6 +60,7 @@ set noswapfile
 set nobackup
 set modelines=2
 set relativenumber
+set cursorline
 
 
 " 80 chars/line
@@ -72,7 +69,12 @@ if exists('&colorcolumn')
   set colorcolumn=80
 endif
 
-set synmaxcol=1000
+" undo dir
+if has("persistent_undo")
+  set undofile
+  set undodir=$HOME/.config/nvim/undodir
+endif
+
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -195,6 +197,8 @@ Plug 'lewis6991/gitsigns.nvim'
 "----------------------------------------------------------------------------
 " LSP, Autocompletion & Snippets
 " ----------------------------------------------------------------------------
+
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'neovim/nvim-lspconfig'
@@ -221,7 +225,6 @@ Plug 'plasticboy/vim-markdown'
 Plug 'jiangmiao/auto-pairs'
 Plug 'andymass/vim-matchup'
 Plug 'junegunn/goyo.vim'
-Plug 'ray-x/lsp_signature.nvim'
 
 " ----------------------------------------------------------------------------
 " Navigation/FuzzySearch
@@ -310,15 +313,11 @@ if !exists('g:undotree_WindowLayout')
   let g:undotree_WindowLayout = 2
 endif
 
+
 " if set, let undotree window get focus after being opened, otherwise
 " focus will stay in current window.
 if !exists('g:undotree_SetFocusWhenToggle')
     let g:undotree_SetFocusWhenToggle = 1
-endif
-
-if has("persistent_undo")
-  set undofile
-  set undodir=$HOME/.config/nvim/undodir
 endif
 
 " ----------------------------------------------------------------------------
