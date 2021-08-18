@@ -27,7 +27,8 @@ function theme() {
     return 1
   fi
   eval "base16_$1"
-  eval "source ~/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-fnune-SLASH-base16-fzf/bash/base16-$1.config"
+  eval "source ~/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-fnune-SLASH-base16-fzf"
+
 }
 
 # enable colored output from ls, etc. on FreeBSD-based systems
