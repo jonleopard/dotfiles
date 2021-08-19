@@ -254,6 +254,7 @@ Plug 'junegunn/vim-emoji'
 Plug 'ryanoasis/vim-devicons'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & npm install'  }
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 call plug#end()
 " }}}
