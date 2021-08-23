@@ -30,7 +30,7 @@ set showcmd
 set noshowmode
 set visualbell
 set backspace=indent,eol,start
-set timeoutlen=500
+set timeoutlen=300
 set whichwrap=b,s
 set nohlsearch
 set incsearch
@@ -289,15 +289,6 @@ lua require('plugin-settings')
 " mappings TODO: Move these into your .lua configs
 " ----------------------------------------------------------------------------
 
-" telescope
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>dot <cmd>lua require('plugin-settings.telescope').search_dotfiles()<cr>
-nnoremap <leader>gb <cmd>lua require('telescope_builtin').git_branches()<cr>
-
-
 
 " compe
 inoremap <silent><expr> <C-Space> compe#complete()
@@ -305,6 +296,15 @@ inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+" Telescope
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>dot <cmd>lua require('plugin-settings.telescope').search_dotfiles()<cr>
+nnoremap <leader>gb <cmd>lua require('telescope_builtin').git_branches()<cr>
+
 
 " ----------------------------------------------------------------------------
 " undotree
@@ -448,19 +448,16 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " ----------------------------------------------------------------------------
 " vim-fugitive
 " ----------------------------------------------------------------------------
-" nmap     <Leader>g :Gstatus<CR>gg<c-n>
-" nnoremap <Leader>d :Gdiff<CR>
 
-nmap <Leader>gb :Gblame<cr>
-nmap <Leader>gs :Gstatus<cr>
-nmap <Leader>gc :Git commit -v<cr>
+nmap <Leader>gb :Git_blame<cr>
+nmap <Leader>gs :G<cr>
+nmap <Leader>gc :Git commit<cr>
 nmap <Leader>ga :Git add -p<cr>
-nmap <Leader>gm :Git commit --amend<cr>
-nmap <Leader>gp :Gpush<cr>
-nmap <Leader>gd :Gdiff<cr>
+nmap <Leader>gp :Git push<cr>
+nmap <Leader>gd :Gvdiffsplit<cr>
 nmap <Leader>gw :Gwrite<cr>
-nmap <Leader>gj :diffget //3<CR>
 nmap <Leader>gf :diffget //2<CR>
+nmap <Leader>gj :diffget //3<CR>
 
 autocmd BufReadPost fugitive:// setlocal bufhidden=delete
 
