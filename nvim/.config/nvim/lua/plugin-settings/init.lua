@@ -9,6 +9,7 @@ require('plugin-settings.treesitter')
 --require('plugin-settings.bufferline')
 require('plugin-settings.which-key')
 require('plugin-settings.indent-blankline')
+require('plugin-settings.trouble')
 
 
 P = function(v)

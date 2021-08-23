@@ -1,4 +1,5 @@
 local actions = require('telescope.actions')
+local trouble = require("trouble.providers.telescope")
 
 require('telescope').setup {
     defaults = {
@@ -11,10 +12,12 @@ require('telescope').setup {
         qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
 
         mappings = {
-            i = {
-                ["<C-x>"] = false,
-                ["<C-q>"] = actions.send_to_qflist,
-            },
+            --i = {
+            --    ["<C-x>"] = false,
+            --    ["<C-q>"] = actions.send_to_qflist,
+            --},
+              i = { ["<c-t>"] = trouble.open_with_trouble },
+              n = { ["<c-t>"] = trouble.open_with_trouble },
         }
     },
     extensions = {

@@ -207,6 +207,7 @@ Plug 'neovim/nvim-lspconfig'
 " Typescript
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'folke/trouble.nvim'
 " Go
 " Plug 'ray-x/go.nvim'
 " Plug 'mfussenegger/nvim-dap'
@@ -251,7 +252,8 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'airblade/vim-rooter'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/vim-emoji'
-Plug 'ryanoasis/vim-devicons'
+"Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & npm install'  }
 Plug 'lukas-reineke/indent-blankline.nvim'

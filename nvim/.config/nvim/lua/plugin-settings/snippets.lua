@@ -1,22 +1,10 @@
-local luasnip = require('luasnip')
--- some shorthands...
-local s = luasnip.snippet
-local sn = luasnip.snippet_node
-local t = luasnip.text_node
-local i = luasnip.insert_node
-local f = luasnip.function_node
-local c = luasnip.choice_node
-local d = luasnip.dynamic_node
-local l = require("luasnip.extras").lambda
-local r = require("luasnip.util.functions").rep
-local p = require("luasnip.util.functions").partial
-
 local function prequire(...)
-    local status, lib = pcall(require, ...)
-    if (status) then return lib end
+local status, lib = pcall(require, ...)
+if (status) then return lib end
     return nil
 end
 
+local luasnip = require('luasnip')
 
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -42,6 +30,7 @@ _G.tab_complete = function()
         return vim.fn['compe#complete']()
     end
 end
+
 _G.s_tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<C-p>"
@@ -52,6 +41,13 @@ _G.s_tab_complete = function()
     end
 end
 
+-- Tab completion
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
+vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
 
 --[[
 -- Beside defining your own snippets you can also load snippets from "vscode-like" packages
