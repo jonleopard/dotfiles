@@ -300,10 +300,10 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 " Telescope
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fl <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>dot <cmd>lua require('plugin-settings.telescope').search_dotfiles()<cr>
-nnoremap <leader>gb <cmd>lua require('telescope_builtin').git_branches()<cr>
 
 
 " ----------------------------------------------------------------------------
