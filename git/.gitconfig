@@ -35,11 +35,12 @@
 
 # git mergetool
 [merge]
+  tool = fugitive
 	conflictstyle = diff3
 	renameLimit = 0
 
-[mergetool "nvim"]
-	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
+[mergetool "fugitive"]
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 
 # correct typos
 [help]
