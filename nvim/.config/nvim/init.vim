@@ -107,6 +107,12 @@ endif
 " Basic mappings
 " ----------------------------------------------------------------------------
 
+"nnoremap <leader>h :wincmd h<CR>
+"nnoremap <leader>j :wincmd j<CR>
+"nnoremap <leader>k :wincmd k<CR>
+"nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>pv :wincmd v<bar> :Dirvish <bar> :vertical resize 30<CR>
+
 " Y yank rest of line
 nnoremap Y y$
 
@@ -147,15 +153,29 @@ nnoremap <Leader>q :q<cr>
 nnoremap <Leader>Q :qa!<cr>
 
 " Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
+set splitbelow splitright
+
+" " Navigate splits
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-l> <C-w>l
+
+" Resize splits
+"noremap <silent> <C-Left> :vertical resize +3<CR>
+"noremap <silent> <C-Right> :vertical resize -3<CR>
+nnoremap <Leader>+ :vertical resize +5<CR>
+nnoremap <Leader>- :vertical resize -5<CR>
+noremap <silent> <C-Up> :resize +3<CR>
+noremap <silent> <C-Down> :resize -3<CR>
 
 
-" Movement in insert mode
-inoremap <C-h> <C-o>h
-inoremap <C-l> <C-o>a
-inoremap <C-j> <C-o>j
-inoremap <C-k> <C-o>k
+
+" " Movement in insert mode
+" inoremap <C-h> <C-o>h
+" inoremap <C-l> <C-o>a
+" inoremap <C-j> <C-o>j
+" inoremap <C-k> <C-o>k
 
 " ----------------------------------------------------------------------------
 " Buffers
@@ -163,12 +183,16 @@ inoremap <C-k> <C-o>k
 nnoremap ]b :bnext<cr>
 nnoremap [b :bprev<cr>
 
-" ----------------------------------------------------------------------------
-" Tabs
-" ----------------------------------------------------------------------------
-nnoremap ]t :tabn<cr>
-nnoremap [t :tabp<cr>
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
 
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
 
 " }}}
 " ============================================================================
@@ -450,7 +474,7 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 " vim-fugitive
 " ----------------------------------------------------------------------------
 
-nmap <Leader>gb :Git_blame<cr>
+nmap <Leader>gb :Git blame<cr>
 nmap <Leader>gs :G<cr>
 nmap <Leader>gc :Git commit<cr>
 nmap <Leader>ga :Git add -p<cr>
