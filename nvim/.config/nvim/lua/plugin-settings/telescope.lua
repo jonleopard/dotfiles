@@ -12,11 +12,12 @@ require('telescope').setup {
         qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
 
         mappings = {
-            --i = {
-            --    ["<C-x>"] = false,
-            --    ["<C-q>"] = actions.send_to_qflist,
-            --},
-              i = { ["<c-t>"] = trouble.open_with_trouble },
+            i = {
+                ["<C-x>"] = false,
+                ["<C-t>"] = trouble.open_with_trouble,
+                ["<C-q>"] = actions.send_to_qflist,
+            },
+              --i = { ["<c-t>"] = trouble.open_with_trouble },
               n = { ["<c-t>"] = trouble.open_with_trouble },
         }
     },
@@ -27,6 +28,7 @@ require('telescope').setup {
         }
     },
 }
+require('telescope').load_extension('fzy_native')
 
 local M = {}
 
