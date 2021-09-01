@@ -60,7 +60,6 @@ set noswapfile
 set nobackup
 set modelines=2
 set relativenumber
-set cursorline
 
 
 " 80 chars/line
@@ -156,18 +155,18 @@ nnoremap <Leader>Q :qa!<cr>
 set splitbelow splitright
 
 " " Navigate splits
-" nnoremap <C-h> <C-w>h
-" nnoremap <C-j> <C-w>j
-" nnoremap <C-k> <C-w>k
-" nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Resize splits
 "noremap <silent> <C-Left> :vertical resize +3<CR>
 "noremap <silent> <C-Right> :vertical resize -3<CR>
-nnoremap <Leader>+ :vertical resize +5<CR>
-nnoremap <Leader>- :vertical resize -5<CR>
-noremap <silent> <C-Up> :resize +3<CR>
-noremap <silent> <C-Down> :resize -3<CR>
+nnoremap <M-h>:resize +10<CR>
+nnoremap <M-j>:vertical resize +1<CR>
+nnoremap <M-k>:vertical resize -1<CR>
+nnoremap <M-l>:resize -10<CR>
 
 
 
@@ -247,9 +246,8 @@ Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
 Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'plasticboy/vim-markdown'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'andymass/vim-matchup'
-Plug 'junegunn/goyo.vim'
 
 " ----------------------------------------------------------------------------
 " Navigation/FuzzySearch
@@ -276,7 +274,7 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'airblade/vim-rooter'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/vim-emoji'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'aserowy/tmux.nvim'
 "Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'editorconfig/editorconfig-vim'
@@ -313,7 +311,6 @@ lua require('plugin-settings')
 " ----------------------------------------------------------------------------
 " mappings TODO: Move these into your .lua configs
 " ----------------------------------------------------------------------------
-
 
 " compe
 inoremap <silent><expr> <C-Space> compe#complete()
