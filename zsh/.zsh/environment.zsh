@@ -23,6 +23,9 @@ export PATH="$PATH:$GOPATH/bin"
 # PHP/Laravel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
+# GPG
+export GPG_TTY=$(tty)
+
 # Language
 export LC_COLLATE=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
