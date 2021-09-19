@@ -4,6 +4,9 @@ autoload -U colors
 # For bat
 export BAT_THEME="base16-256"
 
+# For FD (look into vivid: https://github.com/sharkdp/vivid)
+export LS_COLORS=NO_COLOR
+
 # Use base16-shell to swtich shell colors
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
