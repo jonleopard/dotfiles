@@ -8,9 +8,6 @@ alias kgx="kubectl config get-contexts"
 alias d="docker"
 alias dps="docker ps"
 
-# fzf gitignore
-alias gi="git-ignore"
-
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
 alias ls="exa"
 alias l='exa'
@@ -34,22 +31,20 @@ alias scp="scp -r"
 alias mkdir="mkdir -p"
 alias v="nvim"
 
-alias ga="git add"
-alias gc="git commit -m"
-alias gs="git status"
-alias gd="git diff"
-alias gf="git fetch"
-alias gm="git merge"
-alias gr="git rebase"
-alias gp="git push"
-alias gu="git unstage"
-alias gg="git graph"
-alias gco="git checkout"
 
+# fzf gitignore
+alias gi="git-ignore"
+
+alias ga="git add"
 # These require git-fuzzy to be installed on your system
 alias gf="git fuzzy"
-alias gfb="git fuzzy branch"
-alias gfl="git fuzzy log"
+alias gs="git fuzzy status"
+alias gb="git fuzzy branch"
+alias gl="git fuzzy log"
+alias gst="git fuzzy stash"
+alias gd="git fuzzy diff"
+alias gfr="git fuzzy reflog"
+alias gpr="git fuzzy pr"
 
 
 alias dl="cd ~/Downloads"
@@ -58,11 +53,6 @@ alias p="cd ~/projects"
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; sudo npm install npm -g; sudo npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
-
-# Google Chrome
-alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\
-  Chrome\ Canary'
 
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
@@ -73,11 +63,8 @@ alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
 # Clean up LaunchServices to remove duplicates in the “Open With” menu
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
-# Trim new lines and copy to clipboard
-alias c="tr -d '\n' | pbcopy"
-
-# Recursively delete `.DS_Store` files
-alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+# Recursively delete `.DS_Store` files (uses fd https://github.com/sharkdp/fd)
+alias cleanup="fd -IH '^\.DS_Store$' -tf -X rm -i"
 
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs to improve shell startup speed.
