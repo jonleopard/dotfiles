@@ -1,13 +1,14 @@
 caarlos0/ports kind:path
-mafredri/zsh-async
-rupa/z
 junegunn/fzf
-zsh-users/zsh-completions
-zsh-users/zsh-autosuggestions
+Aloxaf/fzf-tab
 andrewferrier/fzf-z
 pierpo/fzf-docker
 laggardkernel/git-ignore
 fnune/base16-fzf
+mafredri/zsh-async
+rupa/z
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
 bigH/git-fuzzy path:bin kind:path
 
 # these should be at last!
