@@ -95,7 +95,7 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 
 **tmux - tpm**
 
-[tpm](https://github.com/tmux-plugins/tpm) (which stands for tmux plugin manager) is a great little that has zero dependencies. Be sure to check out the [plugin](https://github.com/tmux-plugins) directory. 
+[tpm](https://github.com/tmux-plugins/tpm) is a great little that has zero dependencies. Be sure to check out the [plugin](https://github.com/tmux-plugins) directory. 
 
 **neovim - vim plug**
 
