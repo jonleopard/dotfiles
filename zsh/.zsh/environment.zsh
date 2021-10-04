@@ -10,6 +10,9 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 # Curl
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
+# awk
+export PATH="/usr/local/opt/awk/bin:$PATH"
+
 # Make
 export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 
