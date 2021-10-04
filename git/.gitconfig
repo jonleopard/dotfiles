@@ -73,6 +73,10 @@
 
 [log]
 	date = relative
+
+[sendemail]
+	verify = off
+	annotate = yes
 	
 [commit]
 	gpgsign = true
@@ -89,5 +93,4 @@
 	# name =
 	# email =
 	# signingkey =
-[init]
-	defaultBranch = master
+
