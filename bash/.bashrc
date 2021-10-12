@@ -45,6 +45,7 @@ fi
 
 # Enviornment
 # --------------------------------------------------------------------
+export EDITOR=nvim
 
 # Node (n)
 # Note that this needs to be put before homebrew
