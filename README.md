@@ -104,9 +104,11 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 ## The Terminal
 
 
-**alacritty + zsh**
+**alacritty**
 
-As you could have guessed by now, I am using [zsh](http://www.zsh.org/) instead of bash as my unix shell. [Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator and [Pure Prompt](https://github.com/sindresorhus/pure) is the shell prompt.
+[Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator. I've
+recently migrated from zsh over to bash. Bash is more readily available on the
+systems I work on, so it makes sense for me to have a more portable config. 
 
 
 **Dev Fonts**
