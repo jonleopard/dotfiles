@@ -1,0 +1,19 @@
+set sidebar_visible 	  = yes 
+set sidebar_width   	  = 12 
+set sidebar_short_path    = yes
+set sidebar_next_new_wrap = yes
+set mail_check_stats
+set sidebar_format        = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
+set status_chars  	  = " *%A"
+set status_format 	  = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+color sidebar_new color221 color233
+
+# b i n d i n g s
+bind index,pager \Ck sidebar-prev
+bind index,pager \Cj sidebar-next
+bind index,pager \Co sidebar-open
+bind index,pager \Cl sidebar-open
+bind index,pager \Cp sidebar-prev-new
+bind index,pager \Cn sidebar-next-new
+macro index b "<enter-command>toggle sidebar_visible<enter>"    # b toggles sidebar visibility
+macro pager b "<enter-command>toggle sidebar_visible<enter>"    # b toggles sidebar visibility

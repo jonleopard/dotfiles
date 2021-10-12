@@ -1,0 +1,114 @@
+# Non-standard, more vim-like key mappings
+#
+# Free keys
+bind index h noop
+bind index,pager d noop #used for dX
+bind index,pager i noop #used for goto iXY and i[1-9] in account muttrc (XY = 2 mailbox letters)
+bind index,pager M noop #used for CXY, "move" to XY in account muttrc
+bind index,pager C noop #used for CXY, "copy" to XY in account muttrc
+bind pager,attach,browser,index g noop
+
+# i n d e x
+bind index gg first-entry
+bind index G last-entry
+bind index p recall-message
+bind index R group-reply
+bind index <tab> sync-mailbox
+bind index <space> collapse-thread
+macro index,pager H view-mailcap
+bind index l display-message
+bind browser l select-entry
+bind index gl limit
+macro index gL "<limit>all\n" "show all messages (undo limit)"
+bind index \031 previous-undeleted # Mouse wheel
+bind index \005 next-undeleted # Mouse wheel
+bind browser,pager,index        N   search-opposite
+bind pager,index                dT  delete-thread
+bind pager,index                dt  delete-subthread
+bind pager,index                gt  next-thread
+bind pager,index                gT  previous-thread
+bind index                      za  collapse-thread
+bind index                      zA  collapse-all
+bind index                      -   collapse-thread
+bind index                      _   collapse-all
+macro index \Cr "<tag-pattern>~U<enter>\
+  <tag-prefix><clear-flag>N<untag-pattern>.<enter>" \
+  "mark all messages as read"
+
+# m i s c
+bind browser,pager,index        N   search-opposite
+bind pager,index                dT  delete-thread
+bind pager,index                dt  delete-subthread
+bind pager,index                gt  next-thread
+bind pager,index                gT  previous-thread
+bind index,pager V view-raw-message 
+macro index dd "<save-message>+Trash<enter><sync-mailbox>" "move message to Trash"
+bind pager,index D  purge-message
+bind index,pager gr group-reply #R is recall postponed by mutt
+
+# p a g e r
+bind pager  k previous-line
+bind pager  j next-line
+bind pager l view-attachments
+bind pager  R group-reply
+bind pager gg top
+bind pager G bottom
+bind pager,attach h exit
+bind pager \031 previous-line # Mouse wheel
+bind pager \005 next-line # Mouse wheel
+bind pager t display-toggle-weed
+
+# b r o w s e r
+bind browser gg top-page
+bind browser G bottom-page
+bind browser l select-entry
+
+### a t t a c h m e n t s
+bind attach l view-text
+bind attach <return> view-mailcap
+bind attach gg first-entry
+bind attach G last-entry
+bind attach l view-text
+bind attach <return> view-mailcap
+
+# e d i t o r 
+bind editor <space> noop
+bind editor <Tab> complete-query
+
+# a d d r e s s  b o o k
+macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
+
+# p g p
+bind compose p pgp-menu
+macro compose Y pfy "send mail without GPG"
+
+# m a i l b o x e s
+macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/accounts/mdir.riseup<enter><change-folder>!<enter>'
+macro index,pager c "<change-folder>?<toggle-mailboxes>" "open a different folder" 
+
+macro index,pager iqu "<change-folder>=Queue<enter>" "go to Queue"
+macro index,pager Mqu "<save-message>=Queue<enter>" "move mail to Queue"
+macro index,pager Cqu "<copy-message>=Queue<enter>" "copy mail to Queue"
+
+macro index,pager itr "<change-folder>=Trash<enter>" "go to Trash"
+macro index,pager Mtr "<save-message>=Trash<enter>" "move mail to Trash"
+macro index,pager Ctr "<copy-message>=Trash<enter>" "copy mail to Trash"
+
+macro index,pager isp "<change-folder>=Spam<enter>" "go to Spam"
+macro index,pager Msp "<save-message>=Spam<enter>" "move mail to Spam"
+macro index,pager Csp "<copy-message>=Spam<enter>" "copy mail to Spam"
+
+macro index,pager iin "<change-folder>=INBOX<enter>" "go to INBOX"
+macro index,pager Min "<save-message>=INBOX<enter>" "move mail to INBOX"
+macro index,pager Cin "<copy-message>=INBOX<enter>" "copy mail to INBOX"
+
+macro index,pager ise "<change-folder>=Sent<enter>" "go to Sent"
+macro index,pager Mse "<save-message>=Sent<enter>" "move mail to Sent"
+macro index,pager Cse "<copy-message>=Sent<enter>" "copy mail to Sent"
+
+macro index,pager idr "<change-folder>=Drafts<enter>" "go to Drafts"
+macro index,pager Mdr "<save-message>=Drafts<enter>" "move mail to Drafts"
+macro index,pager Cdr "<copy-message>=Drafts<enter>" "copy mail to Drafts"
+
+# Fetch mail shortcut
+bind index G imap-fetch-mail

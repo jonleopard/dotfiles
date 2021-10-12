@@ -1,0 +1,84 @@
+set editor=nvim
+set sidebar_width=20
+set sidebar_visible=yes
+
+# SSL
+set ssl_force_tls="yes"
+set ssl_use_tlsv1_3="yes"
+set ssl_starttls="yes"
+
+# Encoding
+set send_charset	= "us-ascii:utf-8:iso-8859-1"
+set rfc2047_parameters  = "yes"
+set thorough_search	= "yes"
+
+# Headers
+ignore "Authentication-Results:"
+ignore "DomainKey-Sighnature:"
+ignore "DKIM-Signature:"
+hdr_order From: Resent-From: Reply-To: X-Mailer: User-Agent: Date: To: Cc: Subject:
+my_hdr Organization: Riseup Networks Collective
+my_hdr PGP: s
+my_hdr User-Agent: `/usr/pkg/bin/neomutt -v | head -n 1`
+my_hdr X-Operating-System: `uname -s`, kernel `uname -r`
+
+# Appearance
+set date_format		= "%d/%m/%y %I:%M%p"
+set index_format	= "%2C %zs %?X?A& ? %D %-15.15F %s (%-4.4c)"
+set pager_format	= "-%Z- %C/%m: %-20.20n   %s%*  -- (%P)"
+set pager_context	= "3"
+set forward_format 	= "Fwd: %s"
+# Disables the `+` displayed at line wraps
+set markers           = "no"
+
+
+# Directories
+set header_cache	= "~/.mutt/cache/headers"
+set message_cachedir	= "~/.mutt/cache/bodies"
+set certificate_file	= "~/.mutt/certificates"
+set tmpdir		= "~/.mutt/tmp"
+
+## misc
+# supress waiting for informational messages
+set sleep_time		= "0"             
+# lock session after 15 min
+set timeout		= "900"
+# display plain text bodies whenever possible
+alternative_order text/plain text/enriched text/html
+# most recent messages displayed first
+set sort 		= "reverse-date"
+# external editor
+set editor		= "nvim"
+# do not automatically jump to next message
+set pager_stop 		= "yes"              
+# Unread mail stay unread until read
+set mark_old 		= "no"              
+# attachments are forwarded with mail
+set mime_forward 	= "yes"         
+# mutt won't ask "press key to continue"
+set wait_key 		= "no"              
+# skip to compose when replying
+set fast_reply   	= "yes"              
+# save attachments with the body
+set fcc_attach    	= "yes"             
+# include message in forwards
+set forward_quote       = "yes"
+# reply as whomever it was to
+set reverse_name        = "yes"       
+# include message in replies
+set include             = "yes"      
+# avoid lags using IMAP with some email providers
+set mail_check		= "60"              
+# automatically show html (mailcap uses w3m)
+auto_view text/html
+# and encrypted messages            
+auto_view application/pgp-encrypted
+# notifications
+set new_mail_command	= "notify-send -i /usr/pkg/share/icons/Adwaita/16x16/status/mail-unread.png -a "mutt" 'New Email in %f' '%n new messages, %u unread.' &"
+
+
+
+source "~/.config/neomutt/accounts/imap.cfg"
+source "~/.config/neomutt/sidebar"
+source "~/.config/neomutt/binds"
+source "~/.config/neomutt/colors"
