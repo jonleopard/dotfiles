@@ -86,7 +86,7 @@
 	# https://github.com/pstadler/keybase-gpg-github
 
 [include]
-	path = .gitconfig_local
+	path = ./gitconfig_local
 	# private credential file for username, email, and signingkey
 	# example:
 	# [user]
