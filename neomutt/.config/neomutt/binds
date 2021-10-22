@@ -8,7 +8,7 @@ bind index,pager M noop #used for CXY, "move" to XY in account muttrc
 bind index,pager C noop #used for CXY, "copy" to XY in account muttrc
 bind pager,attach,browser,index g noop
 
-# i n d e x
+# index
 bind index gg first-entry
 bind index G last-entry
 bind index p recall-message
@@ -35,7 +35,7 @@ macro index \Cr "<tag-pattern>~U<enter>\
   <tag-prefix><clear-flag>N<untag-pattern>.<enter>" \
   "mark all messages as read"
 
-# m i s c
+# misc
 bind browser,pager,index        N   search-opposite
 bind pager,index                dT  delete-thread
 bind pager,index                dt  delete-subthread
@@ -46,7 +46,7 @@ macro index dd "<save-message>+Trash<enter><sync-mailbox>" "move message to Tras
 bind pager,index D  purge-message
 bind index,pager gr group-reply #R is recall postponed by mutt
 
-# p a g e r
+# pager
 bind pager  k previous-line
 bind pager  j next-line
 bind pager l view-attachments
@@ -58,12 +58,12 @@ bind pager \031 previous-line # Mouse wheel
 bind pager \005 next-line # Mouse wheel
 bind pager t display-toggle-weed
 
-# b r o w s e r
+# browser
 bind browser gg top-page
 bind browser G bottom-page
 bind browser l select-entry
 
-### a t t a c h m e n t s
+### attachments
 bind attach l view-text
 bind attach <return> view-mailcap
 bind attach gg first-entry
@@ -71,20 +71,16 @@ bind attach G last-entry
 bind attach l view-text
 bind attach <return> view-mailcap
 
-# e d i t o r 
+# editor
 bind editor <space> noop
 bind editor <Tab> complete-query
 
-# a d d r e s s  b o o k
+# address book
 macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
 
-# p g p
+# pgp
 bind compose p pgp-menu
 macro compose Y pfy "send mail without GPG"
-
-# m a i l b o x e s
-macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/accounts/mdir.riseup<enter><change-folder>!<enter>'
-macro index,pager c "<change-folder>?<toggle-mailboxes>" "open a different folder" 
 
 macro index,pager iqu "<change-folder>=Queue<enter>" "go to Queue"
 macro index,pager Mqu "<save-message>=Queue<enter>" "move mail to Queue"
