@@ -1,5 +1,4 @@
 local actions = require('telescope.actions')
-local trouble = require("trouble.providers.telescope")
 
 require('telescope').setup {
     defaults = {
@@ -14,11 +13,8 @@ require('telescope').setup {
         mappings = {
             i = {
                 ["<C-x>"] = false,
-                ["<C-t>"] = trouble.open_with_trouble,
                 ["<C-q>"] = actions.send_to_qflist,
             },
-              --i = { ["<c-t>"] = trouble.open_with_trouble },
-              n = { ["<c-t>"] = trouble.open_with_trouble },
         }
     },
     extensions = {
@@ -26,9 +22,11 @@ require('telescope').setup {
             override_generic_sorter = false,
             override_file_sorter = true,
         }
+
     },
 }
 require('telescope').load_extension('fzy_native')
+require("telescope").load_extension("git_worktree")
 
 local M = {}
 
@@ -49,5 +47,11 @@ M.git_branches = function()
         end
     })
 end
+
+M.git_worktree = function()
+  require('telescope').extensions.git_worktree.git_worktrees()
+end
+
+
 
 return M

@@ -1,7 +1,6 @@
 require('plugin-settings.telescope')
 require('plugin-settings.lspconfig')
-require('plugin-settings.compe')
-require('plugin-settings.snippets')
+require('plugin-settings.cmp')
 require('plugin-settings.gitsigns')
 require('plugin-settings.ts')
 --require('plugin-settings.go')
@@ -9,8 +8,8 @@ require('plugin-settings.treesitter')
 --require('plugin-settings.bufferline')
 require('plugin-settings.which-key')
 require('plugin-settings.indent-blankline')
-require('plugin-settings.trouble')
 require('plugin-settings.tmux')
+require('plugin-settings.git-worktree')
 --require('plugin-settings.harpoon')
 
 
