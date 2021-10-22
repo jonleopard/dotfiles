@@ -204,7 +204,6 @@ call plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------
 " Colorscheme & Syntax Highlighting
 " ----------------------------------------------------------------------------
-"Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'fnune/base16-vim'
 "Plug 'wincent/base16-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -216,21 +215,23 @@ Plug 'nvim-treesitter/playground'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 "----------------------------------------------------------------------------
 " LSP, Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 
-Plug 'ray-x/lsp_signature.nvim'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
-Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-nvim-lsp'
+
 " Typescript
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'folke/trouble.nvim'
+
 " Go
 " Plug 'ray-x/go.nvim'
 " Plug 'mfussenegger/nvim-dap'
@@ -243,11 +244,8 @@ Plug 'folke/trouble.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary',         { 'on': '<Plug>Commentary' }
-Plug 'wellle/targets.vim'
 Plug 'junegunn/vim-easy-align',      { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'plasticboy/vim-markdown'
-" Plug 'jiangmiao/auto-pairs'
-Plug 'andymass/vim-matchup'
 
 " ----------------------------------------------------------------------------
 " Navigation/FuzzySearch
@@ -312,12 +310,6 @@ lua require('plugin-settings')
 " mappings TODO: Move these into your .lua configs
 " ----------------------------------------------------------------------------
 
-" compe
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 " Telescope
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
@@ -326,6 +318,18 @@ nnoremap <leader>fl <cmd>lua require('telescope.builtin').current_buffer_fuzzy_f
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>dot <cmd>lua require('plugin-settings.telescope').search_dotfiles()<cr>
+
+
+nnoremap <leader>vd :lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>vi :lua vim.lsp.buf.implementation()<CR>
+nnoremap <leader>vsh :lua vim.lsp.buf.signature_help()<CR>
+nnoremap <leader>vrr :lua vim.lsp.buf.references()<CR>
+nnoremap <leader>vrn :lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>vsd :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <leader>vn :lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <leader>vll :call LspLocationList()<CR>
 
 
 " ----------------------------------------------------------------------------
@@ -480,6 +484,8 @@ nmap <Leader>gd :Gvdiffsplit<cr>
 nmap <Leader>gw :Gwrite<cr>
 nmap <Leader>gf :diffget //2<CR>
 nmap <Leader>gj :diffget //3<CR>
+
+nnoremap <leader>gw :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
 
 autocmd BufReadPost fugitive:// setlocal bufhidden=delete
 
