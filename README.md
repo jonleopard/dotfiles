@@ -13,7 +13,6 @@
 * [Management Tools](#mangement-tools)
   * dotfiles
   * macOS
-  * zsh
   * node
   * vim
 * [The Terminal](#the-terminal)
@@ -79,7 +78,7 @@ stow [example]
 
 There are [so many flavors](https://www.reddit.com/r/fossworldproblems/comments/2jk4gi/there_are_too_many_solutions_for_managing_dotfiles/) when it comes to dotfile management. I wanted something lightweight and that could run in any \*nix environment with little to no dependencies.
 
-All my dotfiles are managed with the extremely light weight [GNU Stow](https://www.gnu.org/software/stow/). Basically, stow creates & manages symlinks to files that are located in the home directory. This allows me to keep everything in an organized folder called 'dotfiles'. If you are interested in learning more about stow, I wrote a brief post about it [here](https://jonleopard.com/blog/dotfile-management-with-gnu-stow/)
+All my dotfiles are managed with [GNU Stow](https://www.gnu.org/software/stow/). Basically, stow creates & manages symlinks to files that are located in the home directory. This allows me to keep everything in an organized folder called 'dotfiles'. If you are interested in learning more about stow, I wrote a brief post about it [here](https://jonleopard.com/blog/dotfile-management-with-gnu-stow/)
 
 **macOS - Homebrew**
 
@@ -89,13 +88,9 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 
 [n](https://github.com/tj/n) allows me to switch between different node versions on the fly. I've installed `n` via [n-install](https://github.com/mklement0/n-install).
 
-**zsh - antibody**
-
-[antibody](http://getantibody.github.io/) has been my favorite zsh plugin mananger for a couple years now. The author has a great post on shell performance which I highly recommend if you are interested in speeding up your shell spawn times. It's written in go, so make sure you have go installed on your system.
-
 **tmux - tpm**
 
-[tpm](https://github.com/tmux-plugins/tpm) is a great little that has zero dependencies. Be sure to check out the [plugin](https://github.com/tmux-plugins) directory. 
+[tpm](https://github.com/tmux-plugins/tpm) is a great plugin tool that has zero dependencies. Be sure to check out the [plugin](https://github.com/tmux-plugins) directory. 
 
 **neovim - vim plug**
 
@@ -113,7 +108,7 @@ systems I work on, so it makes sense for me to have a more portable config.
 
 **Dev Fonts**
 
-Below is a list of some of my favourite dev fonts that go great in your terminal, IDE, Text Editor, etc...
+Below is a list of some of my favorite dev fonts:
 * [Hack Font](https://sourcefoundry.org/hack/)
 * [mononoki](https://madmalik.github.io/mononoki/)
 * [Tamsyn Font](http://www.fial.com/~scott/tamsyn-font/)
