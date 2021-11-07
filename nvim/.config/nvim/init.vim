@@ -221,10 +221,12 @@ Plug 'ThePrimeagen/git-worktree.nvim'
 " LSP, Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 
-Plug 'L3MON4D3/LuaSnip'
-Plug 'rafamadriz/friendly-snippets'
 Plug 'neovim/nvim-lspconfig'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'onsails/lspkind-nvim'
+Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 
@@ -260,7 +262,9 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 " ----------------------------------------------------------------------------
 " Utils
 " ----------------------------------------------------------------------------
+Plug 'ThePrimeagen/harpoon'
 Plug 'folke/which-key.nvim'
+Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'mbbill/undotree',               { 'on': 'UndotreeToggle' }
@@ -331,6 +335,20 @@ nnoremap <leader>vsd :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <leader>vn :lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <leader>vll :call LspLocationList()<CR>
 
+
+" Harpoon
+nnoremap <leader>a :lua require("harpoon.mark").add_file()<CR>
+nnoremap <C-e> :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <leader>hc :lua require("harpoon.cmd-ui").toggle_quick_menu()<CR>
+
+nnoremap <C-h> :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <C-j> :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <C-k> :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <C-l> :lua require("harpoon.ui").nav_file(4)<CR>
+nnoremap <leader>tu :lua require("harpoon.term").gotoTerminal(1)<CR>
+nnoremap <leader>te :lua require("harpoon.term").gotoTerminal(2)<CR>
+nnoremap <leader>cu :lua require("harpoon.term").sendCommand(1, 1)<CR>
+nnoremap <leader>ce :lua require("harpoon.term").sendCommand(1, 2)<CR>
 
 " ----------------------------------------------------------------------------
 " undotree

@@ -10,7 +10,7 @@ require('plugin-settings.which-key')
 require('plugin-settings.indent-blankline')
 require('plugin-settings.tmux')
 require('plugin-settings.git-worktree')
---require('plugin-settings.harpoon')
+require('plugin-settings.harpoon')
 
 
 P = function(v)
