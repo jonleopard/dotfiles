@@ -221,18 +221,19 @@ Plug 'ThePrimeagen/git-worktree.nvim'
 " LSP, Autocompletion & Snippets
 " ----------------------------------------------------------------------------
 
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
+
 Plug 'L3MON4D3/LuaSnip'
-Plug 'onsails/lspkind-nvim'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
+
+Plug 'onsails/lspkind-nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 
-" Typescript
-Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " Go
 " Plug 'ray-x/go.nvim'
@@ -277,7 +278,6 @@ Plug 'airblade/vim-rooter'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/vim-emoji'
 Plug 'aserowy/tmux.nvim'
-"Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'iamcco/markdown-preview.nvim',  { 'do': 'cd app & npm install'  }
