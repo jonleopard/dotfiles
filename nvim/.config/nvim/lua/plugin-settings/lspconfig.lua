@@ -83,6 +83,8 @@ end
 -- end
 
 
+
+-- go
 nvim_lsp.gopls.setup{
 	cmd = {'gopls'},
 	-- for postfix snippets and analyzers
@@ -99,6 +101,10 @@ nvim_lsp.gopls.setup{
 	    },
 	on_attach = on_attach,
 }
+
+
+
+
 
 
 function goimports(timeout_ms)
