@@ -1,99 +1,55 @@
-local cmp = require'cmp'
-local luasnip = require("luasnip")
+local cmp = require 'cmp'
+local lspkind = require 'lspkind'
+local luasnip = require 'luasnip'
+lspkind.init()
 
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-
-        -- For `luasnip` user.
-        require('luasnip').lsp_expand(args.body)
-
-      end,
-    },
+cmp.setup({
     mapping = {
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-
-      -- Supertab like completion
-      ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      elseif has_words_before() then
-        cmp.complete()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-
+      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     },
+
     sources = {
       { name = 'nvim_lsp' },
+      { name = 'path' },
+      { name = 'luasnip', options = { keyword_length = 5, use_show_condition = false } },
+      { name = 'buffer', keyword_length = 5 },
+    },
 
-      -- For luasnip user.
-      { name = 'luasnip' },
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+    end,
+  },
 
-      { name = 'buffer' },
-    }
-  })
+  formatting = {
+    format = lspkind.cmp_format {
+      with_text = false,
+      maxwidth = 50,
+      menu = {
+        buffer   = "[buf]",
+        nvim_lsp = "[LSP]",
+        path     = "[path]",
+        luasnip  = "[snip]",
+      },
+    },
+  },
+})
 
 
--- cmp.setup({
---     snippet = {
---         expand = function(args)
---             -- For `vsnip` user.
---             -- vim.fn["vsnip#anonymous"](args.body)
 
---             -- For `luasnip` user.
---             require('luasnip').lsp_expand(args.body)
+vim.cmd [[
+  augroup DadbodSql
+    au!
+    autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer { sources = { { name = 'vim-dadbod-completion'} } }
+  augroup END
+]]
 
---             -- For `ultisnips` user.
---             -- vim.fn["UltiSnips#Anon"](args.body)
---         end,
---     },
 
---   mapping = {
-
---     -- ... Your other mappings ...
-
---     ["<Tab>"] = cmp.mapping(function(fallback)
---       if cmp.visible() then
---         cmp.select_next_item()
---       elseif luasnip.expand_or_jumpable() then
---         luasnip.expand_or_jump()
---       elseif has_words_before() then
---         cmp.complete()
---       else
---         fallback()
---       end
---     end, { "i", "s" }),
-
---     ["<S-Tab>"] = cmp.mapping(function(fallback)
---       if cmp.visible() then
---         cmp.select_prev_item()
---       elseif luasnip.jumpable(-1) then
---         luasnip.jump(-1)
---       else
---         fallback()
---       end
---     end, { "i", "s" }),
-
---     -- ... Your other mappings ...
---   },
-
---   -- ... Your other configuration ...
--- })
