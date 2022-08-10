@@ -1,0 +1,5 @@
+xargs
+find
+mv
+sed
+awk
