@@ -92,9 +92,9 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 
 [tpm](https://github.com/tmux-plugins/tpm) is a great plugin tool that has zero dependencies. Be sure to check out the [plugin](https://github.com/tmux-plugins) directory. 
 
-**neovim - vim plug**
+**neovim - packer**
 
-[vim-plug](https://github.com/junegunn/vim-plug) manages all of my vim plugins. It pairs nicely with [Neovim](https://github.com/junegunn/vim-plug#neovim).
+[packer](https://github.com/junegunn/vim-plug) manages all of my vim plugins. It pairs nicely with [Neovim](https://github.com/wbthomason/packer.nvim).
 
 ## The Terminal
 
