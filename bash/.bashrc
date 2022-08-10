@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# .bashrc for Mac and Linux (Ubuntu)
+# .bashrc for Mac and Linux (Debian/Ubuntu)
 
 case $- in
 *i*) ;; # interactive
@@ -17,7 +17,7 @@ esac
 # --------------------------------------------------------------------
 export EDITOR=nvim
 export LC_COLLATE=C
-#export TERM=xterm-256color
+export TERM=xterm-256color
 
 #### Node (n)
 #### Note that this needs to be put before homebrew
@@ -85,13 +85,11 @@ export BAT_THEME="base16-256"
 #### For FD (look into vivid: https://github.com/sharkdp/vivid)
 export LS_COLORS=NO_COLOR
 
-#### Use base16-shell to swtich shell colors
-BASE16_SHELL="$HOME/.config/base16-shell/"
+# Base16 Shell
+BASE16_SHELL_PATH="$HOME/.config/base16-shell"
 [ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-
+  [ -s "$BASE16_SHELL_PATH/profile_helper.sh" ] && \
+    source "$BASE16_SHELL_PATH/profile_helper.sh"
 
 # Prompt
 # --------------------------------------------------------------------
@@ -99,6 +97,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 PROMPT_LONG=20
 PROMPT_MAX=95
 PROMPT_AT=@
+export GIT_PS1_SHOWDIRTYSTATE=1
 
 __ps1() {
   local P='$' dir="${PWD##*/}" B countme short long double\
