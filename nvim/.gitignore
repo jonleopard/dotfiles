@@ -4,3 +4,4 @@
 .config/nvim/.netrwhist
 .config/nvim/undodir/*
 .config/nvim/Session.vim
+.config/nvim/plugin/packer_compiled.lua
