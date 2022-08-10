@@ -94,7 +94,7 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 
 **neovim - packer**
 
-[packer](https://github.com/junegunn/vim-plug) manages all of my vim plugins. It pairs nicely with [Neovim](https://github.com/wbthomason/packer.nvim).
+[packer](https://github.com/wbthomason/packer.nvim) manages all of my vim plugins. It pairs nicely with [Neovim](https://github.com/neovim/neovim).
 
 ## The Terminal
 
