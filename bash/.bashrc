@@ -17,7 +17,15 @@ esac
 # --------------------------------------------------------------------
 export EDITOR=nvim
 export LC_COLLATE=C
-export TERM=xterm-256color
+#export TERM=xterm-256color
+
+export LESS_TERMCAP_mb="[35m" # magenta
+export LESS_TERMCAP_md="[33m" # yellow
+export LESS_TERMCAP_me="" # "0m"
+export LESS_TERMCAP_se="" # "0m"
+export LESS_TERMCAP_so="[34m" # blue
+export LESS_TERMCAP_ue="" # "0m"
+export LESS_TERMCAP_us="[4m"  # underline
 
 #### Node (n)
 #### Note that this needs to be put before homebrew
@@ -74,7 +82,6 @@ export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 #### GPG
 export GPG_TTY=$(tty)
-
 
 # Colors
 # --------------------------------------------------------------------
@@ -244,14 +251,9 @@ shopt -s extglob
 #shopt -s nullglob # bug kills completion for some
 #set -o noclobber
 
-### vi mode
-set -o vi
-
-### Append to the history file
-shopt -s histappend
-
-### Check the window size after each command ($LINES, $COLUMNS)
-shopt -s checkwinsize
+set -o vi ### vi mode
+shopt -s histappend ### Append to the history file
+shopt -s checkwinsize ### Check the window size after each command ($LINES, $COLUMNS)
 
 shopt -s expand_aliases
 shopt -s globstar
@@ -264,8 +266,8 @@ shopt -s extglob
 # History
 # --------------------------------------------------------------------
 export HISTCONTROL=ignoreboth:erasedups
-export HISTSIZE=
-export HISTFILESIZE=
+export HISTSIZE=5000
+export HISTFILESIZE=10000
 
 # fzf (https://github.com/junegunn/fzf)
 # --------------------------------------------------------------------
@@ -424,15 +426,3 @@ function delete-branches() {
     fzf --multi --preview="git log {}" |
     xargs --no-run-if-empty git branch --delete --force
 }
-
-
-
-
-# Completion
-# --------------------------------------------------------------------
-
-### Bash completion
-export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
-
