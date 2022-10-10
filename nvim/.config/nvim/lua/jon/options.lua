@@ -19,6 +19,7 @@ vim.opt.joinspaces = true
 vim.opt.signcolumn = "yes"
 vim.opt.backup = false
 vim.opt.relativenumber = true
+vim.opt.nu = true
 --vim.opt.number         = true
 vim.opt.textwidth = 80
 vim.opt.termguicolors = true
@@ -46,6 +47,20 @@ vim.opt.undofile = true
 vim.opt.colorcolumn = "80"
 
 vim.cmd([[ 
+
+    if has("persistent_undo")
+       let target_path = expand('~/.config/nvim/undodir')
+
+        " create the directory and any parent directories
+        " if the location does not exist.
+        if !isdirectory(target_path)
+            call mkdir(target_path, "p", 0700)
+        endif
+
+        let &undodir=target_path
+        set undofile
+    endif
+
   " yank to clipboard
   if has("clipboard")
     set clipboard=unnamed " copy to the system clipboard
@@ -54,8 +69,8 @@ vim.cmd([[
     endif
   endif
 
-  " Disable CTRL-A on tmux & screen
-  if $TERM =~ 'screen'
+  " Disable ctrl-a on tmux & screen
+  if $TERM =~ '*256color' || ',*256col*:Tc'
     nnoremap <C-a> <nop>
     nnoremap <Leader><C-a> <C-a>
   endif

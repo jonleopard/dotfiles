@@ -7,7 +7,7 @@ local nmap = Remap.nmap
 
 
 ---- UndoTree
-nnoremap("<leader>u", ":UndotreeShow<CR>")
+nnoremap("<leader>u", ":UndotreeToggle<CR>")
 
 -- greatest remap ever
 -- xnoremap("<leader>p", "\"_dP")
@@ -27,12 +27,12 @@ nnoremap("<leader>u", ":UndotreeShow<CR>")
 nnoremap("Y", "yg$")
 
 -- Save
-nnoremap("<leader>s", ":update")
-nnoremap("<leader>w", ":update")
+nnoremap("<leader>s", ":update<CR>")
+nnoremap("<leader>w", ":update<CR>")
 
 -- Quit
-nnoremap("<leader>q", ":q")
-nnoremap("<leader>Q", ":qa!")
+nnoremap("<leader>q", ":q<CR>")
+nnoremap("<leader>Q", ":qa!<CR>")
 
 -- Cancel
 inoremap("<C-c>", "<Esc>")
