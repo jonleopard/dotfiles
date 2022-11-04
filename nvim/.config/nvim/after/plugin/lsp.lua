@@ -1,14 +1,9 @@
 local Remap = require("jon.keymap")
 local nnoremap = Remap.nnoremap
 local inoremap = Remap.inoremap
-
-require("luasnip/loaders/from_vscode").lazy_load()
-require("nvim-lsp-installer").setup({})
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 local luasnip = require('luasnip')
+local lspkind = require("lspkind")
+
 
 -- Setup nvim-cmp
 local cmp = require("cmp")
@@ -19,7 +14,10 @@ local source_mapping = {
     cmp_tabnine = "[TN]",
     path = "[Path]",
 }
-local lspkind = require("lspkind")
+
+require("luasnip/loaders/from_vscode").lazy_load()
+require("nvim-lsp-installer").setup({})
+
 
 cmp.setup({
     snippet = {
@@ -67,7 +65,6 @@ tabnine:setup({
 
 local function config(_config)
     return vim.tbl_deep_extend("force", {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
         on_attach = function()
             nnoremap("gd", function()
                 vim.lsp.buf.definition()
@@ -119,6 +116,8 @@ require("lspconfig").html.setup(config())
 
 require("lspconfig").tsserver.setup(config())
 
+require 'lspconfig'.sumneko_lua.setup {}
+
 require("lspconfig").gopls.setup(config({
     cmd = { "gopls" },
     on_attach = on_attach, -- do I need this?
@@ -169,28 +168,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     command = [[lua vim.lsp.buf.formatting_sync()]]
 })
 
-require("lspconfig").sumneko_lua.setup(config({
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = "LuaJIT",
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { "vim" },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}))
 
 local opts = {
     -- whether to highlight the currently hovered symbol
