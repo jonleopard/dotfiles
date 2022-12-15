@@ -1,6 +1,5 @@
+-- This file can be loaded by calling `lua require('plugins')` from your init.vim
 local fn = vim.fn
-
--- Automatically install packer
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
     PACKER_BOOTSTRAP = fn.system({
@@ -38,25 +37,21 @@ packer.init({
     },
 })
 
-
 -- Install your plugins here
-return packer.startup(function(use)
+return require('packer').startup(function(use)
     use("wbthomason/packer.nvim")
 
     ------------------------------------------------------------------------------
     --Colorscheme & Syntax Highlighting
     ------------------------------------------------------------------------------
-    use("base16-project/base16-vim")
+    use("tinted-theming/base16-vim")
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-    use {
-        'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    }
+    use('nvim-treesitter/playground')
 
     ------------------------------------------------------------------------------
     --Git
     ------------------------------------------------------------------------------
-    use("TimUntersberger/neogit")
+    use("tpope/vim-fugitive")
     use("lewis6991/gitsigns.nvim")
     use("ThePrimeagen/git-worktree.nvim")
 
@@ -64,26 +59,31 @@ return packer.startup(function(use)
     --LSP, Autocompletion & Snippets
     ------------------------------------------------------------------------------
 
-    use("williamboman/nvim-lsp-installer")
-    use("neovim/nvim-lspconfig")
+  use {
+	  'VonHeikemen/lsp-zero.nvim',
+	  requires = {
+		  -- LSP Support
+		  {'neovim/nvim-lspconfig'},
+		  {'williamboman/mason.nvim'},
+		  {'williamboman/mason-lspconfig.nvim'},
 
-    use("L3MON4D3/LuaSnip")
-    use("saadparwaiz1/cmp_luasnip")
-    use("rafamadriz/friendly-snippets")
+		  -- Autocompletion
+		  {'hrsh7th/nvim-cmp'},
+		  {'hrsh7th/cmp-buffer'},
+		  {'hrsh7th/cmp-path'},
+		  {'saadparwaiz1/cmp_luasnip'},
+		  {'hrsh7th/cmp-nvim-lsp'},
+		  {'hrsh7th/cmp-nvim-lua'},
 
-    use("onsails/lspkind-nvim")
-    use("hrsh7th/nvim-cmp")
-    use("tzachar/cmp-tabnine", { run = "./install.sh" })
-    use("hrsh7th/cmp-buffer")
-    use("hrsh7th/cmp-nvim-lsp")
-    use("tamago324/nlsp-settings.nvim")
-    use("glepnir/lspsaga.nvim")
-    use("sbdchd/neoformat")
+		  -- Snippets
+		  {'L3MON4D3/LuaSnip'},
+		  {'rafamadriz/friendly-snippets'},
+	  }
+  }
 
-    --" Plug 'mfussenegger/nvim-dap'
-    --" Plug 'rcarriga/nvim-dap-ui'
-    --" Plug 'nvim-telescope/telescope-dap.nvim'
 
+
+    --use("onsails/lspkind-nvim")
     ------------------------------------------------------------------------------
     --Editing
     ------------------------------------------------------------------------------
@@ -97,12 +97,14 @@ return packer.startup(function(use)
     use("justinmk/vim-dirvish")
     use("justinmk/vim-gtfo")
     use("nvim-lua/plenary.nvim")
-    use("nvim-telescope/telescope.nvim")
-    use("nvim-telescope/telescope-fzy-native.nvim")
+    use { "nvim-telescope/telescope.nvim", tag = '0.1.0' }
+    use { 'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 
     ------------------------------------------------------------------------------
     --Utils
     ------------------------------------------------------------------------------
+
     use("ThePrimeagen/harpoon")
     use('simrat39/symbols-outline.nvim')
     use("romgrk/nvim-treesitter-context")
@@ -114,9 +116,4 @@ return packer.startup(function(use)
     use("editorconfig/editorconfig-vim")
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = "MarkdownPreview" })
 
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if PACKER_BOOTSTRAP then
-        require("packer").sync()
-    end
 end)

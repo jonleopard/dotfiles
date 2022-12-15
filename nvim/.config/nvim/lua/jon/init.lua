@@ -1,28 +1,31 @@
 -- Core
+require("jon.set")
+require("jon.remap")
 require("jon.plugins")
-require("jon.options")
-require("jon.keymap")
-require("jon.colors")
 
--- Plugins
-require("jon.tmux")
-require("jon.telescope")
-require("jon.gitsigns")
-require("jon.git-worktree")
-require("jon.harpoon")
-require("jon.neogit")
-require("jon.lualine")
+local augroup = vim.api.nvim_create_augroup
+local ThePrimeagenGroup = augroup('Jon', {})
 
-P = function(v)
-    print(vim.inspect(v))
-    return v
+local autocmd = vim.api.nvim_create_autocmd
+local yank_group = augroup('HighlightYank', {})
+
+function R(name)
+    require("plenary.reload").reload_module(name)
 end
 
-if pcall(require, "plenary") then
-    RELOAD = require("plenary.reload").reload_module
+autocmd('TextYankPost', {
+    group = yank_group,
+    pattern = '*',
+    callback = function()
+        vim.highlight.on_yank({
+            higroup = 'IncSearch',
+            timeout = 40,
+        })
+    end,
+})
 
-    R = function(name)
-        RELOAD(name)
-        return require(name)
-    end
-end
+autocmd({"BufWritePre"}, {
+    group = Jon,
+    pattern = "*",
+    command = "%s/\\s\\+$//e",
+})
