@@ -7,7 +7,7 @@ case $- in
 *) return ;; 
 esac
 
-# System default
+# System
 # --------------------------------------------------------------------
 
 [ -z ${PLATFORM+x} ] && export PLATFORM=$(uname -s)
@@ -19,13 +19,6 @@ export EDITOR=nvim
 export LC_COLLATE=C
 #export TERM=xterm-256color
 
-export LESS_TERMCAP_mb="[35m" # magenta
-export LESS_TERMCAP_md="[33m" # yellow
-export LESS_TERMCAP_me="" # "0m"
-export LESS_TERMCAP_se="" # "0m"
-export LESS_TERMCAP_so="[34m" # blue
-export LESS_TERMCAP_ue="" # "0m"
-export LESS_TERMCAP_us="[4m"  # underline
 
 #### Node (n)
 #### Note that this needs to be put before homebrew
