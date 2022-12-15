@@ -1,5 +1,0 @@
-theme = "base16_default"
-
-[editor]
-line-number = "relative"
-mouse = false
