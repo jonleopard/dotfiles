@@ -38,14 +38,8 @@ vim.g.mapleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Files
-vim.opt.swapfile = false
-vim.opt.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
-vim.opt.undofile = true
-vim.opt.colorcolumn = "80"
 
 vim.cmd([[
-
     if has("persistent_undo")
        let target_path = expand('~/.config/nvim/undodir')
 
