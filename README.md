@@ -94,16 +94,18 @@ Homebrew and Macports are pretty much the only mainstream options here. I went w
 
 **neovim - packer**
 
-[packer](https://github.com/wbthomason/packer.nvim) manages all of my vim plugins. It pairs nicely with [Neovim](https://github.com/neovim/neovim).
+[packer](https://github.com/wbthomason/packer.nvim) manages all of my vim plugins. I'm using it with [Neovim](https://github.com/neovim/neovim).
 
 ## The Terminal
 
 
-**alacritty**
+**alacritty + tmux**
 
 [Alacritty](https://github.com/jwilm/alacritty) is my terminal emulator. I've
 recently migrated from zsh over to bash. Bash is more readily available on the
-systems I work on, so it makes sense for me to have a more portable config. 
+systems I work on, so it makes sense for me to have a more portable config. Lastly,
+[tmux](https://github.com/tmux/tmux/wiki) is an integral tool for me in my daily work
+and alacritty pairs nicely with it.
 
 
 **Dev Fonts**
