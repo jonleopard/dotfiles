@@ -19,7 +19,6 @@ return require('packer').startup(function(use)
     ------------------------------------------------------------------------------
     use("tpope/vim-fugitive")
     use("lewis6991/gitsigns.nvim")
-    use("ThePrimeagen/git-worktree.nvim")
 
     ------------------------------------------------------------------------------
     --LSP, Autocompletion & Snippets
@@ -49,13 +48,6 @@ return require('packer').startup(function(use)
     use('mfussenegger/nvim-dap')
 
     ------------------------------------------------------------------------------
-    --Editing
-    ------------------------------------------------------------------------------
-    use("tpope/vim-surround")
-    use("tpope/vim-commentary")
-    use("junegunn/vim-easy-align")
-
-    ------------------------------------------------------------------------------
     --Navigation/FuzzySearch
     ------------------------------------------------------------------------------
     use("justinmk/vim-dirvish")
@@ -72,8 +64,10 @@ return require('packer').startup(function(use)
     ------------------------------------------------------------------------------
     --Utils
     ------------------------------------------------------------------------------
+    use("tpope/vim-surround")
+    use("tpope/vim-commentary")
+    use("junegunn/vim-easy-align")
     use("ThePrimeagen/harpoon")
-    use('simrat39/symbols-outline.nvim')
     use("tpope/vim-eunuch")
     use("tpope/vim-unimpaired")
     use("mbbill/undotree")
