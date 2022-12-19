@@ -4,7 +4,7 @@
 
 case $- in
 *i*) ;; # interactive
-*) return ;; 
+*) return ;;
 esac
 
 # System
@@ -55,7 +55,7 @@ if [[ "$PLATFORM" = 'Darwin' ]]; then
 
   #### Make
   export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
-fi 
+fi
 
 #### z
 source "$HOME/z.sh"
@@ -183,7 +183,7 @@ if [[ -x "`which git-fuzzy`" ]]; then
   alias gd="git fuzzy diff"
   alias gfr="git fuzzy reflog"
   alias gpr="git fuzzy pr"
-else 
+else
   alias gs="git status"
   alias gb="git branch"
   alias gl="git log"
@@ -335,17 +335,17 @@ fs() {
 
 # fkill - kill processes - list only the ones you can kill. Modified the earlier script.
 fkill() {
-    local pid 
+    local pid
     if [ "$UID" != "0" ]; then
         pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
     else
         pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-    fi  
+    fi
 
     if [ "x$pid" != "x" ]
     then
         echo $pid | xargs kill -${1:-9}
-    fi  
+    fi
 }
 
 
