@@ -32,11 +32,21 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
-vim.g.mapleader = " "
-
 -- Disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- TODO: Finish converting to lua
+-- if vim.fn.has("persistent_undo") == 1 then
+--     local target_path = vim.api.expand("~/.config/nvim/undodir")
+
+--     if not vim.api.isdirectory(target_path)
+--     then vim.api.mkdir(target_path, "p", 0700)
+--     end
+
+--     local undodir = target_path
+--     vim.opt.undodir = undodir
+-- end
 
 
 vim.cmd([[
@@ -52,14 +62,6 @@ vim.cmd([[
         let &undodir=target_path
         set undofile
     endif
-
-  " yank to clipboard
-  if has("clipboard")
-    set clipboard=unnamed " copy to the system clipboard
-    if has("unnamedplus") " X11 support
-      set clipboard+=unnamedplus
-    endif
-  endif
 
   " Disable ctrl-a on tmux & screen
   if $TERM =~ '*256color' || ',*256col*:Tc'
