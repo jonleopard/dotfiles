@@ -87,7 +87,7 @@ lsp.setup()
 
 -- goimports
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = { "*.go", "lua" },
+    pattern = { "*.go", "lua", "rust" },
     callback = function() OrgImports() end,
 })
 
