@@ -1,4 +1,4 @@
-# init.vim
+# init.lua
 
 Since I am using neovim rather than Vim, I place all of my configuration inside init.lua instead of a .vimrc file. Vim plugin management is done with packer.
 
