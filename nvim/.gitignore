@@ -1,7 +1,0 @@
-.config/nvim/plugged/*
-.config/autoload
-.config/nvim/autoload/plug.vim.old
-.config/nvim/.netrwhist
-.config/nvim/undodir/*
-.config/nvim/Session.vim
-.config/nvim/plugin/packer_compiled.lua

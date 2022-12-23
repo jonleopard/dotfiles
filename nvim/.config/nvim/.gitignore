@@ -1,0 +1,6 @@
+plugged/*
+autoload
+.netrwhist
+undodir/*
+Session.vim
+packer_compiled.lua
