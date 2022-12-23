@@ -8,5 +8,5 @@ Plugin settings get registered inside of [init.vim](https://github.com/jonleopar
 
 Links:
 * [neovim](https://github.com/neovim/neovim)
-* [vim-plug](https://github.com/junegunn/vim-plug)
+* [packer.nvim](https://github.com/wbthomason/packer.nvim)
 * [empty folder tracking in git](https://stackoverflow.com/questions/7229885/what-are-the-differences-between-gitignore-and-gitkeep)
