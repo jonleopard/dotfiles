@@ -17,7 +17,7 @@ esac
 # --------------------------------------------------------------------
 export EDITOR=nvim
 export LC_COLLATE=C
-#export TERM=xterm-256color
+export TERMINFO_DIRS=$TERMINFO_DIRS:$HOME/.local/share/terminfo
 
 
 #### Node (n)
@@ -296,6 +296,7 @@ command -v bat  > /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat -n --color
 
 
 ### Fancy stuff ###
+
 
 # zsh; needs setopt re_match_pcre. You can, of course, adapt it to your own shell easily.
 tmuxkillf () {
