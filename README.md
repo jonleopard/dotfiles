@@ -140,7 +140,6 @@ I've been working a collection of my favorite wallpapers over the years. If you 
 * Fonts
   * [Font rasterization](https://en.wikipedia.org/wiki/Font_rasterization)
   * [Top 10 Programming Fonts](http://hivelogic.com/articles/top-10-programming-fonts/)
-  * [What are the best programming fonts?](https://www.slant.co/topics/67/~programming-fonts)
   * [Programming Fonts](http://programmingfonts.org/)
   * [Font Compare](http://s9w.io/font_compare/)
 
