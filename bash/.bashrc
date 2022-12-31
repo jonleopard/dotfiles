@@ -97,28 +97,36 @@ BASE16_SHELL_PATH="$HOME/.config/base16-shell"
 PROMPT_LONG=20
 PROMPT_MAX=95
 PROMPT_AT=@
-export GIT_PS1_SHOWDIRTYSTATE=1
+
+# Colors
+C_RESET='\[\e[0m\]'
+C_RED='\[\e[31m\]'
+C_YELLOW='\[\e[33m\]'
+C_BLUE='\[\e[34m\]'
+C_MAGENTA='\[\e[35m\]'
+C_CYAN='\[\e[36m\]'
+C_LGRAY='\[\e[37m\]'
+
 
 __ps1() {
-  local P='$' dir="${PWD##*/}" B countme short long double\
-    r='\[\e[31m\]' g='\[\e[37m\]' h='\[\e[34m\]' \
-    u='\[\e[33m\]' p='\[\e[33m\]' w='\[\e[35m\]' \
-    b='\[\e[36m\]' x='\[\e[0m\]'
+  local P='$' dir="${PWD##*/}" B countme short long double
 
-  [[ $EUID == 0 ]] && P='#' && u=$r && p=$u # root
+  [[ $EUID == 0 ]] && P='#' && u=${C_RED} && p=$u # root
   [[ $PWD = / ]] && dir=/
   [[ $PWD = "$HOME" ]] && dir='~'
 
+
+  # TODO: Implement a quick way to check git dirty status
   B=$(git branch --show-current 2>/dev/null)
   [[ $dir = "$B" ]] && B=.
   countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
 
-  [[ $B = master || $B = main ]] && b="$r"
-  [[ -n "$B" ]] && B="$g($b$B$g)"
+  [[ $B = master || $B = main ]] && b="${C_RED}"
+  [[ -n "$B" ]] && B="${C_LGRAY}(${C_CYAN}$B${C_LGRAY})"
 
-  short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x "
-  long="╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B$x\n╚ $p$P$x "
-  double="╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
+  short="${C_YELLOW}\u${C_LGRAY}$PROMPT_AT${C_BLUE}\h${C_LGRAY}:${C_MAGENTA}$dir$B${C_YELLOW}$P${C_RESET} "
+  long="╔ ${C_YELLOW}\u${C_LGRAY}$PROMPT_AT${C_BLUE}\h${C_LGRAY}:${C_MAGENTA}$dir$B${C_RESET}\n╚ ${C_YELLOW}$P${C_RESET} "
+  double="╔ ${C_YELLOW}\u${C_LGRAY}$PROMPT_AT${C_BLUE}\h${C_LGRAY}:${C_MAGENTA}$dir\n${C_LGRAY}║ $B\n${C_LGRAY}╚ ${C_YELLOW}$P${C_RESET} "
 
   if (( ${#countme} > PROMPT_MAX )); then
     PS1="$double"
