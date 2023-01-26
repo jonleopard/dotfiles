@@ -57,9 +57,6 @@ if [[ "$PLATFORM" = 'Darwin' ]]; then
   export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
 fi
 
-#### z
-source "$HOME/z.sh"
-
 #### Git-fuzzy
 export PATH="$HOME/git-fuzzy/bin:$PATH"
 
@@ -82,8 +79,8 @@ export GPG_TTY=$(tty)
 #### For bat
 export BAT_THEME="base16-256"
 
-#### For FD (look into vivid: https://github.com/sharkdp/vivid)
-export LS_COLORS=NO_COLOR
+#### For fd (look into vivid: https://github.com/sharkdp/vivid)
+#export LS_COLORS=NO_COLOR
 
 # Base16 Shell
 BASE16_SHELL_PATH="$HOME/.config/base16-shell"
@@ -98,7 +95,7 @@ PROMPT_LONG=20
 PROMPT_MAX=95
 PROMPT_AT=@
 
-# Colors
+#### Colors
 C_RESET='\[\e[0m\]'
 C_RED='\[\e[31m\]'
 C_YELLOW='\[\e[33m\]'
@@ -111,7 +108,7 @@ C_LGRAY='\[\e[37m\]'
 __ps1() {
   local P='$' dir="${PWD##*/}" B countme short long double
 
-  [[ $EUID == 0 ]] && P='#' && u=${C_RED} && p=$u # root
+  [[ $EUID == 0 ]] && P='#' && u=${C_RED} && p=${C_RED} # root
   [[ $PWD = / ]] && dir=/
   [[ $PWD = "$HOME" ]] && dir='~'
 
@@ -201,7 +198,6 @@ else
   alias gpr="git pr"
 fi
 
-
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/projects"
@@ -266,7 +262,7 @@ shopt -s extglob
 
 # History
 # --------------------------------------------------------------------
-export HISTCONTROL=ignoreboth:erasedups
+export HISTCONTROL=ignoreboth
 export HISTSIZE=5000
 export HISTFILESIZE=10000
 
@@ -280,31 +276,51 @@ fzf-down() {
   fzf --height 50% "$@" --border
 }
 
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
-
 if command -v fd > /dev/null; then
   export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
   export FZF_CTRL_T_COMMAND='fd --type f --hidden --follow --exclude .git'
+  _fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+  }
+
+  # Use fd to generate the list for directory completion
+  _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
 fi
 
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
+# export FZF_DEFAULT_COMMAND="rg --files"
+# export FZF_DEFAULT_OPTS="
+#     --height 40% --border
+#     --bind 'tab:down' --bind 'btab:up' --bind 'ctrl-s:toggle'
+# "
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
+export FZF_COMPLETION_TRIGGER='~~'
+export _ZO_FZF_OPTS="--preview 'exa -1 --color=always {2..}'"
+export FZF_TMUX_OPTS="-p"
+
+
+## this requires tree to be installed
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+    export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
+    ssh)          fzf "$@" --preview 'dig {}' ;;
+    *)            fzf "$@" ;;
+  esac
 }
 
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-
+#### Use bat
 command -v bat  > /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
 
+alias prev="fzf ‐‐preview 'bat ‐‐style=numbers ‐‐color=always {}'"
 
 ### Fancy stuff ###
 
+searchEdit() { du -a ~/Dropbox/ ~/.config/ | awk '{print $2}' | fzf | xargs -r $EDITOR ; }
 
 # zsh; needs setopt re_match_pcre. You can, of course, adapt it to your own shell easily.
 tmuxkillf () {
@@ -358,43 +374,6 @@ fkill() {
 }
 
 
-#https://medium.com/@calbertts/docker-and-fuzzy-finder-fzf-4c6416f5e0b5
-runc() {
-  export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
-  local image=$(docker images --format '{{.Repository}}:{{.Tag}}' | fzf-tmux --reverse --multi)
-  if [[ $image != '' ]]; then
-    echo -e "\n  \033[1mDocker image:\033[0m" $image
-    read -e -p $'  \e[1mOptions: \e[0m' -i "-it --rm" options
-
-    printf "  \033[1mChoose the command: \033[0m"
-    local cmd=$(echo -e "/bin/bash\nsh" | fzf-tmux --reverse --multi)
-    if [[ $cmd == '' ]]; then
-        read -e -p $'  \e[1mCustom command: \e[0m' cmd
-    fi
-    echo -e "  \033[1mCommand: \033[0m" $cmd
-
-    export FZF_DEFAULT_COMMAND='find ./ -type d -maxdepth 1 -exec basename {} \;'
-    printf "  \033[1mChoose the volume: \033[0m"
-    local volume=$(fzf-tmux --reverse --multi)
-    local curDir=${PWD##*/}
-    if [[ $volume == '.' ]]; then
-        echo -e "  \033[1mVolume: \033[0m" $volume
-        volume="`pwd`:/$curDir -w /$curDir"
-    else
-        echo -e "  \033[1mVolume: \033[0m" $volume
-        volume="`pwd`/$volume:/$volume -w /$volume"
-    fi
-
-    export FZF_DEFAULT_COMMAND=""
-    export FZF_DEFAULT_OPTS=""
-
-    history -s runc
-    history -s docker run $options -v $volume $image $cmd
-    echo ''
-    docker run $options -v $volume $image $cmd
-  fi
-}
-
 
 # Select a docker container to start and attach to
 function da() {
@@ -428,3 +407,6 @@ function delete-branches() {
     fzf --multi --preview="git log {}" |
     xargs --no-run-if-empty git branch --delete --force
 }
+
+#### z-like jumping (IMPORTANT: THIS HAS TO BE AT THE BOTTOM OF THE FILE)
+eval "$(zoxide init bash)"

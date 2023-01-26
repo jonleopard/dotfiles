@@ -75,7 +75,6 @@ return require('packer').startup(function(use)
     use("editorconfig/editorconfig-vim")
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = "MarkdownPreview" })
     use("ThePrimeagen/vim-be-good")
+    use("lewis6991/impatient.nvim")
     use("github/copilot.vim")
-
-
 end)
