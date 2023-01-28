@@ -25,34 +25,8 @@ defaults write NSGlobalDomain AppleHighlightColor -string "0.968627 0.831373 1.0
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
-
-# Reveal IP address, hostname, OS version, etc. when clicking the clock 
-# in the login window
-#3 http://www.idownloadblog.com/2017/03/21/show-computer-name-current-ip-address-macos-version-mac-login-screen/
-sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
-
-# Disable Notification Center and remove the menu bar icon
-# launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
-
-
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
-
-
-###############################################################################
-# SSD-specific tweaks                                                         #
-###############################################################################
-
-
-# https://github.com/mathiasbynens/dotfiles/issues/811
-
-# Remove the sleep image file to save disk space
-# sudo rm /private/var/vm/sleepimage
-# Create a zero-byte file instead…
-# sudo touch /private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
-# sudo chflags uchg /private/var/vm/sleepimage
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -63,38 +37,12 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-
-# Increase sound quality for Bluetooth headphones/headsets
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
-
-
 # set 'true' or 'false', enables addtional characters to display on keyhold
-#defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
-
-# Enable full keyboard access for all controls
-# (e.g. enable Tab in modal dialogs)
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
-
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool true
 
 # Set a blazingly fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
-
-# Set language and text formats
-# Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
-# `Inches`, `en_GB` with `en_US`, and `true` with `false`.
-#defaults write NSGlobalDomain AppleLanguages -array "en" "fr"
-#defaults write NSGlobalDomain AppleLocale -string "en_GB@currency=EUR"
-#defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-#defaults write NSGlobalDomain AppleMetricUnits -bool true
-
-
-# Show language menu in the top right corner of the boot screen
-sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
-
-# Set the timezone; see `sudo systemsetup -listtimezones` for other values
-# https://gist.github.com/palaniraja/f8e21e8c66eac7e1b313
-sudo systemsetup -settimezone "Europe/Paris" > /dev/null
 
 ###############################################################################
 # Screen                                                                      #
@@ -122,6 +70,7 @@ defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 
+
 # Finder: show path bar
 defaults write com.apple.finder ShowPathbar -bool true
 
@@ -133,25 +82,10 @@ defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 # Disable the warning when changing a file extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Automatically open a new Finder window when a volume is mounted
-defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
-defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
-defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
-
 # Enable snap-to-grid for icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-
-# Increase grid spacing for icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-
-# Increase the size of icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 
 # Use list view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
@@ -160,6 +94,10 @@ defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
+
+
+# Show hidden files
+defaults write com.apple.Finder AppleShowAllFiles true
 
 
 

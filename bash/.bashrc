@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# .bashrc for Mac and Linux (Debian/Ubuntu)
-
+# .bashrc for Apple Silicon(M2) macOS
 case $- in
 *i*) ;; # interactive
 *) return ;;
@@ -37,24 +36,15 @@ if [[ "$PLATFORM" = 'Darwin' ]]; then
 
   #### Configure brew to avoid protocol downgrades from HTTPS to HTTP via redirect
   HOMEBREW_NO_INSECURE_REDIRECT=1
-fi
-
-
-if [[ "$PLATFORM" = 'Darwin' ]]; then
-  #### homebrew
-  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
   #### Curl
-  export PATH="/usr/local/opt/curl/bin:$PATH"
-
-  #### awk
-  export PATH="/usr/local/opt/awk/bin:$PATH"
+  export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
   #### sed
-  export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+  export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
 
   #### Make
-  export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+  export  PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 fi
 
 #### Git-fuzzy
@@ -72,6 +62,7 @@ export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 #### GPG
 export GPG_TTY=$(tty)
+gpgconf --launch gpg-agent
 
 # Colors
 # --------------------------------------------------------------------
@@ -175,9 +166,8 @@ else
 fi
 
 
-# fzf gitignore
-alias gi="git-ignore"
 alias ga="git add"
+
 # These require git-fuzzy to be installed on your system
 if [[ -x "`which git-fuzzy`" ]]; then
   alias gf="git fuzzy"
@@ -407,6 +397,3 @@ function delete-branches() {
     fzf --multi --preview="git log {}" |
     xargs --no-run-if-empty git branch --delete --force
 }
-
-#### z-like jumping (IMPORTANT: THIS HAS TO BE AT THE BOTTOM OF THE FILE)
-eval "$(zoxide init bash)"

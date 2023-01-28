@@ -6,8 +6,7 @@
 # Prompt user before continuing
 prompt_confirm() {
   while true; do
-    read -p "${1:-Continue?} [y/n]: " REPLY
-    case $REPLY in
+    read -p "${1:-Continue?} [y/n]: " REPLY case $REPLY in
       [yY]) echo ; return 0 ;;
       [nN]) echo ; return 1 ;;
       *) printf " \033[31m %s \n\033[0m" "invalid option"
@@ -59,8 +58,7 @@ if [ "$kernel_type" = 'Darwin' ]; then
   echo "Looks like you're on a mac. Checking if Homebrew and GNU Stow are installed..."
   if [ ! -f "$(which brew)" ] || [ ! -f "$(which stow)" ]; then
       echo "Missing homebrew. Installing..." >&2
-      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" &&
-      brew install stow
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install stow
       echo "Dependencies installed. Proceeding..."
   else
       echo "Dependencies are already installed. Proceeding..."
@@ -81,8 +79,7 @@ echo -n "Select which dotfiles you want and then press 0 to proceed: "
 read -r choice
 echo
 
-case $choice in
-     1)
+case $choice in 1)
      echo "Symlinking zsh dotfiles..."
      echo
      stow zsh
