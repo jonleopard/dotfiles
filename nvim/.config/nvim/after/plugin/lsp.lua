@@ -5,11 +5,11 @@ lsp.preset("recommended")
 lsp.ensure_installed({
     'gopls',
     'tsserver',
-    'sumneko_lua',
+    'lua_ls',
     'rust_analyzer',
 })
 
-lsp.configure('sumneko_lua', {
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
@@ -97,5 +97,5 @@ lsp.setup()
 
 -- Show diagnostics
 vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = true
 })
