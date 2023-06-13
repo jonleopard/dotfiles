@@ -4,7 +4,7 @@ require("jon.remap")
 --require("jon.plugins")
 
 local augroup = vim.api.nvim_create_augroup
-local TheJonGroup = augroup('Jon', {})
+local JonGroup = augroup('Jon', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
@@ -25,7 +25,7 @@ autocmd('TextYankPost', {
 })
 
 autocmd({ "BufWritePre" }, {
-    group = TheJonGroup,
+    group = JonGroup,
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })

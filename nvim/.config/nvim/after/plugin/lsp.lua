@@ -9,15 +9,8 @@ lsp.ensure_installed({
     'rust_analyzer',
 })
 
-lsp.configure('lua_ls', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-})
+
+lsp.nvim_workspace()
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -85,13 +78,13 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     callback = function() OrgImports() end,
 })
 
--- Format on save
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = {
-        "*"
-    },
-    command = [[lua vim.lsp.buf.formatting_sync()]]
-})
+-- -- Format on save
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--     pattern = {
+--         "*"
+--     },
+--     command = [[lua vim.lsp.buf.format()]]
+-- })
 
 lsp.setup()
 

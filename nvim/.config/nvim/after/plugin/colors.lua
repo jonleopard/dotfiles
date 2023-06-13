@@ -6,4 +6,5 @@ local is_set_theme_file_readable = fn.filereadable(fn.expand(set_theme_path)) ==
 if is_set_theme_file_readable then
     cmd("let base16colorspace=256")
     cmd("source " .. set_theme_path)
+    cmd("hi ErrorSign ctermfg=Red guifg=Red")
 end

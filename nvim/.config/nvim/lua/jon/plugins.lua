@@ -1,4 +1,5 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
+-- NOTE: run :so to source the file.
 
 -- Only required if you have packer configured as `opt`
 vim.cmd.packadd('packer.nvim')
@@ -11,7 +12,12 @@ return require('packer').startup(function(use)
     --Colorscheme & Syntax Highlighting
     ------------------------------------------------------------------------------
     use("tinted-theming/base16-vim")
-    use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end, }
     use('nvim-treesitter/playground')
 
     ------------------------------------------------------------------------------
@@ -59,12 +65,24 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
     use { 'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+        run =
+        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
     }
 
     ------------------------------------------------------------------------------
     --Utils
     ------------------------------------------------------------------------------
+    use({
+        "folke/trouble.nvim",
+        config = function()
+            require("trouble").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    })
+    use("jose-elias-alvarez/null-ls.nvim")
     use("tpope/vim-surround")
     use("tpope/vim-commentary")
     use("junegunn/vim-easy-align")
