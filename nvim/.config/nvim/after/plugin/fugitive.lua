@@ -1,4 +1,8 @@
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git);
+vim.keymap.set("n", "<leader>gd", vim.cmd.Gdiffsplit);
+vim.keymap.set("n", "dv", vim.cmd.Gvdiffsplit);
+vim.keymap.set("n", "gl", "<cmd>diffget //2<CR>")
+vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
 
 local Jon_Fugitive = vim.api.nvim_create_augroup("Jon_Fugitive", {})
 
