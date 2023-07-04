@@ -16,7 +16,6 @@ esac
 # --------------------------------------------------------------------
 export EDITOR=nvim
 export LC_COLLATE=C
-export TERMINFO_DIRS=$TERMINFO_DIRS:$HOME/.local/share/terminfo
 
 
 #### Node (n)
@@ -26,16 +25,16 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 
 if [[ "$PLATFORM" = 'Darwin' ]]; then
   #### Force brew to use brewed CURL
-  HOMEBREW_FORCE_BREWED_CURL=1
+  export HOMEBREW_FORCE_BREWED_CURL=1
 
   #### No GAnalytics Logging in homebrew
-  HOMEBREW_NO_ANALYTICS=1
+  export HOMEBREW_NO_ANALYTICS=1
 
   #### Tell git not to use my GitHub account (Keychain) for public repositories - it's a privacy issue
-  HOMEBREW_NO_GITHUB_API=1
+  export HOMEBREW_NO_GITHUB_API=1
 
   #### Configure brew to avoid protocol downgrades from HTTPS to HTTP via redirect
-  HOMEBREW_NO_INSECURE_REDIRECT=1
+  export HOMEBREW_NO_INSECURE_REDIRECT=1
 
   #### Curl
   export PATH="/opt/homebrew/opt/curl/bin:$PATH"
@@ -45,6 +44,7 @@ if [[ "$PLATFORM" = 'Darwin' ]]; then
 
   #### Make
   export  PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
+
 fi
 
 #### Git-fuzzy
@@ -59,6 +59,7 @@ export PATH="$PATH:$GOPATH/bin"
 
 #### PHP/Laravel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 #### GPG
 export GPG_TTY=$(tty)
@@ -66,6 +67,7 @@ gpgconf --launch gpg-agent
 
 # Colors
 # --------------------------------------------------------------------
+
 
 #### For bat
 export BAT_THEME="base16-256"
@@ -78,6 +80,10 @@ BASE16_SHELL_PATH="$HOME/.config/base16-shell"
 [ -n "$PS1" ] && \
   [ -s "$BASE16_SHELL_PATH/profile_helper.sh" ] && \
     source "$BASE16_SHELL_PATH/profile_helper.sh"
+
+#### base16-fzf
+BASE16_FZF="$HOME/.config/base16-fzf/bash"
+source "$BASE16_FZF/base16-${BASE16_THEME}.config"
 
 # Prompt
 # --------------------------------------------------------------------
@@ -235,8 +241,6 @@ shopt -s expand_aliases
 shopt -s globstar
 shopt -s dotglob
 shopt -s extglob
-#shopt -s nullglob # bug kills completion for some
-#set -o noclobber
 
 set -o vi ### vi mode
 shopt -s histappend ### Append to the history file
@@ -253,12 +257,13 @@ shopt -s extglob
 # History
 # --------------------------------------------------------------------
 export HISTCONTROL=ignoreboth
-export HISTSIZE=5000
+export HISTSIZE=10000
 export HISTFILESIZE=10000
+# https://web.archive.org/web/20090815205011/http://www.cuberick.com/2008/11/update-bash-history-in-realtime.html
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # fzf (https://github.com/junegunn/fzf)
 # --------------------------------------------------------------------
-
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -280,14 +285,27 @@ if command -v fd > /dev/null; then
 fi
 
 # export FZF_DEFAULT_COMMAND="rg --files"
-# export FZF_DEFAULT_OPTS="
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window up:3:hidden:wrap
+  --bind 'ctrl-/:toggle-preview'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
+export FZF_CTRL_T_OPTS="
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+export FZF_COMPLETION_TRIGGER='~~'
+export _ZO_FZF_OPTS="--preview 'exa -1 --color=always {2..}'"
+export FZF_DEFAULT_OPTS='--no-height --no-reverse'
+export FZF_TMUX_OPTS='-p80%,60%'
+#export FZF_TMUX='--height 30%'
+#export FZF_DEFAULT_OPTS="
+
 #     --height 40% --border
 #     --bind 'tab:down' --bind 'btab:up' --bind 'ctrl-s:toggle'
 # "
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
-export FZF_COMPLETION_TRIGGER='~~'
-export _ZO_FZF_OPTS="--preview 'exa -1 --color=always {2..}'"
-export FZF_TMUX_OPTS="-p"
+
+
 
 
 ## this requires tree to be installed
@@ -308,7 +326,7 @@ command -v bat  > /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat -n --color
 
 alias prev="fzf ‐‐preview 'bat ‐‐style=numbers ‐‐color=always {}'"
 
-### Fancy stuff ###
+#### Fancy stuff
 
 searchEdit() { du -a ~/Dropbox/ ~/.config/ | awk '{print $2}' | fzf | xargs -r $EDITOR ; }
 
@@ -324,76 +342,4 @@ tmuxkillf () {
             tmux kill-session -t "$match[1]"
         }
     done
-}
-
-# tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
-# `tm` will allow you to select your tmux session via fzf.
-# `tm irc` will attach to the irc session (if it exists), else it will create it.
-
-tm() {
-  [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
-  if [ $1 ]; then
-    tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
-  fi
-  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
-}
-
-# fs [FUZZY PATTERN] - Select selected tmux session
-#   - Bypass fuzzy finder if there's only one match (--select-1)
-#   - Exit if there's no match (--exit-0)
-fs() {
-  local session
-  session=$(tmux list-sessions -F "#{session_name}" | \
-    fzf --query="$1" --select-1 --exit-0) &&
-  tmux switch-client -t "$session"
-}
-
-# fkill - kill processes - list only the ones you can kill. Modified the earlier script.
-fkill() {
-    local pid
-    if [ "$UID" != "0" ]; then
-        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
-    else
-        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-    fi
-
-    if [ "x$pid" != "x" ]
-    then
-        echo $pid | xargs kill -${1:-9}
-    fi
-}
-
-
-
-# Select a docker container to start and attach to
-function da() {
-  local cid
-  cid=$(docker ps -a | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
-
-  [ -n "$cid" ] && docker start "$cid" && docker attach "$cid"
-}
-
-# Select a running docker container to stop
-function ds() {
-  local cid
-  cid=$(docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
-
-  [ -n "$cid" ] && docker stop "$cid"
-}
-
-# Select a docker container to remove
-function drm() {
-  local cid
-  cid=$(docker ps -a | sed 1d | fzf -q "$1" | awk '{print $1}')
-
-  [ -n "$cid" ] && docker rm "$cid"
-}
-
-
-function delete-branches() {
-  git branch |
-    grep --invert-match '\*' |
-    cut -c 3- |
-    fzf --multi --preview="git log {}" |
-    xargs --no-run-if-empty git branch --delete --force
 }
