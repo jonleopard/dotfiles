@@ -4,3 +4,4 @@ autoload
 undodir/*
 Session.vim
 packer_compiled.lua
+lazy-lock.json
