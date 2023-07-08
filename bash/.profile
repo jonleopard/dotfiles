@@ -20,3 +20,6 @@ fi
 eval "$(zoxide init bash)"
 
 function gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}
+
+bind '"\C-f":"~/dotfiles/bash/tmux-sessionizer\n"'
+

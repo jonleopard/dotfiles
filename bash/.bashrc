@@ -68,12 +68,12 @@ gpgconf --launch gpg-agent
 # Colors
 # --------------------------------------------------------------------
 
-
 #### For bat
 export BAT_THEME="base16-256"
 
 #### For fd (look into vivid: https://github.com/sharkdp/vivid)
 #export LS_COLORS=NO_COLOR
+
 
 # Base16 Shell
 BASE16_SHELL_PATH="$HOME/.config/base16-shell"
@@ -81,7 +81,7 @@ BASE16_SHELL_PATH="$HOME/.config/base16-shell"
   [ -s "$BASE16_SHELL_PATH/profile_helper.sh" ] && \
     source "$BASE16_SHELL_PATH/profile_helper.sh"
 
-#### base16-fzf
+# base16-fzf
 BASE16_FZF="$HOME/.config/base16-fzf/bash"
 source "$BASE16_FZF/base16-${BASE16_THEME}.config"
 
@@ -135,6 +135,7 @@ PROMPT_COMMAND="__ps1"
 
 # Aliases
 # --------------------------------------------------------------------
+alias ts='tmux-sessionizer'
 
 #### kubectl aliases
 alias k="kubectl"
@@ -299,14 +300,11 @@ export _ZO_FZF_OPTS="--preview 'exa -1 --color=always {2..}'"
 export FZF_DEFAULT_OPTS='--no-height --no-reverse'
 export FZF_TMUX_OPTS='-p80%,60%'
 #export FZF_TMUX='--height 30%'
-#export FZF_DEFAULT_OPTS="
-
-#     --height 40% --border
-#     --bind 'tab:down' --bind 'btab:up' --bind 'ctrl-s:toggle'
+# export FZF_DEFAULT_OPTS="
+#      --height 40% --border
+#      --bind 'tab:down' --bind 'btab:up' --bind 'ctrl-s:toggle'
 # "
-
-
-
+#export FZF_TMUX=0
 
 ## this requires tree to be installed
 _fzf_comprun() {
@@ -327,8 +325,6 @@ command -v bat  > /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat -n --color
 alias prev="fzf ‐‐preview 'bat ‐‐style=numbers ‐‐color=always {}'"
 
 #### Fancy stuff
-
-searchEdit() { du -a ~/Dropbox/ ~/.config/ | awk '{print $2}' | fzf | xargs -r $EDITOR ; }
 
 # zsh; needs setopt re_match_pcre. You can, of course, adapt it to your own shell easily.
 tmuxkillf () {
