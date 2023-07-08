@@ -1,7 +1,7 @@
 -- Core
-require("jon.set")
-require("jon.remap")
---require("jon.plugins")
+require("core.set")
+require("core.remap")
+require("core.plugins")
 
 local augroup = vim.api.nvim_create_augroup
 local JonGroup = augroup('Jon', {})
@@ -29,3 +29,11 @@ autocmd({ "BufWritePre" }, {
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+vim.g.netrw_keepdir = 0
+-- Change the copy command. Mostly to enable recursive copy of directories.
+vim.g.netrw_localcopydircmd = 'cp -r'
+

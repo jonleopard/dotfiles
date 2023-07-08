@@ -32,23 +32,6 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
--- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
--- TODO: Finish converting to lua
--- if vim.fn.has("persistent_undo") == 1 then
---     local target_path = vim.api.expand("~/.config/nvim/undodir")
-
---     if not vim.api.isdirectory(target_path)
---     then vim.api.mkdir(target_path, "p", 0700)
---     end
-
---     local undodir = target_path
---     vim.opt.undodir = undodir
--- end
-
-
 vim.cmd([[
     if has("persistent_undo")
        let target_path = expand('~/.config/nvim/undodir')
