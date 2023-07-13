@@ -76,16 +76,6 @@ require("lazy").setup({
     --Utils
     ------------------------------------------------------------------------------
     {
-        "ahmedkhalf/project.nvim",
-        config = function()
-            require("project_nvim").setup {
-                -- your configuration comes here
-                -- or leave it empty to  the default settings
-                -- refer to the configuration section below
-            }
-        end
-    },
-    {
         "folke/trouble.nvim",
         config = function()
             require("trouble").setup {
@@ -97,7 +87,6 @@ require("lazy").setup({
     },
     "nvim-tree/nvim-web-devicons",
     "nvim-treesitter/nvim-treesitter-context",
-    "jose-elias-alvarez/null-ls.nvim",
     "tpope/vim-surround",
     {
         'numToStr/Comment.nvim',
