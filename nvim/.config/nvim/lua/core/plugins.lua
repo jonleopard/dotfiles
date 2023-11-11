@@ -5,7 +5,7 @@ if not vim.loop.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        "--branch=stable",
         lazypath,
     })
 end
@@ -24,17 +24,16 @@ require("lazy").setup({
     ------------------------------------------------------------------------------
     "tpope/vim-fugitive",
     "lewis6991/gitsigns.nvim",
-
     ------------------------------------------------------------------------------
     --LSP, Autocompletion & Snippets
     ------------------------------------------------------------------------------
     {
         "VonHeikemen/lsp-zero.nvim",
-        branch = "v2.x",
+        branch = "v3.x",
         dependencies = {
             -- LSP Support
             "neovim/nvim-lspconfig",
-            { -- Optional
+            {
                 "williamboman/mason.nvim",
                 build = function()
                     pcall(vim.cmd, "MasonUpdate")
@@ -44,11 +43,7 @@ require("lazy").setup({
 
             -- Autocompletion
             "hrsh7th/nvim-cmp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lua",
 
             -- Snippets
             "L3MON4D3/LuaSnip",
@@ -56,14 +51,11 @@ require("lazy").setup({
         }
     },
     "mfussenegger/nvim-dap",
-
-    ------------------------------------------------------------------------------
-    ------------------------------------------------------------------------------
     "justinmk/vim-gtfo",
     "nvim-lua/plenary.nvim",
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.0",
+        branch = '0.1.x',
         dependencies = { "nvim-lua/plenary.nvim" }
     },
     {
@@ -87,6 +79,7 @@ require("lazy").setup({
     },
     "nvim-tree/nvim-web-devicons",
     "nvim-treesitter/nvim-treesitter-context",
+    "jose-elias-alvarez/null-ls.nvim",
     "tpope/vim-surround",
     {
         'numToStr/Comment.nvim',
@@ -101,9 +94,13 @@ require("lazy").setup({
     "mbbill/undotree",
     "mhinz/vim-startify",
     "editorconfig/editorconfig-vim",
-    { "iamcco/markdown-preview.nvim", build = "cd app && npm install", cmd = "MarkdownPreview" },
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function() vim.fn["mkdp#util#install"]() end,
+    },
     "ThePrimeagen/vim-be-good",
     "lewis6991/impatient.nvim",
-    "ThePrimeagen/vim-be-good",
     "github/copilot.vim",
 })
