@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # .bashrc for Apple Silicon(M2) macOS
 case $- in
 *i*) ;; # interactive
@@ -8,7 +7,6 @@ esac
 
 # System
 # --------------------------------------------------------------------
-
 [ -z ${PLATFORM+x} ] && export PLATFORM=$(uname -s)
 
 
@@ -74,7 +72,6 @@ export BAT_THEME="base16-256"
 #### For fd (look into vivid: https://github.com/sharkdp/vivid)
 #export LS_COLORS=NO_COLOR
 
-
 # Base16 Shell
 BASE16_SHELL_PATH="$HOME/.config/base16-shell"
 [ -n "$PS1" ] && \
@@ -92,20 +89,23 @@ PROMPT_LONG=20
 PROMPT_MAX=95
 PROMPT_AT=@
 
-#### Colors
-C_RESET='\[\e[0m\]'
-C_RED='\[\e[31m\]'
-C_YELLOW='\[\e[33m\]'
-C_BLUE='\[\e[34m\]'
-C_MAGENTA='\[\e[35m\]'
-C_CYAN='\[\e[36m\]'
-C_LGRAY='\[\e[37m\]'
-
-
 __ps1() {
-  local P='$' dir="${PWD##*/}" B countme short long double
+  # dir="${PWD##*/}" # current directory
+  # dir="${PWD%/*}" # parent directory
+  # dir="${PWD}" # full path
+  local P='$' dir="$(basename "$(dirname "$PWD")")/$(basename "$PWD")"  B countme short long double \
+        #### Colors
+        C_RESET='\[\e[0m\]' \
+        C_BLACK='\[\e[30m\]' \
+        C_RED='\[\e[31m\]' \
+        C_YELLOW='\[\e[33m\]' \
+        C_BLUE='\[\e[34m\]' \
+        C_MAGENTA='\[\e[35m\]' \
+        C_CYAN='\[\e[36m\]' \
+        C_LGRAY='\[\e[37m\]'
 
-  [[ $EUID == 0 ]] && P='#' && u=${C_RED} && p=${C_RED} # root
+
+  [[ $EUID == 0 ]] && P='#' && u=${C_RED} && p=${C_YELLOW} # root
   [[ $PWD = / ]] && dir=/
   [[ $PWD = "$HOME" ]] && dir='~'
 
@@ -116,7 +116,7 @@ __ps1() {
   countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
 
   [[ $B = master || $B = main ]] && b="${C_RED}"
-  [[ -n "$B" ]] && B="${C_LGRAY}(${C_CYAN}$B${C_LGRAY})"
+  [[ -n "$B" ]] && B="${C_LGRAY}(${C_RED}$B${C_LGRAY})"
 
   short="${C_YELLOW}\u${C_LGRAY}$PROMPT_AT${C_BLUE}\h${C_LGRAY}:${C_MAGENTA}$dir$B${C_YELLOW}$P${C_RESET} "
   long="╔ ${C_YELLOW}\u${C_LGRAY}$PROMPT_AT${C_BLUE}\h${C_LGRAY}:${C_MAGENTA}$dir$B${C_RESET}\n╚ ${C_YELLOW}$P${C_RESET} "
@@ -156,6 +156,8 @@ alias v="nvim"
 alias cat="bat"
 alias find="fd"
 alias ps="procs"
+alias colors='msgcat --color=test'
+alias ansi_colors='for x in {0..8}; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo ""'
 
 # These require exa to be installed on your system
 if [[ -x "`which exa`" ]]; then
