@@ -1,0 +1,19 @@
+[env]
+TERM = "alacritty-direct"
+
+[font]
+size = 15.0
+
+[font.bold]
+family = "JetbrainsMono Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetbrainsMono Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "JetbrainsMono Nerd Font"
+
+[font.normal]
+family = "JetbrainsMono Nerd Font"
