@@ -16,31 +16,31 @@
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 	reup = rebase-update # depot_tools specific
 	git = !exec gie
-# Allows you to easily pick what to rebase
-  frbi = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
+    # Allows you to easily pick what to rebase
+    frbi = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
 	sw = !git checkout $(git branch -a --format '%(refname:short)' | sed 's~origin/~~' | sort | uniq | fzf)
 
 [core]
 	precomposeUnicode = true
 	autocrlf = false
 	pager = delta
-     
+
 [interactive]
 	diffFilter = delta --color-only
 
 [delta]
+    syntax-theme = 'ansi'
+    navigate = true
+    line-numbers = true
 	features = side-by-side line-numbers decorations
 	whitespace-error-style = 22 reverse
 	syntax-theme = base16-256
 
 # git mergetool
 [merge]
-  tool = fugitive
-	conflictstyle = diff3
+    tool = fugitive
+    conflictstyle = diff3
 	renameLimit = 0
-
-[mergetool "fugitive"]
-  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 
 # correct typos
 [help]
@@ -51,7 +51,7 @@
 
 [pull]
 	rebase = false
-      
+
 # push easily. http://stackoverflow.com/a/23918418/89484
 [push]
 	default = current
@@ -66,7 +66,7 @@
 	compactionHeuristic = true
 	# Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
 	# https://blog.github.com/2018-04-05-git-217-released/
-	colorMoved = zebra
+	colorMoved = default
 
 [stash]
 	showPatch = true
@@ -77,7 +77,7 @@
 [sendemail]
 	verify = off
 	annotate = yes
-	
+
 [commit]
 	gpgsign = true
 	# https://help.github.com/articles/about-gpg/
