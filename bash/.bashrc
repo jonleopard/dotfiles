@@ -1,5 +1,5 @@
-#!/bin/bash
-# .bashrc for Apple Silicon(M2) macOS
+#!bash
+
 case $- in
 *i*) ;; # interactive
 *) return ;;
@@ -42,7 +42,6 @@ if [[ "$PLATFORM" = 'Darwin' ]]; then
 
   #### Make
   export  PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
-
 fi
 
 #### Git-fuzzy
@@ -54,6 +53,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 #### Go
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
+export PATH=$PATH:$(go env GOPATH)/bin
 
 #### PHP/Laravel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
@@ -68,6 +68,9 @@ gpgconf --launch gpg-agent
 
 #### For bat
 export BAT_THEME="base16-256"
+
+#### For delta
+export BASE16_SHELL_ENABLE_VARS=1
 
 #### For fd (look into vivid: https://github.com/sharkdp/vivid)
 #export LS_COLORS=NO_COLOR
@@ -325,19 +328,3 @@ _fzf_comprun() {
 command -v bat  > /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
 
 alias prev="fzf ‐‐preview 'bat ‐‐style=numbers ‐‐color=always {}'"
-
-#### Fancy stuff
-
-# zsh; needs setopt re_match_pcre. You can, of course, adapt it to your own shell easily.
-tmuxkillf () {
-    local sessions
-    sessions="$(tmux ls|fzf --exit-0 --multi)"  || return $?
-    local i
-    for i in "${(f@)sessions}"
-    do
-        [[ $i =~ '([^:]*):.*' ]] && {
-            echo "Killing $match[1]"
-            tmux kill-session -t "$match[1]"
-        }
-    done
-}
