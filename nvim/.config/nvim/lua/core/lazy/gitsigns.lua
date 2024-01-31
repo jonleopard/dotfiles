@@ -1,9 +1,11 @@
-local status_ok, gitsigns = pcall(require, "gitsigns")
-if not status_ok then
-    return
-end
+return {
+    "lewis6991/gitsigns.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+        require('gitsigns').setup()
+    end
+}
 
-require('gitsigns').setup()
 
 -- Old setup
 -- require('gitsigns').setup {
