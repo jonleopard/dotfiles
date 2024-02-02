@@ -31,24 +31,3 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
-
-vim.cmd([[
-    if has("persistent_undo")
-       let target_path = expand('~/.config/nvim/undodir')
-
-        " create the directory and any parent directories
-        " if the location does not exist.
-        if !isdirectory(target_path)
-            call mkdir(target_path, "p", 0700)
-        endif
-
-        let &undodir=target_path
-        set undofile
-    endif
-
-  " Disable ctrl-a on tmux & screen
-  if $TERM =~ '*256color' || ',*256col*:Tc'
-    nnoremap <C-a> <nop>
-    nnoremap <Leader><C-a> <C-a>
-  endif
-]])
