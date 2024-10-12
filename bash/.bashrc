@@ -239,9 +239,8 @@ alias reload="exec ${SHELL} -l"
 
 # Bash shell options
 # --------------------------------------------------------------------
-shopt -s checkwinsize
 shopt -s expand_aliases
-shopt -s globstar
+#shopt -s globstar
 shopt -s dotglob
 shopt -s extglob
 
@@ -249,10 +248,6 @@ set -o vi ### vi mode
 shopt -s histappend ### Append to the history file
 shopt -s checkwinsize ### Check the window size after each command ($LINES, $COLUMNS)
 
-shopt -s expand_aliases
-shopt -s globstar
-shopt -s dotglob
-shopt -s extglob
 #shopt -s nullglob # bug kills completion for some
 #set -o noclobber
 
