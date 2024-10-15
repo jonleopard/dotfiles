@@ -1,11 +1,7 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-. "$HOME/.cargo/env"
-
-if [ -n "$BASH_VERSION" ]; then
+if [ -n "$BASH_VERSION" -a -n "$PS1" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-        . "$HOME/.bashrc"
+    . "$HOME/.bashrc"
     fi
 fi
 
@@ -13,13 +9,13 @@ if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
 
-#[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-
-#### z-like jumping (IMPORTANT: THIS HAS TO BE AT THE BOTTOM OF THE FILE)
-eval "$(zoxide init bash)"
 
 function gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}
 
 bind '"\C-f":"~/dotfiles/bash/tmux-sessionizer\n"'
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source "~/.orbstack/shell/init.bash" 2>/dev/null || :
 

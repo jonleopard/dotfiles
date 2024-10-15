@@ -5,6 +5,14 @@ case $- in
 *) return ;;
 esac
 
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 # System
 # --------------------------------------------------------------------
 [ -z ${PLATFORM+x} ] && export PLATFORM=$(uname -s)
@@ -16,7 +24,6 @@ export EDITOR=nvim
 
 #### Node (n): note that this needs to be put before homebrew
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
-
 
 if [[ "$PLATFORM" = 'Darwin' ]]; then
   #### Force brew to use brewed CURL
@@ -47,18 +54,13 @@ export PATH="$HOME/git-fuzzy/bin:$PATH"
 #### Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
-#### Go
-export GOPATH="$HOME/go"
-export PATH="$PATH:$GOPATH/bin"
-export PATH=$PATH:$(go env GOPATH)/bin
-
 #### PHP/Laravel
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 #### GPG
 export GPG_TTY=$(tty)
-gpgconf --launch gpg-agent
+##gpgconf --launch gpg-agent
 
 # Colors
 # --------------------------------------------------------------------
@@ -179,20 +181,19 @@ alias colors='msgcat --color=test'
 alias ansi_colors='for x in {0..8}; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo ""'
 
 # These require exa to be installed on your system
-if [[ -x "`which exa`" ]]; then
-  alias ls="exa"
-  alias l='exa'
-  alias ls='exa'
-  alias la='exa -a'
-  alias ll='exa -lah'
-  alias lsd='exa -l' # only directories
+if [[ -x "`which eza`" ]]; then
+  alias ls="eza"
+  alias l='eza'
+  alias ls='eza'
+  alias la='eza -a'
+  alias ll='eza -lah'
+  alias lsd='eza -l' # only directories
 else
   alias l='ls'
   alias la='ls -a'
   alias ll='ls -lah'
   alias lsd='ls -l' # only directories
 fi
-
 
 alias ga="git add"
 
@@ -222,9 +223,6 @@ alias p="cd ~/projects"
 
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
 
-# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; sudo npm install npm -g; sudo npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
-
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
@@ -250,26 +248,18 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
-# Airport CLI alias
-alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
-
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec ${SHELL} -l"
 
 # Bash shell options
 # --------------------------------------------------------------------
 shopt -s expand_aliases
-#shopt -s globstar
 shopt -s dotglob
 shopt -s extglob
-
-set -o vi ### vi mode
 shopt -s histappend ### Append to the history file
 shopt -s checkwinsize ### Check the window size after each command ($LINES, $COLUMNS)
 
-#shopt -s nullglob # bug kills completion for some
-#set -o noclobber
-
+set -o vi ### vi mode
 
 # History
 # --------------------------------------------------------------------
@@ -282,60 +272,56 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 # fzf (https://github.com/junegunn/fzf)
 # --------------------------------------------------------------------
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_OPTS='--height 70% --tmux 70%'
 
-fzf-down() {
-  fzf --height 50% "$@" --border
-}
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
-if command -v fd > /dev/null; then
-  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-  export FZF_CTRL_T_COMMAND='fd --type f --hidden --follow --exclude .git'
-  _fzf_compgen_path() {
-    fd --hidden --follow --exclude ".git" . "$1"
-  }
-
-  # Use fd to generate the list for directory completion
-  _fzf_compgen_dir() {
-    fd --type d --hidden --follow --exclude ".git" . "$1"
-  }
-fi
-
-# export FZF_DEFAULT_COMMAND="rg --files"
 export FZF_CTRL_R_OPTS="
-  --preview 'echo {}' --preview-window up:3:hidden:wrap
-  --bind 'ctrl-/:toggle-preview'
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
-export FZF_CTRL_T_OPTS="
-  --preview 'bat -n --color=always {}'
-  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
-export FZF_COMPLETION_TRIGGER='~~'
-export _ZO_FZF_OPTS="--preview 'exa -1 --color=always {2..}'"
-export FZF_DEFAULT_OPTS='--no-height --no-reverse'
-export FZF_TMUX_OPTS='-p80%,60%'
-#export FZF_TMUX='--height 30%'
-# export FZF_DEFAULT_OPTS="
-#      --height 40% --border
-#      --bind 'tab:down' --bind 'btab:up' --bind 'ctrl-s:toggle'
-# "
-#export FZF_TMUX=0
 
-## this requires tree to be installed
-_fzf_comprun() {
-  local command=$1
-  shift
-
-  case "$command" in
-    cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
-    export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
-    ssh)          fzf "$@" --preview 'dig {}' ;;
-    *)            fzf "$@" ;;
-  esac
+# processes
+process() {
+(date; ps -ef) |
+  fzf --bind='ctrl-r:reload(date; ps -ef)' \
+      --header=$'Press CTRL-R to reload\n\n' --header-lines=2 \
+      --preview='echo {}' --preview-window=down,3,wrap \
+      --layout=reverse --height=80% | awk '{print $2}' | xargs kill -9
 }
 
-#### Use bat
-command -v bat  > /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
+# find session
+fs() {
+  local session
+  session=$(tmux list-sessions -F "#{session_name}" | \
+    fzf --query="$1" --select-1 --exit-0) &&
+  tmux switch-client -t "$session"
+}
 
-alias prev="fzf ‐‐preview 'bat ‐‐style=numbers ‐‐color=always {}'"
+# find in file
+fif() {
+RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+INITIAL_QUERY="${*:-}"
+fzf --ansi --disabled --query "$INITIAL_QUERY" \
+    --bind "start:reload:$RG_PREFIX {q}" \
+    --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+    --bind "alt-enter:unbind(change,alt-enter)+change-prompt(2. fzf> )+enable-search+clear-query" \
+    --color "hl:-1:underline,hl+:-1:underline:reverse" \
+    --prompt '1. ripgrep> ' \
+    --delimiter : \
+    --preview 'bat --color=always {1} --highlight-line {2}' \
+    --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+    --bind 'enter:become(nvim {1} +{2})'
+}
+
+
+####################################################################
+eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(fzf --bash)"
+#### z-like jumping (IMPORTANT: THIS HAS TO BE AT THE BOTTOM OF THE FILE)
+eval "$(zoxide init bash)"
+
+
