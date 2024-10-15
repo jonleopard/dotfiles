@@ -63,24 +63,43 @@ gpgconf --launch gpg-agent
 # Colors
 # --------------------------------------------------------------------
 
+# # Tinty isn't able to apply environment variables to your shell due to
+# the way shell sub-processes work. This is a work around by running
+# Tinty through a function and then executing the shell scripts.
+tinty_source_shell_theme() {
+  newer_file=$(mktemp)
+  tinty $@
+  subcommand="$1"
+
+  if [ "$subcommand" = "apply" ] || [ "$subcommand" = "init" ]; then
+    tinty_data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/tinted-theming/tinty"
+
+    while read -r script; do
+      # shellcheck disable=SC1090
+      . "$script"
+    done < <(find "$tinty_data_dir" -maxdepth 1 -type f -name "*.sh" -newer "$newer_file")
+
+    unset tinty_data_dir
+  fi
+
+  unset subcommand
+}
+
+if [ -n "$(command -v 'tinty')" ]; then
+  tinty_source_shell_theme "init" > /dev/null
+
+  alias tinty=tinty_source_shell_theme
+fi
+
 #### For bat
 export BAT_THEME="base16-256"
 
 #### For delta
-export BASE16_SHELL_ENABLE_VARS=1
+export TINTED_SHELL_ENABLE_BASE16_VARS=1
+export TINTED_SHELL_ENABLE_BASE24_VARS=1
 
 #### For fd (look into vivid: https://github.com/sharkdp/vivid)
-#export LS_COLORS=NO_COLOR
-
-# Base16 Shell
-BASE16_SHELL_PATH="$HOME/.config/base16-shell"
-[ -n "$PS1" ] && \
-  [ -s "$BASE16_SHELL_PATH/profile_helper.sh" ] && \
-    source "$BASE16_SHELL_PATH/profile_helper.sh"
-
-# base16-fzf
-BASE16_FZF="$HOME/.config/base16-fzf/bash"
-source "$BASE16_FZF/base16-${BASE16_THEME}.config"
+export LS_COLORS=NO_COLOR
 
 # Prompt
 # --------------------------------------------------------------------

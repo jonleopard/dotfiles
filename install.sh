@@ -137,10 +137,10 @@ fi
 prompt_shell "Would you like to swith to zsh?" || exit 0
 
 
-# Color Scheme
-echo "Setting up base16 colors"
-stow colors && base16_snazzy
-
+# # Color Scheme
+# echo "Setting up base16 colors"
+# stow colors && base16_snazzy
+#
 
 #Antibody (ZSH Plugin setup)
 prompt_antibody() {

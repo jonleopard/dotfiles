@@ -1,0 +1,24 @@
+[[items]]
+name = "tinted-shell"
+path = "https://github.com/tinted-theming/tinted-shell"
+hook = ". %f"
+themes-dir = "scripts"
+
+[[items]]
+name = "tinted-alacritty"
+path = "https://github.com/tinted-theming/tinted-alacritty"
+hook = "cp -f %f ~/.config/alacritty/colors.toml && touch ~/.config/alacritty/alacritty.toml"
+themes-dir = "colors" # or "colors-256"
+
+[[items]]
+name = "tinted-tmux"
+path = "https://github.com/tinted-theming/tinted-tmux"
+# Check if tmux is in use and if it is, reload the config file
+hook = "tmux run 2> /dev/null && tmux source-file %f"
+themes-dir = "colors"
+
+[[items]]
+name = "tinted-fzf"
+path = "https://github.com/tinted-theming/tinted-fzf"
+hook = ". %f"
+themes-dir = "sh"
