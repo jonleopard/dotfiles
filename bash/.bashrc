@@ -1,17 +1,11 @@
-#!bash
+#!/bin/bash
+# shellcheck disable=SC1090,SC1091
 
 case $- in
 *i*) ;; # interactive
 *) return ;;
 esac
 
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
 
 # System
 # --------------------------------------------------------------------
@@ -48,8 +42,14 @@ if [[ "$PLATFORM" = 'Darwin' ]]; then
   export  PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 fi
 
+#### Go
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+export PATH=$PATH:$(go env GOPATH)/bin
+
 #### Git-fuzzy
 export PATH="$HOME/git-fuzzy/bin:$PATH"
+export GF_BAT_STYLE=changes
 
 #### Rust
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -58,23 +58,26 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
-#### GPG
-export GPG_TTY=$(tty)
-##gpgconf --launch gpg-agent
 
 # Colors
 # --------------------------------------------------------------------
 
 # # Tinty isn't able to apply environment variables to your shell due to
-# the way shell sub-processes work. This is a work around by running
-# Tinty through a function and then executing the shell scripts.
+# # the way shell sub-processes work. This is a work around by running
+# # Tinty through a function and then executing the shell scripts.
 tinty_source_shell_theme() {
   newer_file=$(mktemp)
   tinty $@
   subcommand="$1"
 
   if [ "$subcommand" = "apply" ] || [ "$subcommand" = "init" ]; then
-    tinty_data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/tinted-theming/tinty"
+    # Note: Make sure to swap out $tinty_data_dir with the path to your custom
+    # data directory if you don't use the default of Tinty. Tinty stores themes
+    # to $XDG_DATA_HOME based on XDG Base Directory specification by default.
+    # tinty_data_dir="${XDG_DATA_HOME:-$HOME/.local/share}/tinted-theming/tinty"
+    tinty_data_dir="$HOME/.config/tinted-theming/tinty"
+
+    echo $tinty_data_dir
 
     while read -r script; do
       # shellcheck disable=SC1090
@@ -178,13 +181,13 @@ alias cat="bat"
 alias find="fd"
 alias ps="procs"
 alias colors='msgcat --color=test'
-alias ansi_colors='for x in {0..8}; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo ""'
+alias ansi_colors='for x in {1..8}; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo ""'
 
 # These require exa to be installed on your system
 if [[ -x "`which eza`" ]]; then
   alias ls="eza"
-  alias l='eza'
-  alias ls='eza'
+  alias l="eza"
+  alias ls="eza"
   alias la='eza -a'
   alias ll='eza -lah'
   alias lsd='eza -l' # only directories
@@ -284,6 +287,11 @@ export FZF_CTRL_R_OPTS="
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
+
+color() {
+    tinty apply $(tinty list | fzf)
+}
+
 # processes
 process() {
 (date; ps -ef) |
@@ -318,10 +326,6 @@ fzf --ansi --disabled --query "$INITIAL_QUERY" \
 }
 
 
-####################################################################
 eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(fzf --bash)"
-#### z-like jumping (IMPORTANT: THIS HAS TO BE AT THE BOTTOM OF THE FILE)
 eval "$(zoxide init bash)"
-
-

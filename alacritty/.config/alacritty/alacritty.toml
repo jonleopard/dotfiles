@@ -3,8 +3,8 @@ import = ["~/.config/alacritty/colors.toml"]
 [shell]
 program = "/opt/homebrew/bin/bash"
 
-[env]
-TERM = "alacritty-direct"
+# [env]
+# TERM = "alacritty-direct"
 
 [font]
 size = 15.0
