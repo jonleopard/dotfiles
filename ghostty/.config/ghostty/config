@@ -1,0 +1,8 @@
+shell-integration="bash"
+cursor-style-blink=false
+font-size=15
+font-family="TX-02"
+
+#keybind = global:~=toggle_quick_terminal
+#keybind = global:ctrl+grave_accent=toggle_quick_terminal
+#quick-terminal-animation-duration = 0.1
