@@ -6,11 +6,9 @@ case $- in
 *) return ;;
 esac
 
-
 # System
 # --------------------------------------------------------------------
 [ -z ${PLATFORM+x} ] && export PLATFORM=$(uname -s)
-
 
 # Enviornment
 # --------------------------------------------------------------------
@@ -32,7 +30,7 @@ if [[ "$PLATFORM" = 'Darwin' ]]; then
   #### Configure brew to avoid protocol downgrades from HTTPS to HTTP via redirect
   export HOMEBREW_NO_INSECURE_REDIRECT=1
 
-  #### Curl
+  #### cURL
   export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 
   #### sed
@@ -43,7 +41,7 @@ if [[ "$PLATFORM" = 'Darwin' ]]; then
 fi
 
 #### Go
-export GOPATH="$HOME/go"
+export GOPATH="$PATH/go"
 export PATH="$PATH:$GOPATH/bin"
 export PATH=$PATH:$(go env GOPATH)/bin
 
@@ -55,8 +53,7 @@ export GF_BAT_STYLE=changes
 export PATH="$HOME/.cargo/bin:$PATH"
 
 #### PHP/Laravel
-export PATH="$PATH:$HOME/.composer/vendor/bin"
-alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+#export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 
 # Colors
@@ -108,6 +105,7 @@ export LS_COLORS=NO_COLOR
 
 # Prompt
 # --------------------------------------------------------------------
+
 
 PROMPT_LONG=20
 PROMPT_MAX=95
@@ -292,6 +290,9 @@ color() {
     tinty apply $(tinty list | fzf)
 }
 
+function gitignore() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}
+
+
 # processes
 process() {
 (date; ps -ef) |
@@ -323,6 +324,99 @@ fzf --ansi --disabled --query "$INITIAL_QUERY" \
     --preview 'bat --color=always {1} --highlight-line {2}' \
     --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
     --bind 'enter:become(nvim {1} +{2})'
+}
+
+ports() {
+    # Check if lsof is installed
+    if ! command -v lsof >/dev/null 2>&1; then
+        echo "Error: lsof is not installed. Please install it first."
+        return 1
+    fi
+
+    # Check if fzf is installed
+    if ! command -v fzf >/dev/null 2>&1; then
+        echo "Error: fzf is not installed. Please install it first."
+        return 1
+    fi
+
+    # Create column headers and process data
+    (
+        printf "\033[1;36mPROCESS         PID     PORT    ADDRESS\033[0m\n";
+        lsof -i -P -n | grep LISTEN
+    ) | \
+        awk '
+            NR == 1 { print; next }  # Print header line as-is
+            {
+                # Process name in blue
+                printf "\033[34m%-15s\033[0m ", $1;
+                # PID
+                printf "%-6s ", $2;
+                # Extract port number using split
+                split($9, addr, ":");
+                # Port in green
+                printf "\033[32m%-6s\033[0m ", addr[length(addr)];
+                # Full address
+                printf "%s\n", $9
+            }
+        ' | \
+        column -t | \
+        fzf --header=$'Press CTRL-R to reload\nCTRL-K to kill process\nCTRL-/ for help\n\n' \
+            --header-lines=1 \
+            --ansi \
+            --reverse \
+            --multi \
+            --preview '
+                line={}
+                if [[ $line =~ ^([A-Za-z]|[0-9]) ]]; then
+                    pid=$(echo "$line" | awk "{print \$2}")
+                    ps -p "$pid" -o pid,ppid,user,%cpu,%mem,command
+                fi
+            ' \
+            --preview-window='up,40%,border-bottom,~3' \
+            --bind='ctrl-r:reload(printf "\033[1;36mPROCESS         PID     PORT    ADDRESS\033[0m\n"; lsof -i -P -n | grep LISTEN)' \
+            --bind='ctrl-space:toggle-preview' \
+            --bind='ctrl-k:execute(echo {} | awk "{print \$2}" | xargs kill -9)+reload(printf "\033[1;36mPROCESS         PID     PORT    ADDRESS\033[0m\n"; lsof -i -P -n | grep LISTEN)' \
+            --bind='ctrl-/:change-preview-window(hidden|)' \
+            --bind='enter:execute(echo Process: {1} Port: {3})+abort'
+}
+
+
+
+# Function to get all available gitignore templates
+function get_templates() {
+    curl -sL "https://www.toptal.com/developers/gitignore/api/list" | \
+    tr "," "\n" | \
+    sort
+}
+
+# Function to generate gitignore content
+function generate_gitignore() {
+    local templates="$1"
+    curl -sL "https://www.toptal.com/developers/gitignore/api/$templates"
+}
+
+# Function for interactive template selection
+function gi() {
+    # Store selected templates in a temporary file
+    selected=$(get_templates | fzf --multi --height 40% \
+        --border \
+        --prompt="Select gitignore templates (TAB/SHIFT-TAB to multi-select): " \
+        --preview "curl -sL https://www.toptal.com/developers/gitignore/api/{} 2>/dev/null | bat --style=numbers --color=always" \
+        --preview-window="right:70%")
+
+    if [ -n "$selected" ]; then
+        # Convert newlines to commas for the API
+        templates=$(echo "$selected" | tr '\n' ',')
+        # Remove trailing comma if present
+        templates=${templates%,}
+
+        # Generate the gitignore content
+        if [ -n "$templates" ]; then
+            echo "Generating .gitignore for: $templates"
+            generate_gitignore "$templates" > .gitignore
+            echo "Created .gitignore file!"
+        fi
+    fi
 }
 
 
