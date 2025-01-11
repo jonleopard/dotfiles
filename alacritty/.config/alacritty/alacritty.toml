@@ -1,24 +1,22 @@
-import = ["~/.config/alacritty/colors.toml"]
-
-[shell]
+[terminal.shell]
 program = "/opt/homebrew/bin/bash"
-
-# [env]
-# TERM = "alacritty-direct"
 
 [font]
 size = 15.0
 
 [font.bold]
-family = "JetbrainsMono Nerd Font"
+family = "TX-02"
 style = "Bold"
 
 [font.bold_italic]
-family = "JetbrainsMono Nerd Font"
+family = "TX-02"
 style = "Bold Italic"
 
 [font.italic]
-family = "JetbrainsMono Nerd Font"
+family = "TX-02"
 
 [font.normal]
-family = "JetbrainsMono Nerd Font"
+family = "TX-02"
+
+[general]
+import = ["~/.config/alacritty/colors.toml"]
