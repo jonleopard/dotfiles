@@ -9,7 +9,6 @@ return {
 					timeout_ms = 5000,
 					lsp_format = "fallback",
 				},
-
 				formatters_by_ft = {
 					yaml = { "prettierd", "prettier", stop_after_first = true },
 					php = { "pint", "php_cs_fixer" },
