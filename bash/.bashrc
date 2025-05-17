@@ -41,9 +41,8 @@ if [[ "$PLATFORM" = 'Darwin' ]]; then
 fi
 
 #### Go
-export GOPATH="$PATH/go"
-export PATH="$PATH:$GOPATH/bin"
-export PATH=$PATH:$(go env GOPATH)/bin
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$PATH"
 
 #### Git-fuzzy
 export PATH="$HOME/git-fuzzy/bin:$PATH"
@@ -51,6 +50,8 @@ export GF_BAT_STYLE=changes
 
 #### Rust
 export PATH="$HOME/.cargo/bin:$PATH"
+
+#bootdev
 
 #### PHP/Laravel
 #export PATH="$PATH:$HOME/.composer/vendor/bin"
@@ -106,6 +107,9 @@ export LS_COLORS=NO_COLOR
 # Prompt
 # --------------------------------------------------------------------
 
+
+# Blinking cursor
+echo -ne "\e[1 q"
 
 PROMPT_LONG=20
 PROMPT_MAX=95
