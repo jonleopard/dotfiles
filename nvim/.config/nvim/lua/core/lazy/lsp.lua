@@ -1,7 +1,3 @@
-local root_files = {
-	".git",
-}
-
 return {
 	{
 		"neovim/nvim-lspconfig",
@@ -15,7 +11,6 @@ return {
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/nvim-cmp",
 			-- Snippets
-			-- TODO: Should I only include these in the snippets.lua file?
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 			-- Notifications
@@ -24,12 +19,21 @@ return {
 		config = function()
 			local cmp = require("cmp")
 			local cmp_lsp = require("cmp_nvim_lsp")
+			local lspconfig = require("lspconfig")
+
 			local capabilities = vim.tbl_deep_extend(
 				"force",
 				{},
 				vim.lsp.protocol.make_client_capabilities(),
 				cmp_lsp.default_capabilities()
 			)
+
+			local function with_defaults(config)
+				return vim.tbl_deep_extend("force", {
+					capabilities = capabilities,
+					on_attach = on_attach,
+				}, config or {})
+			end
 
 			require("fidget").setup({})
 			require("mason").setup({})
@@ -48,16 +52,13 @@ return {
 					"astro",
 				},
 				handlers = {
-					function(server_name) -- default handler (optional)
-						require("lspconfig")[server_name].setup({
-							capabilities = capabilities,
-							on_attach = on_attach,
-						})
+					-- Default handler
+					function(server_name)
+						lspconfig[server_name].setup(with_defaults())
 					end,
+
 					["lua_ls"] = function()
-						local lspconfig = require("lspconfig")
-						lspconfig.lua_ls.setup({
-							capabilities = capabilities,
+						lspconfig.lua_ls.setup(with_defaults({
 							settings = {
 								Lua = {
 									diagnostics = {
@@ -65,12 +66,11 @@ return {
 									},
 								},
 							},
-						})
+						}))
 					end,
+
 					["golangci_lint_ls"] = function()
-						local lspconfig = require("lspconfig")
-						lspconfig.golangci_lint_ls.setup({
-							capabilities = capabilities,
+						lspconfig.golangci_lint_ls.setup(with_defaults({
 							cmd = { "golangci-lint-langserver" },
 							root_dir = lspconfig.util.root_pattern(".git", "go.mod"),
 							init_options = {
@@ -86,54 +86,47 @@ return {
 								},
 							},
 							filetypes = { "go", "gomod" },
-						})
+						}))
 					end,
+
 					["intelephense"] = function()
-						local lspconfig = require("lspconfig")
-						lspconfig.intelephense.setup({
-							capabilities = capabilities,
-						})
+						lspconfig.intelephense.setup(with_defaults())
 					end,
+
 					["htmx"] = function()
-						local lspconfig = require("lspconfig")
-						lspconfig.htmx.setup({
-							capabilities = capabilities,
+						lspconfig.htmx.setup(with_defaults({
 							filetypes = { "html" },
-						})
+						}))
 					end,
+
 					["html"] = function()
-						local lspconfig = require("lspconfig")
-						lspconfig.html.setup({
-							capabilities = capabilities,
+						lspconfig.html.setup(with_defaults({
 							filetypes = { "html" },
-						})
+						}))
 					end,
+
 					["tailwindcss"] = function()
-						local lspconfig = require("lspconfig")
-						lspconfig.tailwindcss.setup({
-							capabilities = capabilities,
+						lspconfig.tailwindcss.setup(with_defaults({
 							filetypes = { "templ", "astro", "javascript", "typescript", "react" },
 							init_options = { userLanguages = { templ = "html" } },
-						})
+						}))
 					end,
+
 					["bashls"] = function()
-						local lspconfig = require("lspconfig")
-						lspconfig.bashls.setup({
-							capabilities = capabilities,
+						lspconfig.bashls.setup(with_defaults({
 							filetypes = { "sh" },
 							cmd = { "bash-language-server", "start" },
-						})
+						}))
 					end,
+
 					["zls"] = function()
-						local lspconfig = require("lspconfig")
-						lspconfig.zls.setup({
-							capabilities = capabilities,
-						})
+						lspconfig.zls.setup(with_defaults())
 					end,
 				},
 			})
 
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
+
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -141,15 +134,8 @@ return {
 					end,
 				},
 				mapping = cmp.mapping.preset.insert({
-					-- ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-					-- ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-					-- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-					-- ['<C-e>'] = cmp.mapping.abort(),
-					-- ['<C-Space>'] = cmp.mapping.complete(),
-					-- ['<CR>'] = cmp.mapping.confirm({ select = true }),
 					["C-p"] = cmp.mapping.select_prev_item(cmp_select),
 					["C-n"] = cmp.mapping.select_next_item(cmp_select),
-					--['C-y'] = cmp.mapping.confirm({ select = true }),
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
 					["C-Space"] = cmp.mapping.complete(),
 				}),
@@ -160,10 +146,11 @@ return {
 					{ name = "buffer" },
 				}),
 			})
+
 			vim.diagnostic.config({
 				update_in_insert = true,
 				float = {
-					focasable = false,
+					focusable = false,
 					style = "minimal",
 					border = "rounded",
 					source = true,

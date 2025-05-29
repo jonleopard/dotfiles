@@ -1,23 +1,3 @@
--- return {
--- 	{
--- 		"NeogitOrg/neogit",
--- 		dependencies = {
--- 			"nvim-lua/plenary.nvim", -- required
--- 			"sindrets/diffview.nvim", -- optional - Diff integration
---
--- 			-- Only one of these is needed, not both.
--- 			"nvim-telescope/telescope.nvim", -- optional
--- 			"ibhagwan/fzf-lua", -- optional
--- 		},
--- 		config = function()
--- 			local neogit = require("neogit")
--- 			neogit.setup()
---
--- 			vim.keymap.set("n", "<leader>gs", vim.cmd.Neogit)
--- 		end,
--- 	},
--- }
-
 return {
 	{
 		"tpope/vim-fugitive",
@@ -52,7 +32,7 @@ return {
 					end, opts)
 
 					-- NOTE: It allows me to easily set the branch i am pushing and any tracking
-					-- needed if i did not set the branch up correctly
+					-- needed if idid not set the branch up correctly
 					vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts)
 				end,
 			})
