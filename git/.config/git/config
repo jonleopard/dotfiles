@@ -16,8 +16,8 @@
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 	reup = rebase-update # depot_tools specific
 	git = !exec gie
-    # Allows you to easily pick what to rebase
-    frbi = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
+	# Allows you to easily pick what to rebase
+	frbi = "!f() { git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ; }; f"
 	sw = !git checkout $(git branch -a --format '%(refname:short)' | sed 's~origin/~~' | sort | uniq | fzf)
 
 [core]
@@ -29,17 +29,17 @@
 	diffFilter = delta --color-only
 
 [delta]
-    syntax-theme = 'ansi'
-    navigate = true
-    line-numbers = true
+	syntax-theme = 'ansi'
+	navigate = true
+	line-numbers = true
 	features = side-by-side line-numbers decorations
 	whitespace-error-style = 22 reverse
 	syntax-theme = base16-256
 
 # git mergetool
 [merge]
-    tool = fugitive
-    conflictstyle = diff3
+	tool = fugitive
+	conflictstyle = diff3
 	renameLimit = 0
 
 # correct typos
@@ -86,7 +86,7 @@
 	# https://github.com/pstadler/keybase-gpg-github
 
 [include]
-  path = ~/.config/git/.gitconfig_local
+	path = ~/.config/git/.gitconfig_local
 	# private credential file for username, email, and signingkey
 	# example:
 	# [user]
