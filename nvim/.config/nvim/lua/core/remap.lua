@@ -24,13 +24,11 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- Format
 -- vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
-vim.keymap.set("n", "<leader>f", function()
-	require("conform").format({ bufnr = 0 })
-end)
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+-- Quickfix navigation (kept for quick access, Trouble for viewing)
+vim.keymap.set("n", "[q", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "]q", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "[l", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "]l", "<cmd>lnext<CR>zz")

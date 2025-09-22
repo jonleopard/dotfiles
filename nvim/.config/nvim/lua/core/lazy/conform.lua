@@ -10,6 +10,7 @@ return {
 					lsp_format = "fallback",
 				},
 				formatters_by_ft = {
+					c = { "clang-format" },
 					yaml = { "prettierd", "prettier", stop_after_first = true },
 					php = { "pint", "php_cs_fixer" },
 					lua = { "stylua" },
@@ -17,12 +18,13 @@ return {
 					templ = { "templ" },
 					-- Conform will run multiple formatters sequentially
 					python = { "isort", "black" },
-					-- You can customize some of the format options for the filetype (:help conform.format)
-					rust = { "rustfmt" },
 					-- Conform will run the first available formatter
 					javascript = { "prettierd", "prettier", stop_after_first = true },
 				},
 			})
+			vim.keymap.set("n", "<leader>f", function()
+				require("conform").format({ bufnr = 0 })
+			end)
 		end,
 	},
 }

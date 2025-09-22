@@ -4,6 +4,7 @@ return {
 		opts = {},
 		cmd = "Trouble",
 		keys = {
+			{ "<leader>tt", "<cmd>Trouble diagnostics toggle<cr>", desc = "Toggle Trouble" },
 			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
 			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
 			{ "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
@@ -14,6 +15,8 @@ return {
 			},
 			{ "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
 			{ "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+			{ "[t", function() require("trouble").prev({ skip_groups = true, jump = true }) end, desc = "Previous Trouble Item" },
+			{ "]t", function() require("trouble").next({ skip_groups = true, jump = true }) end, desc = "Next Trouble Item" },
 		},
 	},
 }

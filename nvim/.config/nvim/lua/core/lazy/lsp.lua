@@ -31,7 +31,6 @@ return {
 			local function with_defaults(config)
 				return vim.tbl_deep_extend("force", {
 					capabilities = capabilities,
-					on_attach = on_attach,
 				}, config or {})
 			end
 
@@ -50,6 +49,7 @@ return {
 					"dockerls",
 					"templ",
 					"astro",
+					"zls",
 				},
 				handlers = {
 					-- Default handler
@@ -134,10 +134,10 @@ return {
 					end,
 				},
 				mapping = cmp.mapping.preset.insert({
-					["C-p"] = cmp.mapping.select_prev_item(cmp_select),
-					["C-n"] = cmp.mapping.select_next_item(cmp_select),
+					["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+					["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
-					["C-Space"] = cmp.mapping.complete(),
+					["<C-Space>"] = cmp.mapping.complete(),
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
