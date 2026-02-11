@@ -5,12 +5,14 @@ return {
 		config = function()
 			vim.opt.termguicolors = true
 
-			-- Setup with tinty integration and live reload
-			-- Pass nil as first arg to auto-detect theme from tinty
+			local tinty_available = vim.fn.executable("tinty") == 1
+
+			-- Auto-detect theme from tinty if available, otherwise falls back to base16-ayu-dark.
+			-- live_reload requires tinty binary; guard to avoid crash on systems without it.
 			require("tinted-colorscheme").setup(nil, {
 				supports = {
 					tinty = true,
-					live_reload = true,
+					live_reload = tinty_available,
 					telescope = true,
 					cmp = true,
 					lsp_semantic = true,
